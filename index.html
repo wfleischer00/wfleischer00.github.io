@@ -64,10 +64,6 @@
     font-family:"IBM Plex Mono",Menlo,monospace; font-size:12px; color:var(--muted);
     margin-top:7px; letter-spacing:.06em;
   }
-  .tlinks{margin-top:9px; font-family:"IBM Plex Mono",Menlo,monospace; font-size:12.5px;}
-  .tlinks a{color:var(--brass); text-decoration:none; border-bottom:1px solid var(--brass-soft); padding-bottom:1px;}
-  .tlinks a:hover,.tlinks a:focus-visible{color:var(--ivory); border-color:var(--ivory); outline:none;}
-  .tlinks .sep{color:var(--line); margin:0 8px;}
   .chip{
     font-family:"IBM Plex Mono",Menlo,monospace; font-size:10.5px; letter-spacing:.22em;
     text-transform:uppercase; padding:5px 10px 4px; border-radius:3px; white-space:nowrap;
@@ -133,14 +129,12 @@
     var chip = status === "now" ? '<span class="chip now">In Progress</span>'
              : status === "upcoming" ? '<span class="chip upcoming">Upcoming</span>'
              : '<span class="chip past">Completed</span>';
-    return '<div class="trip">' +
+    return '<a class="trip" href="' + t.itinerary + '">' +
       '<div class="dates">' + t.display + '<br><span class="yr">' + t.year + '</span></div>' +
       '<div><div class="tname">' + t.name + '</div>' +
         '<div class="tsub">' + t.sub + '</div>' +
-        '<div class="troute">' + t.route + '</div>' +
-        '<div class="tlinks"><a href="' + t.itinerary + '">Itinerary</a>' +
-        '<span class="sep">·</span><a href="' + t.budget + '">Budget</a></div></div>' +
-      chip + '</div>';
+        '<div class="troute">' + t.route + '</div></div>' +
+      chip + '</a>';
   }
   (function(){
     var d = today();
