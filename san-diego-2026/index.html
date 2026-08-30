@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elissa &amp; William — San Diego</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap">
+<style>
+  :root{
+    --paper:#f2f6f6; --card:#ffffff; --ink:#22384a; --ink-soft:#5b7183;
+    --line:#dbe4e6; --del:#a03d2e; --del-soft:#f3e2dd;
+    --pacific:#2e7d97; --pacific-soft:#e2eef2; --sand:#e9dfc6; --gold:#b98a2e;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .suncrest{margin:0 auto 10px;width:92px;}
+  .kicker{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--del);}
+  h1{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:clamp(34px,6vw,46px);
+    margin:8px 0 4px;letter-spacing:.01em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Helvetica,Arial,sans-serif;font-size:13px;}
+  .nav a{text-decoration:none;color:var(--pacific);padding:7px 14px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--del);border-color:var(--del);color:#fff;}
+  .nav a:hover{border-color:var(--pacific);}
+  .wxbar{background:var(--pacific-soft);border:1px solid #cfe0e6;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#28576b;margin-bottom:22px;}
+  .wxbar b{color:#1e4657;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(34,56,74,.05);}
+  .day.game{border-top:4px solid var(--gold);}
+  .day.todo{border-top:4px solid var(--pacific);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--sand);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--del);font-weight:700;}
+  .title{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:21px;}
+  .lodge{margin-left:auto;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);}
+  .wxday{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--pacific);
+    padding:7px 0 4px;border-bottom:1px dotted var(--line);}
+  .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
+  .stop{display:flex;gap:14px;padding:11px 0;border-bottom:1px dotted var(--line);}
+  .stop:last-child{border-bottom:none;}
+  .when{flex:0 0 84px;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;
+    color:var(--pacific);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .what{flex:1;}
+  .name{font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;margin-left:7px;font-family:Helvetica,Arial,sans-serif;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:1px;}
+  .t-flight{background:var(--pacific-soft);color:var(--pacific);}
+  .t-game{background:#f5ecd8;color:var(--gold);}
+  .t-eat{background:var(--del-soft);color:var(--del);}
+  .t-beach{background:#eef3e4;color:#5f7d3a;}
+  .t-relax{background:#efeae0;color:#7a6a4f;}
+  .t-todo{background:var(--pacific-soft);color:var(--pacific);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .dir{font-family:Helvetica,Arial,sans-serif;font-size:12px;margin-left:8px;color:var(--del);
+    text-decoration:none;white-space:nowrap;}
+  .dir:hover{text-decoration:underline;}
+  .leg{font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);
+    padding:4px 0 4px 98px;}
+  .day.past{opacity:.55;}
+  .day.past .title,.day.past .date,.day.past .lodge{text-decoration:line-through;}
+  .day.today{box-shadow:0 0 0 2px var(--del),0 6px 18px rgba(160,61,46,.12);}
+  .day.today .date{color:var(--gold);}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--del);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--pacific);}
+  @media(max-width:520px){.stop{flex-direction:column;gap:2px;}.when{flex:none;}.leg{padding-left:0;}.lodge{margin-left:0;flex-basis:100%;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg class="suncrest" viewBox="0 0 120 62" aria-hidden="true">
+        <circle cx="60" cy="30" r="15" fill="none" stroke="#b98a2e" stroke-width="2.5"/>
+        <g stroke="#b98a2e" stroke-width="2" stroke-linecap="round">
+          <line x1="60" y1="6" x2="60" y2="12"/><line x1="42" y1="12" x2="46" y2="16"/>
+          <line x1="78" y1="12" x2="74" y2="16"/><line x1="36" y1="30" x2="42" y2="30"/><line x1="84" y1="30" x2="78" y2="30"/>
+        </g>
+        <path d="M14 48 Q26 42 38 48 T62 48 T86 48 T110 48" fill="none" stroke="#2e7d97" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M24 56 Q34 51 44 56 T64 56 T84 56 T104 56" fill="none" stroke="#a03d2e" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <div class="kicker">Labor Day Week &middot; Southern California</div>
+      <h1>San Diego &amp; the Del</h1>
+      <div class="sub">Gaslamp nights, Padres–Yankees at Petco, and a Coronado weekend</div>
+      <div class="meta"><span class="chip"><b>Sep 3 – 8, 2026</b>&nbsp;· 5 nights</span><span class="chip">Omni at Petco Park → <b>Hotel del Coronado</b></span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html" class="active">Itinerary</a><a href="budget.html">Budget</a></nav>
+    </header>
+
+  <div class="wxbar"><b>The shape of it.</b> Fly in Thursday evening, two nights at the Omni with the skybridge to Petco Park for Friday's <b>Padres–Yankees</b> game, then across the bridge Saturday for three nights at Hotel del Coronado over Labor Day weekend. Forecast: sunny and mid-70s downtown, a warm weekend at the beach (Sunday near 88°F) with only a slight shower chance Sat–Mon. Sunset ≈ 7:00 PM. No rental car — rideshares cover every leg for less. All times local Pacific.</div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">Before you go</span><span class="title">Book these this week</span><span class="lodge">reservations move fast on a holiday weekend</span></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Nobu Del Coronado — Mon Sep 7 dinner</span><span class="tag t-eat">books direct</span><div class="note">Reservations open exactly 30 days out at hoteldel.com/nobu — your dates are already open, so grab ~6:15 PM now.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Jolie — Sun Sep 6, ~8:00 PM</span><span class="tag t-eat">Resy</span><div class="note">Coronado's chef-driven gem (Michelin-trained Jason Witzl), 5 minutes up Orange Ave. It's on Resy — pay with a Gold and the $50 Jul–Dec Resy credit triggers if it's still unused.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Serẽa — Sat Sep 5, ~6:30 PM sunset</span><span class="tag t-eat">OpenTable</span><div class="note">The Del's Michelin-listed oceanfront room. Zero-commute dinner on transfer day.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">La Jolla kayak or snorkel tour — Sun morning</span><span class="tag t-beach">sells out</span><div class="note">Early September is leopard-shark season and sea lions crowd the Cove. Holiday-weekend morning slots go first.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Del beach bonfire s'mores + spa</span><span class="tag t-relax">reserve early</span><div class="note">The bonfire is a reserved one-hour slot — book for Labor Day evening before arrival if possible, or the moment you check in. Same for spa times.</div></div></div>
+    <div class="stop"><div class="when">To do</div><div class="what"><span class="name">Tickets &amp; flight check</span><div class="note">Move the TickPick tickets (Sec 103, Row 20) into your phone wallet — Petco is mobile-entry and fully cashless, with a strict small-bag policy. And reconfirm the AA 2361 return time against your booking; that flight number's times shift by day of week.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-03">Thu &middot; Sep 3</span><span class="title">Fly West</span><span class="lodge">→ Omni San Diego Hotel, Petco Park</span></div>
+    <div class="wxday" data-date="2026-09-03" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 77°F · low 71°F · 1% precip</div>
+    <div class="stop"><div class="when">4:45 PM</div><div class="what"><span class="name">Head to DFW</span><div class="note">Evening flight — recent departures have used Terminal B.</div></div></div>
+    <div class="stop"><div class="when">6:55 PM</div><div class="what"><span class="name">Depart Dallas — Flight AA 1243</span><span class="tag t-flight">flight</span><div class="note">DFW → San Diego (SAN), nonstop A321, about 3 hours — lands 7:54 PM Pacific, Terminal 2.</div></div></div>
+    <div class="stop"><div class="when">7:54 PM</div><div class="what"><span class="name">Land in San Diego</span><a class="dir" href="https://maps.apple.com/?daddr=Omni%20San%20Diego%20Hotel%2C%20675%20L%20Street%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">Rideshare downtown — about 5 mi / 12 min.</div></div></div>
+    <div class="stop"><div class="when">~8:45 PM</div><div class="what"><span class="name">Check in — Omni San Diego</span><span class="tag t-relax">unwind</span><div class="note">Booked through Amex The Hotel Collection: ask about the upgrade and note the <b>$100 on-property credit</b> to use before Saturday checkout. Grab a late Gaslamp bite or a nightcap — the neighborhood is at your door.</div></div></div>
+  </div>
+
+  <div class="day game">
+    <div class="dayhead"><span class="date" data-day="2026-09-04">Fri &middot; Sep 4</span><span class="title">Game Day — Padres vs. Yankees</span><span class="lodge">Omni San Diego Hotel</span></div>
+    <div class="wxday" data-date="2026-09-04" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 76°F · low 70°F · 2% precip — game night</div>
+    <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">USS Midway Museum</span><a class="dir" href="https://maps.apple.com/?daddr=USS%20Midway%20Museum%2C%20910%20N%20Harbor%20Dr%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">Go at opening, before the crowds — the audio tour has 60+ stops; plan 3 hours. The flight deck is full sun: hats and water.</div></div></div>
+    <div class="stop"><div class="when">~1:30 PM</div><div class="what"><span class="name">Lunch on the waterfront</span><span class="tag t-eat">lunch</span><div class="note">Seaport Village or a stroll up to Little Italy — then an easy afternoon back at the hotel before the big night.</div></div></div>
+    <div class="stop"><div class="when">5:10 PM</div><div class="what"><span class="name">Gates open — cross the skybridge</span><span class="tag t-game">pregame</span><div class="note">The Omni's 80-ft skybridge drops registered guests with game tickets straight into the park (confirm timing at the front desk). Wander Gallagher Square behind center field while it's lively.</div></div></div>
+    <div class="stop"><div class="when">6:40 PM</div><div class="what"><span class="name">First pitch — Padres vs. New York Yankees</span><span class="tag t-game">the game</span><div class="note"><b>Section 103, Row 20.</b> Opener of a marquee weekend series — expect a packed house. Park eats worth the walk: Hodad's burgers, Seaside Market's "Cardiff Crack" tri-tip nachos, Grand Ole BBQ. Cashless everywhere.</div></div></div>
+    <div class="stop"><div class="when">~10:00 PM</div><div class="what"><span class="name">Stroll home across the bridge</span><div class="note">Two minutes to your room while the Gaslamp crowds fight for rideshares.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-05">Sat &middot; Sep 5</span><span class="title">Across the Bridge</span><span class="lodge">→ Hotel del Coronado</span></div>
+    <div class="wxday" data-date="2026-09-05" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Chance of a shower</b> · 77°F · low 70°F · 19% precip</div>
+    <div class="stop"><div class="when">9:00 AM</div><div class="what"><span class="name">Little Italy Mercato</span><a class="dir" href="https://maps.apple.com/?daddr=Little%20Italy%20Mercato%2C%20600%20W%20Date%20St%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-eat">brunch</span><div class="note">Saturday farmers market (8 AM–2 PM) — graze your way down Date Street before checkout.</div></div></div>
+    <div class="stop"><div class="when">11:30 AM</div><div class="what"><span class="name">Check out of the Omni</span><div class="note">Make sure the $100 property credit is used up — breakfast, minibar, parking, anything on the folio.</div></div></div>
+    <div class="leg">🚗 7 mi · ~17 min over the Coronado Bridge</div>
+    <div class="stop"><div class="when">~12:15 PM</div><div class="what"><span class="name">Check in — Hotel del Coronado</span><a class="dir" href="https://maps.apple.com/?daddr=Hotel%20del%20Coronado%2C%201500%20Orange%20Avenue%2C%20Coronado&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">the Del</span><div class="note">THC booking: 12 PM check-in when available, another <b>$100 property credit</b>, 4 PM late checkout when available for Tuesday. Lock in the bonfire and spa slots now if you haven't.</div></div></div>
+    <div class="stop"><div class="when">Afternoon</div><div class="what"><span class="name">Beach &amp; pools at the Del</span><span class="tag t-beach">arrive mode</span><div class="note">Coronado Beach is steps away. If the stray shower shows up, it's a spa-lobby-cocktail kind of afternoon instead.</div></div></div>
+    <div class="stop"><div class="when">6:30 PM</div><div class="what"><span class="name">Serẽa — sunset dinner</span><span class="tag t-eat">to book</span><div class="note">The Del's oceanfront room, sustainable seafood by JoJo Ruiz. Sunset's at 7 — ask for the patio.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-06">Sun &middot; Sep 6</span><span class="title">La Jolla &amp; a Concert in the Park</span><span class="lodge">Hotel del Coronado</span></div>
+    <div class="wxday" data-date="2026-09-06" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Warm, stray shower</b> · 88°F · low 73°F · 18% precip</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">La Jolla Cove — kayak or snorkel</span><a class="dir" href="https://maps.apple.com/?daddr=La%20Jolla%20Cove&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-beach">on the water</span><div class="note">The hot day of the trip — perfect to be in the water. Leopard sharks (harmless) school in the shallows this month and the sea lions own the rocks. Tours run ~90 min–2.5 hr.</div></div></div>
+    <div class="leg">🚗 18 mi · ~35 min from the Del</div>
+    <div class="stop"><div class="when">~1:00 PM</div><div class="what"><span class="name">Lunch in the village</span><span class="tag t-eat">lunch</span><div class="note">Post-paddle fish tacos in La Jolla, then meander back — Sunset Cliffs makes a good scenic stop on the way south.</div></div></div>
+    <div class="stop"><div class="when">6:00 PM</div><div class="what"><span class="name">Coronado Concerts in the Park — season finale</span><a class="dir" href="https://maps.apple.com/?daddr=Spreckels%20Park%2C%20601%20Orange%20Ave%2C%20Coronado&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">free</span><div class="note">The summer series wraps tonight at Spreckels Park — bring a blanket, stay an hour, then head to dinner.</div></div></div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Jolie</span><span class="tag t-eat">Resy</span><div class="note">The trip's Resy dinner — French-leaning coastal tasting from Jason Witzl, five minutes from the Del.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-07">Mon &middot; Sep 7</span><span class="title">Labor Day at the Del</span><span class="lodge">Hotel del Coronado</span></div>
+    <div class="wxday" data-date="2026-09-07" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Early drizzle possible</b> · 81°F · low 73°F · 11% precip</div>
+    <div class="fixed">Peak beach-crowd day everywhere in San Diego — the smart move is to not leave the island at all.</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Coronado bike loop</span><span class="tag t-beach">~7 mi, flat</span><div class="note">Rent at the Del and ride Ocean Blvd → Silver Strand path → Ferry Landing for skyline views — out and back before the holiday crowds wake up.</div></div></div>
+    <div class="stop"><div class="when">Midday</div><div class="what"><span class="name">Beach, pool &amp; spa</span><span class="tag t-relax">the point of it all</span><div class="note">Your reserved spa time — the oceanfront terrace is the honeymoon-grade indulgence here.</div></div></div>
+    <div class="stop"><div class="when">6:15 PM</div><div class="what"><span class="name">Nobu Del Coronado</span><span class="tag t-eat">to book</span><div class="note">Nobu's ocean-view outpost inside the Del — the special-occasion dinner of the trip.</div></div></div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Beach bonfire &amp; s'mores</span><span class="tag t-relax">reserved</span><div class="note">Your one-hour fire pit on the sand, all fixings included — the right last-full-night ending.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-08">Tue &middot; Sep 8</span><span class="title">Home</span><span class="lodge">SAN → DFW</span></div>
+    <div class="wxday" data-date="2026-09-08" data-lat="32.6810" data-lon="-117.1785">⛅ <b>Partly cloudy</b> · 82°F · low 75°F · 4% precip</div>
+    <div class="stop"><div class="when">Morning</div><div class="what"><span class="name">Last beach walk &amp; breakfast</span><span class="tag t-beach">slow</span><div class="note">One more lap past the red turrets. Pack before breakfast so the morning stays yours.</div></div></div>
+    <div class="stop"><div class="when">11:45 AM</div><div class="what"><span class="name">Check out &amp; ride to the airport</span><a class="dir" href="https://maps.apple.com/?daddr=San%20Diego%20International%20Airport&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">12 mi / ~20 min — leave buffer for bridge traffic.</div></div></div>
+    <div class="stop"><div class="when">2:23 PM</div><div class="what"><span class="name">Depart San Diego — Flight AA 2361</span><span class="tag t-flight">flight</span><div class="note">SAN → DFW nonstop, lands 7:48 PM Central (recent arrivals at Terminal D). This flight's times vary by day — double-check your booking confirmation.</div></div></div>
+  </div>
+
+  <div class="bookend">The numbers — <a class="evt" href="budget.html">see the trip budget →</a></div>
+
+  <footer>Flight times from published Sep 2026 schedules · weather from a 14-day forecast pulled Aug 30 (the page refreshes it live) · game details from the Padres' published schedule. Directions open in Apple Maps. All times local Pacific. · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+/* Live forecast: refreshes each day's weather chip from Open-Meteo (free, no key)
+   every time the page loads. If the service is unreachable or a date is out of the
+   forecast window, the chip keeps the values baked in below. */
+(function () {
+  var codeMap = {
+    0:["☀️","Clear"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],
+    3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],
+    51:["🌦️","Light drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],
+    61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],
+    71:["🌨️","Light snow"],73:["🌨️","Snow"],75:["🌨️","Heavy snow"],
+    80:["🌦️","Showers"],81:["🌦️","Showers"],82:["⛈️","Heavy showers"],
+    95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]
+  };
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.wxday[data-date]'));
+  if (!chips.length) return;
+  var dates = chips.map(function (c) { return c.getAttribute('data-date'); });
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=52.875&longitude=-118.081'
+    + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
+    + '&temperature_unit=fahrenheit&timezone=America%2FDenver'
+    + '&start_date=' + dates[0] + '&end_date=' + dates[dates.length - 1];
+  fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !d.daily || !d.daily.time) return;
+    var day = d.daily, updated = 0;
+    chips.forEach(function (chip) {
+      var i = day.time.indexOf(chip.getAttribute('data-date'));
+      if (i < 0) return;
+      var hi = day.temperature_2m_max[i], lo = day.temperature_2m_min[i],
+          pop = day.precipitation_probability_max[i], wc = day.weather_code[i];
+      if (hi == null || isNaN(hi)) return;
+      var m = codeMap[wc] || ["🌤️", "Mixed"];
+      var tail = (chip.textContent.split('—')[1] || '').trim();
+      chip.innerHTML = m[0] + ' <b>' + m[1] + '</b> · ' + Math.round(hi) + '°F · low '
+        + Math.round(lo) + '°F · ' + (pop != null ? pop : '—') + '% precip'
+        + (tail ? ' — ' + tail : '');
+      updated++;
+    });
+    if (updated) {
+      var bar = document.querySelector('.wxbar');
+      if (bar && !document.getElementById('wxlivenote')) {
+        var n = document.createElement('div');
+        n.id = 'wxlivenote';
+        n.style.cssText = 'margin-top:8px;font-size:12px;color:#3f7d8a;font-style:italic;';
+        var now = new Date();
+        n.innerHTML = '🔄 Live forecast — refreshed '
+          + now.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+          + '. Updates automatically each time this page is opened.';
+        bar.appendChild(n);
+      }
+    }
+  }).catch(function () { /* offline or blocked — keep the baked-in values */ });
+})();
+</script>
+<script>
+(function(){
+  function parseWhen(t){
+    var m=t.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+    if(!m) return null;
+    var h=(+m[1])%12; if(/pm/i.test(m[3])) h+=12;
+    return h*60+(m[2]?+m[2]:0);
+  }
+  function run(){
+    var now=new Date();
+    var today=now.toLocaleDateString('en-CA',{timeZone:'America/Denver'});
+    var mt=new Date(now.toLocaleString('en-US',{timeZone:'America/Denver'}));
+    var nowMin=mt.getHours()*60+mt.getMinutes();
+    var spans=[].slice.call(document.querySelectorAll('.date[data-day]'));
+    var todayCard=null;
+    spans.forEach(function(sp){
+      var d=sp.getAttribute('data-day'), card=sp.closest('.day');
+      if(!card) return;
+      if(d<today){ card.classList.add('past'); }
+      else if(d===today){ card.classList.add('today'); todayCard=card; }
+    });
+    if(!todayCard) return;                       /* current day not on this page -> stay at top */
+    var whens=[].slice.call(todayCard.querySelectorAll('.when'));
+    var target=null, lastTimed=null;
+    for(var i=0;i<whens.length;i++){
+      var tm=parseWhen(whens[i].textContent||'');
+      if(tm==null) continue;
+      lastTimed=whens[i];
+      if(tm>=nowMin){ target=whens[i]; break; }
+    }
+    var el=target||lastTimed||todayCard;
+    setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'center'}); }, 300);
+  }
+  if(document.readyState!=='loading') run(); else document.addEventListener('DOMContentLoaded', run);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elissa &amp; William — San Diego Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap">
+<style>
+  :root{
+    --paper:#f2f6f6; --card:#ffffff; --ink:#22384a; --ink-soft:#5b7183;
+    --line:#dbe4e6; --del:#a03d2e; --del-soft:#f3e2dd;
+    --pacific:#2e7d97; --pacific-soft:#e2eef2; --sand:#e9dfc6; --gold:#b98a2e;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .suncrest{margin:0 auto 10px;width:92px;}
+  .kicker{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--del);}
+  h1{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:clamp(34px,6vw,46px);
+    margin:8px 0 4px;letter-spacing:.01em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Helvetica,Arial,sans-serif;font-size:13px;}
+  .nav a{text-decoration:none;color:var(--pacific);padding:7px 14px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--del);border-color:var(--del);color:#fff;}
+  .nav a:hover{border-color:var(--pacific);}
+  .wxbar{background:var(--pacific-soft);border:1px solid #cfe0e6;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#28576b;margin-bottom:22px;}
+  .wxbar b{color:#1e4657;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 14px;margin-bottom:18px;box-shadow:0 2px 10px rgba(34,56,74,.05);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--sand);padding-bottom:9px;margin-bottom:8px;}
+  .date{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--del);font-weight:700;}
+  .title{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:21px;}
+  .lodge{margin-left:auto;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:8px;}
+  .tblwrap{overflow-x:auto;}
+  table.btab{width:100%;border-collapse:collapse;font-size:14px;}
+  .btab th,.btab td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  .btab th.n,.btab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .btab thead th{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--sand);}
+  .btab tfoot td{font-weight:700;border-top:2px solid var(--sand);border-bottom:none;color:var(--del);}
+  .bnote{display:block;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);}
+  .est{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--del);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--pacific);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg class="suncrest" viewBox="0 0 120 62" aria-hidden="true">
+        <circle cx="60" cy="30" r="15" fill="none" stroke="#b98a2e" stroke-width="2.5"/>
+        <g stroke="#b98a2e" stroke-width="2" stroke-linecap="round">
+          <line x1="60" y1="6" x2="60" y2="12"/><line x1="42" y1="12" x2="46" y2="16"/>
+          <line x1="78" y1="12" x2="74" y2="16"/><line x1="36" y1="30" x2="42" y2="30"/><line x1="84" y1="30" x2="78" y2="30"/>
+        </g>
+        <path d="M14 48 Q26 42 38 48 T62 48 T86 48 T110 48" fill="none" stroke="#2e7d97" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M24 56 Q34 51 44 56 T64 56 T84 56 T104 56" fill="none" stroke="#a03d2e" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <div class="kicker">Labor Day Week &middot; Southern California</div>
+      <h1>San Diego &amp; the Del</h1>
+      <div class="sub">The Budget</div>
+      <div class="meta"><span class="chip">Booked so far: <b>$6,032</b></span><span class="chip">Credits applied: <b>−$1,800</b></span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html">Itinerary</a><a href="budget.html" class="active">Budget</a></nav>
+    </header>
+
+  <div class="wxbar"><b>How to read this.</b> The first table is real — your receipts and confirmations. The rest is what's still ahead, marked <span class="est">est</span>. Both hotels were booked prepaid through Amex The Hotel Collection, which is what let the $200 Platinum hotel credits apply — and each stay carries a $100 on-property credit to spend once you're there.</div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Booked</span><span class="title">Locked in &amp; paid</span><span class="lodge">from your receipts</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Item</th><th class="n">Cost</th><th>Paid with</th></tr></thead>
+      <tbody>
+        <tr><td>Flights — AA 1243 / AA 2361, DFW ⇄ SAN for two</td><td class="n">~$1,400</td><td>AA flight credit — covered</td></tr>
+        <tr><td>Omni San Diego Hotel — 2 nights <span class="bnote">$638.63 prepaid + $90.44 hotel fees due at checkout</span></td><td class="n">$729.07</td><td>Schwab Platinum · THC prepaid <span class="bnote">$200 hotel credit applied</span></td></tr>
+        <tr><td>Hotel del Coronado — 3 nights <span class="bnote">$3,087.99 prepaid + $166.74 hotel fees due at checkout</span></td><td class="n">$3,254.73</td><td>Platinum · THC prepaid <span class="bnote">$200 hotel credit applied</span></td></tr>
+        <tr><td>Padres vs. Yankees — 2 tickets, Sec 103 Row 20 <span class="bnote">TickPick order #1073200020 · $324 each</span></td><td class="n">$648.00</td><td>TickPick</td></tr>
+      </tbody>
+      <tfoot><tr><td>Booked total</td><td class="n">$6,031.80</td><td>≈ $4,232 net of the $1,800 in credits</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Credits</span><span class="title">Working for you on this trip</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Credit</th><th class="n">Value</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>AA flight credit</td><td class="n">~$1,400</td><td>Applied to the flights</td></tr>
+        <tr><td>Schwab Platinum $200 prepaid-hotel credit</td><td class="n">$200</td><td>Applied — Omni booking</td></tr>
+        <tr><td>Platinum $200 prepaid-hotel credit</td><td class="n">$200</td><td>Applied — Del booking</td></tr>
+        <tr><td>THC $100 on-property credit — Omni</td><td class="n">$100</td><td><b>Use before Sat checkout</b> (dining, folio charges)</td></tr>
+        <tr><td>THC $100 on-property credit — Hotel del Coronado</td><td class="n">$100</td><td><b>Use during the stay</b> (Serẽa or Nobu night works)</td></tr>
+        <tr><td>Gold Resy credit — Jul–Dec half</td><td class="n">up to $50</td><td>Pay Jolie with a Gold if the half-year credit is unused</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total working credits</td><td class="n">$2,050</td><td></td></tr></tfoot>
+    </table></div>
+    <div class="note">One correction from the research: both hotels sit in Amex's <b>The Hotel Collection</b>, not Fine Hotels &amp; Resorts (the Del's FHR listings are its Shore House and Beach Village sub-properties). Same $200 credits, slightly lighter perks — the $100 property credit and upgrade/late-checkout "when available," but no guaranteed 4 PM checkout and no breakfast benefit until 2027 stays.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Ahead</span><span class="title">Still to spend</span><span class="lodge">estimates</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Item</th><th class="n">Range</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Rideshares — the whole trip <span class="est">est</span></td><td class="n">$120 – 250</td><td>Airport, bridge transfer, La Jolla, dinners. A rental car + two hotels' parking would cost more.</td></tr>
+        <tr><td>Dining &amp; drinks — 5 days for two <span class="est">est</span></td><td class="n">$1,100 – 2,100</td><td>Upscale dinners (Serẽa, Jolie, Nobu) plus lunches and coffee — the two $100 property credits and the $50 Resy credit bite into this.</td></tr>
+        <tr><td>La Jolla kayak/snorkel tour for two <span class="est">est</span></td><td class="n">$120 – 180</td><td>Book ahead; holiday-weekend mornings sell out.</td></tr>
+        <tr><td>Del extras — bonfire s'mores, spa, bikes <span class="est">est</span></td><td class="n">priced at booking</td><td>The bonfire is a flat reserved-experience fee; spa varies by treatment.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">All-in</span><span class="title">The whole picture</span></div>
+    <div class="tblwrap"><table class="btab">
+      <tbody>
+        <tr><td>Booked (flights, hotels, tickets)</td><td class="n">$6,032</td></tr>
+        <tr><td>On-the-ground estimate <span class="est">est</span></td><td class="n">$1,350 – 2,550</td></tr>
+        <tr><td>Less credits already applied</td><td class="n">−$1,800</td></tr>
+      </tbody>
+      <tfoot><tr><td>Expected net cost of the trip</td><td class="n">≈ $5,600 – 6,800</td></tr></tfoot>
+    </table></div>
+    <div class="note">Send me receipts as you go and I'll swap estimates for actuals — same as the wedding budget.</div>
+  </div>
+
+  <div class="bookend">Back to the plan — <a class="evt" href="index.html">the itinerary →</a></div>
+
+  <footer>Actuals from TickPick &amp; Amex Travel confirmations · estimates researched Aug 30, 2026 · <a href="../">← All trips</a></footer>
+  </div>
+</body>
+</html>
