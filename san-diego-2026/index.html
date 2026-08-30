@@ -47,6 +47,7 @@
     text-transform:uppercase;color:var(--del);font-weight:700;}
   .title{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:21px;}
   .lodge{margin-left:auto;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);}
+  .sunico{width:15px;height:13px;vertical-align:-2px;}
   .wxday{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--pacific);
     padding:7px 0 4px;border-bottom:1px dotted var(--line);}
   .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
@@ -83,6 +84,29 @@
 </head>
 <body>
   <div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="ico-sunrise" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2e7d97" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b98a2e" stroke-width="1.8"/>
+      <g stroke="#b98a2e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 4.8 10 3l1.8 1.8" fill="none" stroke="#b98a2e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-sunset" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2e7d97" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b98a2e" stroke-width="1.8"/>
+      <g stroke="#b98a2e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 3.6 10 5.4l1.8-1.8" fill="none" stroke="#b98a2e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs></svg>
+  
     <header>
       <svg class="suncrest" viewBox="0 0 120 62" aria-hidden="true">
         <circle cx="60" cy="30" r="15" fill="none" stroke="#b98a2e" stroke-width="2.5"/>
@@ -104,8 +128,8 @@
 
   <div class="day todo">
     <div class="dayhead"><span class="date">Before you go</span><span class="title">Book these this week</span><span class="lodge">reservations move fast on a holiday weekend</span></div>
-    <div class="stop"><div class="when">Booked ✓</div><div class="what"><span class="name">Nobu Del Coronado — Sun Sep 6, 6:45 PM</span><a class="dir" href="https://hoteldel.com/nobu/" target="_blank" rel="noopener">🍽 Manage</a><span class="tag t-eat">confirmed</span><div class="note">Table for two, standard seating — confirmed.</div></div></div>
-    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Jolie — Mon Sep 7, ~6:15 PM</span><a class="dir" href="https://joliecoronado.com" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">Resy</span><div class="note">Coronado's chef-driven gem (Michelin-trained Jason Witzl), 5 minutes up Orange Ave. It's on Resy — pay with a Platinum: each of yours carries a $100 Resy credit (the Golds' $50 halves are backup).</div></div></div>
+    <div class="stop"><div class="when">Booked ✓</div><div class="what"><span class="name">Nobu Del Coronado — Mon Sep 7, 6:45 PM</span><a class="dir" href="https://hoteldel.com/nobu/" target="_blank" rel="noopener">🍽 Manage</a><span class="tag t-eat">confirmed</span><div class="note">Table for two, standard seating — confirmed.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Jolie — a top option for Sunday dinner</span><a class="dir" href="https://joliecoronado.com" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">Resy</span><div class="note">Coronado's chef-driven gem (Michelin-trained Jason Witzl), 5 minutes up Orange Ave. It's on Resy — pay with a Platinum: each of yours carries a $100 Resy credit (the Golds' $50 halves are backup).</div></div></div>
     <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Serẽa — Sat Sep 5, ~6:30 PM sunset</span><a class="dir" href="https://hoteldel.com/dining/serea/" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">OpenTable</span><div class="note">The Del's Michelin-listed oceanfront room. Zero-commute dinner on transfer day.</div></div></div>
     <div class="stop"><div class="when">To book</div><div class="what"><span class="name">La Jolla kayak or snorkel tour — Sun morning</span><span class="tag t-beach">sells out</span><div class="note">Early September is leopard-shark season and sea lions crowd the Cove. Holiday-weekend morning slots go first.</div></div></div>
     <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Del beach bonfire s'mores + spa</span><span class="tag t-relax">reserve early</span><div class="note">The bonfire is a reserved one-hour slot — book for Labor Day evening before arrival if possible, or the moment you check in. Same for spa times.</div></div></div>
@@ -114,7 +138,7 @@
 
   <div class="day">
     <div class="dayhead"><span class="date" data-day="2026-09-03">Thu &middot; Sep 3</span><span class="title">Fly West</span><span class="lodge">→ Omni San Diego Hotel, Petco Park</span></div>
-    <div class="wxday" data-date="2026-09-03" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 77°F · low 71°F · 1% precip · 🌅 6:24 AM 🌇 7:10 PM</div>
+    <div class="wxday" data-date="2026-09-03" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 77°F · low 71°F · 1% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:24 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:10 PM</div>
     <div class="stop"><div class="when">4:00 PM</div><div class="what"><span class="name">Head to DFW</span><span class="tag t-relax">lounge first</span><div class="note">Three hours out, as is tradition — check in, then settle into the Centurion Lounge (Terminal D, near gate D12; Skylink runs airside to the departure gate — recent AA 1243 departures have used Terminal B).</div></div></div>
     <div class="stop"><div class="when">6:55 PM</div><div class="what"><span class="name">Depart Dallas — Flight AA 1243</span><span class="tag t-flight">flight</span><div class="note">DFW → San Diego (SAN), nonstop A321, about 3 hours — lands 7:54 PM Pacific, Terminal 2.</div></div></div>
     <div class="stop"><div class="when">7:54 PM</div><div class="what"><span class="name">Land in San Diego</span><a class="dir" href="https://maps.apple.com/?daddr=Omni%20San%20Diego%20Hotel%2C%20675%20L%20Street%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">Your Blacklane chauffeur is booked for 8:24 PM at Terminal 2 and tracks the flight if it runs late — $100 Bilt Cash applied, just $21.72 out of pocket. About 5 mi / 12 min downtown.</div></div></div>
@@ -123,7 +147,7 @@
 
   <div class="day game">
     <div class="dayhead"><span class="date" data-day="2026-09-04">Fri &middot; Sep 4</span><span class="title">Game Day — Padres vs. Yankees</span><span class="lodge">Omni San Diego Hotel</span></div>
-    <div class="wxday" data-date="2026-09-04" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 76°F · low 70°F · 2% precip · 🌅 6:25 AM 🌇 7:09 PM — game night</div>
+    <div class="wxday" data-date="2026-09-04" data-lat="32.7157" data-lon="-117.1611">☀️ <b>Sunny</b> · 76°F · low 70°F · 2% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:25 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:09 PM — game night</div>
     <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">USS Midway Museum</span><a class="dir" href="https://maps.apple.com/?daddr=USS%20Midway%20Museum%2C%20910%20N%20Harbor%20Dr%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">Go at opening, before the crowds — the audio tour has 60+ stops; plan 3 hours. The flight deck is full sun: hats and water.</div></div></div>
     <div class="stop"><div class="when">~1:30 PM</div><div class="what"><span class="name">Lunch on the waterfront</span><span class="tag t-eat">lunch</span><div class="note">Seaport Village or a stroll up to Little Italy — then an easy afternoon back at the hotel before the big night.</div></div></div>
     <div class="stop"><div class="when">5:10 PM</div><div class="what"><span class="name">Gates open — cross the skybridge</span><span class="tag t-game">pregame</span><div class="note">The Omni's 80-ft skybridge drops registered guests with game tickets straight into the park (confirm timing at the front desk). Wander Gallagher Square behind center field while it's lively.</div></div></div>
@@ -133,7 +157,7 @@
 
   <div class="day">
     <div class="dayhead"><span class="date" data-day="2026-09-05">Sat &middot; Sep 5</span><span class="title">Across the Bridge</span><span class="lodge">→ Hotel del Coronado</span></div>
-    <div class="wxday" data-date="2026-09-05" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Chance of a shower</b> · 77°F · low 70°F · 19% precip · 🌅 6:26 AM 🌇 7:08 PM</div>
+    <div class="wxday" data-date="2026-09-05" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Chance of a shower</b> · 77°F · low 70°F · 19% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:26 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:08 PM</div>
     <div class="stop"><div class="when">9:00 AM</div><div class="what"><span class="name">Little Italy Mercato</span><a class="dir" href="https://maps.apple.com/?daddr=Little%20Italy%20Mercato%2C%20600%20W%20Date%20St%2C%20San%20Diego&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-eat">brunch</span><div class="note">Saturday farmers market (8 AM–2 PM) — graze your way down Date Street before checkout.</div></div></div>
     <div class="stop"><div class="when">11:30 AM</div><div class="what"><span class="name">Check out of the Omni</span><div class="note">Make sure the $100 property credit is used up — breakfast, minibar, parking, anything on the folio.</div></div></div>
     <div class="leg">🚗 7 mi · ~17 min over the Coronado Bridge</div>
@@ -144,27 +168,27 @@
 
   <div class="day">
     <div class="dayhead"><span class="date" data-day="2026-09-06">Sun &middot; Sep 6</span><span class="title">La Jolla &amp; a Concert in the Park</span><span class="lodge">Hotel del Coronado</span></div>
-    <div class="wxday" data-date="2026-09-06" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Warm, stray shower</b> · 88°F · low 73°F · 18% precip · 🌅 6:26 AM 🌇 7:06 PM</div>
+    <div class="wxday" data-date="2026-09-06" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Warm, stray shower</b> · 88°F · low 73°F · 18% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:26 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:06 PM</div>
     <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">La Jolla Cove — kayak or snorkel</span><a class="dir" href="https://maps.apple.com/?daddr=La%20Jolla%20Cove&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-beach">on the water</span><div class="note">The hot day of the trip — perfect to be in the water. Leopard sharks (harmless) school in the shallows this month and the sea lions own the rocks. Tours run ~90 min–2.5 hr.</div></div></div>
     <div class="leg">🚗 18 mi · ~35 min from the Del</div>
     <div class="stop"><div class="when">~1:00 PM</div><div class="what"><span class="name">Lunch in the village</span><span class="tag t-eat">lunch</span><div class="note">Post-paddle fish tacos in La Jolla, then meander back — Sunset Cliffs makes a good scenic stop on the way south.</div></div></div>
     <div class="stop"><div class="when">6:00 PM</div><div class="what"><span class="name">Coronado Concerts in the Park — season finale</span><a class="dir" href="https://maps.apple.com/?daddr=Spreckels%20Park%2C%20601%20Orange%20Ave%2C%20Coronado&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">free</span><div class="note">The summer series wraps tonight at Spreckels Park — catch the opening numbers, then it's a five-minute hop back to the Del for dinner.</div></div></div>
-    <div class="stop"><div class="when">6:45 PM</div><div class="what"><span class="name">Nobu Del Coronado</span><span class="tag t-eat">booked ✓</span><div class="note">Confirmed for two — Nobu's ocean-view outpost inside the Del. The special-occasion dinner lands on the La Jolla day.</div></div></div>
+    <div class="stop"><div class="when">Evening</div><div class="what"><span class="name">Dinner — picking the spot</span><span class="tag t-eat">deciding</span><div class="note">Nobu moved to Monday, so this night is open — Jolie, Serẽa, or a La Jolla splurge are the leading candidates.</div></div></div>
   </div>
 
   <div class="day">
     <div class="dayhead"><span class="date" data-day="2026-09-07">Mon &middot; Sep 7</span><span class="title">Labor Day at the Del</span><span class="lodge">Hotel del Coronado</span></div>
-    <div class="wxday" data-date="2026-09-07" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Early drizzle possible</b> · 81°F · low 73°F · 11% precip · 🌅 6:27 AM 🌇 7:05 PM</div>
+    <div class="wxday" data-date="2026-09-07" data-lat="32.6810" data-lon="-117.1785">🌦️ <b>Early drizzle possible</b> · 81°F · low 73°F · 11% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:27 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:05 PM</div>
     <div class="fixed">Peak beach-crowd day everywhere in San Diego — the smart move is to not leave the island at all.</div>
     <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Coronado bike loop</span><span class="tag t-beach">~7 mi, flat</span><div class="note">Rent at the Del and ride Ocean Blvd → Silver Strand path → Ferry Landing for skyline views — out and back before the holiday crowds wake up.</div></div></div>
     <div class="stop"><div class="when">Midday</div><div class="what"><span class="name">Beach, pool &amp; spa</span><span class="tag t-relax">the point of it all</span><div class="note">Your reserved spa time — the oceanfront terrace is the honeymoon-grade indulgence here.</div></div></div>
-    <div class="stop"><div class="when">6:15 PM</div><div class="what"><span class="name">Jolie</span><a class="dir" href="https://joliecoronado.com" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">to book · Resy</span><div class="note">French-leaning coastal cooking from Jason Witzl, five minutes up Orange Ave — pay with a Platinum for the $100 Resy credit. Back for the bonfire by 8.</div></div></div>
-    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Beach bonfire &amp; s'mores</span><span class="tag t-relax">reserved</span><div class="note">Your one-hour fire pit on the sand, all fixings included — the right last-full-night ending.</div></div></div>
+    <div class="stop"><div class="when">6:45 PM</div><div class="what"><span class="name">Nobu Del Coronado</span><span class="tag t-eat">booked ✓</span><div class="note">Confirmed for two — Nobu's ocean-view outpost inside the Del, the last-full-night finale.</div></div></div>
+    <div class="stop"><div class="when">8:30 PM</div><div class="what"><span class="name">Beach bonfire &amp; s'mores</span><span class="tag t-relax">reserved</span><div class="note">Your one-hour fire pit on the sand, all fixings included — the right last-full-night ending.</div></div></div>
   </div>
 
   <div class="day">
     <div class="dayhead"><span class="date" data-day="2026-09-08">Tue &middot; Sep 8</span><span class="title">Home</span><span class="lodge">SAN → DFW</span></div>
-    <div class="wxday" data-date="2026-09-08" data-lat="32.6810" data-lon="-117.1785">⛅ <b>Partly cloudy</b> · 82°F · low 75°F · 4% precip · 🌅 6:28 AM 🌇 7:04 PM</div>
+    <div class="wxday" data-date="2026-09-08" data-lat="32.6810" data-lon="-117.1785">⛅ <b>Partly cloudy</b> · 82°F · low 75°F · 4% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:28 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:04 PM</div>
     <div class="stop"><div class="when">Morning</div><div class="what"><span class="name">Last beach walk &amp; breakfast</span><span class="tag t-beach">slow</span><div class="note">One more lap past the red turrets. Pack before breakfast so the morning stays yours.</div></div></div>
     <div class="stop"><div class="when">11:45 AM</div><div class="what"><span class="name">Check out &amp; ride to the airport</span><a class="dir" href="https://maps.apple.com/?daddr=San%20Diego%20International%20Airport&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">12 mi / ~20 min — leave buffer for bridge traffic.</div></div></div>
     <div class="stop"><div class="when">2:23 PM</div><div class="what"><span class="name">Depart San Diego — Flight AA 2361</span><span class="tag t-flight">flight</span><div class="note">SAN → DFW nonstop, lands 7:48 PM Central (recent arrivals at Terminal D). This flight's times vary by day — double-check your booking confirmation.</div></div></div>
@@ -230,7 +254,7 @@
           var tail = (chip.textContent.split('—')[1] || '').trim();
           chip.innerHTML = m[0] + ' <b>' + m[1] + '</b> · ' + Math.round(hi) + '°F · low '
             + Math.round(lo) + '°F · ' + (pop != null ? pop : '—') + '% precip'
-            + (sr && ss ? ' · 🌅 ' + sr + ' 🌇 ' + ss : '')
+            + (sr && ss ? ' · <svg class=\"sunico\" aria-label=\"sunrise\"><use href=\"#ico-sunrise\"/></svg> ' + sr + ' <svg class=\"sunico\" aria-label=\"sunset\"><use href=\"#ico-sunset\"/></svg> ' + ss : '')
             + (tail ? ' — ' + tail : '');
           updated++;
         });
