@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Convocation — Washington, DC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --card:#ffffff; --ink:#1c2b4a; --ink-soft:#5a6578;
+    --line:#dedbd2; --regalia:#7d1d2e; --regalia-soft:#f3e3e5;
+    --federal:#2f4b7c; --federal-soft:#e6ecf5; --marble:#e8e4d8; --gold:#b8962e;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 10px;width:104px;}
+  .kicker{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--regalia);}
+  h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(38px,6.4vw,52px);
+    margin:8px 0 4px;letter-spacing:.01em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Helvetica,Arial,sans-serif;font-size:13px;}
+  .nav a{text-decoration:none;color:var(--federal);padding:7px 14px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--regalia);border-color:var(--regalia);color:#fff;}
+  .nav a:hover{border-color:var(--federal);}
+  .wxbar{background:var(--federal-soft);border:1px solid #cfd9e8;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#2a3d5e;margin-bottom:22px;}
+  .wxbar b{color:#1c2b4a;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(28,43,74,.05);}
+  .day.ceremony{border-top:4px solid var(--regalia);}
+  .day.todo{border-top:4px solid var(--federal);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--marble);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--regalia);font-weight:700;}
+  .title{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:23px;}
+  .lodge{margin-left:auto;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);}
+  .sunico{width:15px;height:13px;vertical-align:-2px;}
+  .wxday{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--federal);
+    padding:7px 0 4px;border-bottom:1px dotted var(--line);}
+  .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
+  .stop{display:flex;gap:14px;padding:11px 0;border-bottom:1px dotted var(--line);}
+  .stop:last-child{border-bottom:none;}
+  .when{flex:0 0 92px;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;
+    color:var(--federal);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .what{flex:1;}
+  .name{font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;margin-left:7px;font-family:Helvetica,Arial,sans-serif;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:1px;}
+  .t-flight{background:var(--federal-soft);color:var(--federal);}
+  .t-ceremony{background:var(--regalia-soft);color:var(--regalia);}
+  .t-eat{background:#f5ecd8;color:#8a6a1c;}
+  .t-see{background:#e9efe4;color:#4f6b3a;}
+  .t-relax{background:#efeae0;color:#7a6a4f;}
+  .t-todo{background:var(--federal-soft);color:var(--federal);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .dir{font-family:Helvetica,Arial,sans-serif;font-size:12px;margin-left:8px;color:var(--regalia);
+    text-decoration:none;white-space:nowrap;}
+  .dir:hover{text-decoration:underline;}
+  .leg{font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);
+    padding:4px 0 4px 106px;}
+  .day.past{opacity:.55;}
+  .day.past .title,.day.past .date,.day.past .lodge{text-decoration:line-through;}
+  .day.today{box-shadow:0 0 0 2px var(--regalia),0 6px 18px rgba(125,29,46,.12);}
+  .day.today .date{color:var(--gold);}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--regalia);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--federal);}
+  @media(max-width:520px){.stop{flex-direction:column;gap:2px;}.when{flex:none;}.leg{padding-left:0;}.lodge{margin-left:0;flex-basis:100%;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="ico-sunrise" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2f4b7c" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b8962e" stroke-width="1.8"/>
+      <g stroke="#b8962e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 4.8 10 3l1.8 1.8" fill="none" stroke="#b8962e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-sunset" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2f4b7c" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b8962e" stroke-width="1.8"/>
+      <g stroke="#b8962e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 3.6 10 5.4l1.8-1.8" fill="none" stroke="#b8962e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs></svg>
+
+    <header>
+      <svg class="crest" viewBox="0 0 130 64" aria-hidden="true">
+        <!-- a dome over a colonnade, in navy and gold -->
+        <line x1="65" y1="4" x2="65" y2="12" stroke="#b8962e" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="65" cy="13.5" r="2.2" fill="#b8962e"/>
+        <path d="M43 34 Q65 8 87 34" fill="none" stroke="#1c2b4a" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="40" y1="34" x2="90" y2="34" stroke="#1c2b4a" stroke-width="2.5" stroke-linecap="round"/>
+        <g stroke="#1c2b4a" stroke-width="2" stroke-linecap="round">
+          <line x1="47" y1="38" x2="47" y2="52"/><line x1="56" y1="38" x2="56" y2="52"/>
+          <line x1="65" y1="38" x2="65" y2="52"/><line x1="74" y1="38" x2="74" y2="52"/><line x1="83" y1="38" x2="83" y2="52"/>
+        </g>
+        <line x1="36" y1="56" x2="94" y2="56" stroke="#1c2b4a" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="8" y1="60" x2="122" y2="60" stroke="#7d1d2e" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+      </svg>
+      <div class="kicker">Clinical Congress 2026 &middot; Washington, DC</div>
+      <h1>The Convocation</h1>
+      <div class="sub">William is made a Fellow of the American College of Surgeons — then a capital weekend for two</div>
+      <div class="meta"><span class="chip"><b>Sep 25 – 28, 2026</b>&nbsp;· 3 nights</span><span class="chip"><b>Conrad Washington, DC</b> · CityCenter</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html" class="active">Itinerary</a><a href="budget.html">Budget</a></nav>
+    </header>
+
+  <div class="wxbar"><b>The shape of it.</b> Fly in Friday midday on AA 1177, three nights at the Conrad — a six-minute walk from the convention center, so Saturday needs no car at all. Saturday is the day: William robes at 4, the Convocation runs 5:45–7 in Hall B, and The Capital Welcome Reception follows until 9. The rest of the congress we skip in favor of the city — monuments at dusk, the Library of Congress, the Smithsonian, Arlington, the White House from next door, and three good tables. Forecast is cool and damp (upper 60s Friday sliding to the 50s, drizzle most days), so the plan leans on marble halls with an umbrella in the bag. Sunset ≈ 7:00 PM. Times are local to where you are — Central through DFW, Eastern from wheels-down on.</div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">At a glance</span><span class="title">The plan, day by day</span><span class="lodge">recommendations — confirm as we go</span></div>
+    <div class="stop"><div class="when">Fri 25</div><div class="what"><span class="name">Fly &amp; the Mall</span><span class="tag t-relax">set</span><span class="tag t-todo">confirm dinner</span><div class="note">Lounge at 5:45, wheels-down 12:51, the Archives and the National Gallery, monuments at dusk, The Dabney at 8:15.</div></div></div>
+    <div class="stop"><div class="when">Sat 26</div><div class="what"><span class="name">Convocation Day</span><span class="tag t-ceremony">the ceremony</span><span class="tag t-todo">reserve library pass</span><div class="note">Library of Congress at 10, a Fiesta DC graze, regalia at 1:15, robing at 4, Convocation 5:45, reception 7–9.</div></div></div>
+    <div class="stop"><div class="when">Sun 27</div><div class="what"><span class="name">A capital Sunday</span><span class="tag t-todo">confirm brunch + dinner</span><div class="note">Le Diplomate brunch, the African American History museum's anniversary weekend, the Parade of the Nations, Arlington, Rasika at 7:30.</div></div></div>
+    <div class="stop"><div class="when">Mon 28</div><div class="what"><span class="name">The White House, from next door — &amp; home</span><span class="tag t-todo">reserve pass</span><div class="note">Breakfast, The People's House museum and Lafayette Square, 1:52 PM flight — leave the Conrad by 11:15.</div></div></div>
+  </div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">Before you go</span><span class="title">Book these this week</span><span class="lodge">five days out — tables and passes first</span></div>
+    <div class="stop"><div class="when">Booked ✓</div><div class="what"><span class="name">Conrad Washington, DC — 3 nights</span><a class="dir" href="https://maps.apple.com/?daddr=Conrad%20Washington%20DC%2C%20950%20New%20York%20Ave%20NW%2C%20Washington%2C%20DC&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">confirmed</span><div class="note">CityCenterDC, 950 New York Ave NW — 0.3 mi to the convention center, 0.7 mi to the Archives and the Mall.</div></div></div>
+    <div class="stop"><div class="when">Booked ✓</div><div class="what"><span class="name">AA 1177 both ways</span><span class="tag t-flight">confirmed</span><div class="note">DFW 8:43 AM → DCA 12:51 PM Friday; DCA 1:52 PM → DFW 4:19 PM Monday. Recent schedules show a gap in this flight's calendar the week before — reconfirm both times against the booking.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">The Dabney — Fri Sep 25, 8:15 PM</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/the-dabney" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">dinner</span><div class="note">Michelin-starred Mid-Atlantic cooking from a wood hearth in Blagden Alley, a ten-minute walk from the Conrad. Closed Sundays, so it's Friday's table.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Le Diplomate — Sun Sep 27, 10:00 AM brunch</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/le-diplomate" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">brunch</span><div class="note">The 14th Street French bistro — Sunday brunch books out, so grab it now.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Rasika Penn Quarter — Sun Sep 27, 7:30 PM</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/rasika" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">dinner</span><div class="note">DC's great modern Indian room, open Sunday nights and a half-mile stroll from the hotel. The palak chaat is the order.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">Library of Congress timed pass — Sat 10:00 AM</span><a class="dir" href="https://loc.usedirect.com/LOC/" target="_blank" rel="noopener">🎟 Reserve</a><span class="tag t-see">free</span><div class="note">Free, required for the Thomas Jefferson Building, released 30 days out — your dates are open now. Same-day passes drop online at 9 AM if you miss it.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">African American History &amp; Culture museum pass — Sun late morning</span><a class="dir" href="https://nmaahc.si.edu/visit/passes" target="_blank" rel="noopener">🎟 Reserve</a><span class="tag t-see">free</span><div class="note">Sunday is the closing day of "The Reunion," its 10th-anniversary weekend. Passes release on a rolling 30-day window plus a same-day batch each morning.</div></div></div>
+    <div class="stop"><div class="when">To book</div><div class="what"><span class="name">The People's House — Mon 9:00 AM</span><a class="dir" href="https://thepeopleshouse.org/passes" target="_blank" rel="noopener">🎟 Reserve</a><span class="tag t-see">free</span><div class="note">The White House Historical Association's museum one block from the real thing: a full-scale Oval Office, the State Dining Room, the Rose Garden. Free, open daily 9–5; monthly passes went out on Sep 1, so reserve what's left or plan on the walk-up line at opening.</div></div></div>
+    <div class="stop"><div class="when">No-go</div><div class="what"><span class="name">A White House tour itself</span><span class="tag t-see">paused</span><div class="note">Public tours are paused through the fall — the next window is Dec 1–19 — and requests go through your Member of Congress 7 to 90 days ahead. This trip, the closest you get is Lafayette Square, the Ellipse and The People's House. Worth filing a request through your Member of Congress for the next DC trip.</div></div></div>
+    <div class="stop"><div class="when">To check</div><div class="what"><span class="name">Regalia, badge &amp; Elissa's reception registration</span><span class="tag t-ceremony">ACS</span><div class="note">Regalia reserved by the Aug 30 deadline is $86.70 and waits near Hall A on Saturday (10 AM–4 PM); onsite rental runs $150. The program planner says reception attendees and guests must be registered while the initiates page says no preregistration is needed — worth a look at your ACS confirmation to see whether Elissa needs a guest badge.</div></div></div>
+    <div class="stop"><div class="when">Optional</div><div class="what"><span class="name">Game tickets, if the mood strikes</span><span class="tag t-see">sports</span><div class="note">Nationals–Mets is the season's final series at Nationals Park: Friday 6:45 (last fireworks night), Saturday 4:05, Sunday 3:05. The Commanders host the Seahawks Sunday at 1 in Landover. Both are easy swaps into the plan below.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-25">Fri &middot; Sep 25</span><span class="title">Fly East</span><span class="lodge">→ Conrad Washington, DC</span></div>
+    <div class="wxday" data-date="2026-09-25" data-lat="38.9072" data-lon="-77.0369">🌦️ <b>Light drizzle</b> · 68°F · low 56°F · 12% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:58 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:00 PM</div>
+    <div class="stop"><div class="when">5:45 AM CT</div><div class="what"><span class="name">Head to DFW</span><span class="tag t-relax">lounge first</span><div class="note">Three hours out, as is tradition — check in, then the Centurion Lounge in Terminal D near D12. Recent AA 1177 departures have left from D27, so it's the same terminal and no Skylink needed.</div></div></div>
+    <div class="stop"><div class="when">8:43 AM CT</div><div class="what"><span class="name">Depart Dallas — Flight AA 1177</span><span class="tag t-flight">flight</span><div class="note">DFW → Reagan National (DCA), nonstop 737-800, about 3 hours — lands 12:51 PM Eastern at Terminal 2. The final approach up the Potomac past the monuments is the best window seat in domestic flying (left side going in).</div></div></div>
+    <div class="stop"><div class="when">12:51 PM ET</div><div class="what"><span class="name">Land in Washington</span><a class="dir" href="https://maps.apple.com/?daddr=Conrad%20Washington%20DC%2C%20950%20New%20York%20Ave%20NW%2C%20Washington%2C%20DC&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">Taxi or rideshare from the Terminal 2 curb — about 5 mi / 15 min over the 14th Street Bridge to CityCenter.</div></div></div>
+    <div class="stop"><div class="when">~1:30 PM</div><div class="what"><span class="name">Check in — Conrad Washington, DC</span><span class="tag t-relax">settle</span><div class="note">Ask for early check-in and an upgrade at the desk; if the room isn't ready, drop the bags and lunch on the CityCenter plaza — Centrolina, Amy Brandwein's Italian, is steps from the lobby.</div></div></div>
+    <div class="stop"><div class="when">3:00 PM</div><div class="what"><span class="name">National Archives — the Rotunda</span><a class="dir" href="https://maps.apple.com/?daddr=National%20Archives%20Museum%2C%20701%20Constitution%20Ave%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">The Declaration, the Constitution and the Bill of Rights under low light — a 0.7-mi walk straight down 9th Street. Free; a timed entry reservation skips the line but a Friday afternoon walk-up is usually fine.</div></div></div>
+    <div class="leg">🚶 0.3 mi · 6 min across the Mall's north edge</div>
+    <div class="stop"><div class="when">4:15 PM</div><div class="what"><span class="name">National Gallery of Art — West Building</span><a class="dir" href="https://maps.apple.com/?daddr=National%20Gallery%20of%20Art%20West%20Building%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free · till 5</span><div class="note">Forty-five minutes with the greatest hits — the Americas' only Leonardo, the Vermeers, the Rotunda fountain — no pass needed. The Sculpture Garden next door is the exit if the drizzle holds off.</div></div></div>
+    <div class="stop"><div class="when">6:00 PM</div><div class="what"><span class="name">Monuments at dusk</span><a class="dir" href="https://maps.apple.com/?daddr=Lincoln%20Memorial%2C%20Washington%2C%20DC&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">golden hour</span><div class="note">Ride to the Lincoln Memorial (2 mi) and walk east as the lights come up: the Reflecting Pool, the WWII Memorial, the Washington Monument. Sunset is 7:00 — the Lincoln steps at 6:45 are the spot.</div></div></div>
+    <div class="stop"><div class="when">8:15 PM</div><div class="what"><span class="name">The Dabney</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/the-dabney" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">dinner</span><div class="note">Blagden Alley, Shaw — Michelin-starred cooking from a wood-burning hearth, ten minutes' walk from the hotel so the night ends on foot. <i>The baseball option instead:</i> Nationals–Mets at 6:45 with the season's last fireworks, ballpark eats, and a 12-minute ride home.</div></div></div>
+  </div>
+
+  <div class="day ceremony">
+    <div class="dayhead"><span class="date" data-day="2026-09-26">Sat &middot; Sep 26</span><span class="title">Convocation Day</span><span class="lodge">Conrad Washington, DC</span></div>
+    <div class="wxday" data-date="2026-09-26" data-lat="38.9072" data-lon="-77.0369">🌧️ <b>Rain likely</b> · 61°F · low 54°F · 15% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:59 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 6:58 PM — the ceremony</div>
+    <div class="fixed">The day itself. William checks in to robe at 4:00 at the convention center, six minutes from the lobby; everything before that is built to be back at the hotel by two with time to spare. Umbrellas out — the forecast says a wet one.</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Breakfast at the hotel</span><span class="tag t-relax">slow start</span><div class="note">A proper sit-down breakfast downstairs — the morning is the only unhurried stretch of the day.</div></div></div>
+    <div class="leg">🚗 1.7 mi · ~10 min to Capitol Hill</div>
+    <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">Library of Congress — Thomas Jefferson Building</span><a class="dir" href="https://maps.apple.com/?daddr=Library%20of%20Congress%20Thomas%20Jefferson%20Building%2C%2010%20First%20St%20SE%2C%20Washington%2C%20DC&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">timed pass</span><div class="note">The most beautiful room in Washington — the Great Hall's mosaics and the Main Reading Room overlook, plus the Gutenberg Bible. Saturday hours 10–5; your pass is for the opening slot so the halls are still quiet.</div></div></div>
+    <div class="stop"><div class="when">11:30 AM</div><div class="what"><span class="name">Down the Hill into Fiesta DC</span><a class="dir" href="https://maps.apple.com/?daddr=Pennsylvania%20Ave%20NW%20%26%204th%20St%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-eat">graze lunch</span><div class="note">Walk the Capitol's west front, then 0.6 mi down Pennsylvania Avenue into Fiesta DC — the Latin American street festival fills the avenue from 3rd to 7th, 11 to 7. Lunch is pupusas and arepas from the stalls. <i>Rain plan:</i> the National Gallery's East Building or the Archives café, both on the same blocks.</div></div></div>
+    <div class="leg">🚗 0.9 mi · ~6 min up 7th Street (or a 17-min walk)</div>
+    <div class="stop"><div class="when">1:15 PM</div><div class="what"><span class="name">Regalia &amp; badge pickup — Walter E. Washington Convention Center</span><a class="dir" href="https://maps.apple.com/?daddr=Walter%20E.%20Washington%20Convention%20Center%2C%20801%20Mt%20Vernon%20Pl%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-ceremony">near Hall A</span><div class="note">Regalia desk is open 10–4 near Hall A; collect the badge at registration on the same pass. Then six minutes home to the Conrad.</div></div></div>
+    <div class="stop"><div class="when">2:00 PM</div><div class="what"><span class="name">A quiet two hours</span><span class="tag t-relax">rest &amp; dress</span><div class="note">Steam the suit, a nap or the rooftop for tea, and dress for the evening — the gown goes over whatever you'd wear to a formal dinner.</div></div></div>
+    <div class="stop"><div class="when">3:50 PM</div><div class="what"><span class="name">William walks over — initiate check-in &amp; robing</span><a class="dir" href="https://maps.apple.com/?daddr=Walter%20E.%20Washington%20Convention%20Center%2C%20801%20Mt%20Vernon%20Pl%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-ceremony">4:00–4:45</span><div class="note">Check-in and robing run 4:00–4:45, procession lineup at 4:45. Professional ceremony portraits are shot near the robing area by Oscar &amp; Associates — worth the stop.</div></div></div>
+    <div class="stop"><div class="when">4:45 PM</div><div class="what"><span class="name">Elissa heads to Hall B</span><span class="tag t-ceremony">seated by 5:30</span><div class="note">Guest doors opened at 4:00; be in a seat by 5:30 with a view of the aisle — the procession passes right by. Family can also watch the live stream on the ACS site.</div></div></div>
+    <div class="stop"><div class="when">5:45 PM</div><div class="what"><span class="name">The Convocation — Hall B</span><span class="tag t-ceremony">5:45 – 7:00</span><div class="note">Procession at 5:45, ceremony at 6:00: Fellowship conferred, Honorary Fellows, the Distinguished Service Award, and the installation of the College's new President. Then William is William Fleischer, MD, FACS.</div></div></div>
+    <div class="stop"><div class="when">7:00 PM</div><div class="what"><span class="name">The Capital Welcome Reception</span><span class="tag t-eat">7:00 – 9:00</span><div class="note">Convention center ballroom, straight from the hall — a celebration of the new Fellows with food built around Washington's global influences and regional traditions. Dinner is the reception; linger.</div></div></div>
+    <div class="stop"><div class="when">9:15 PM</div><div class="what"><span class="name">Nightcap back at the Conrad</span><span class="tag t-relax">toast</span><div class="note">Six minutes home. A glass at the rooftop bar to mark it — and if the reception fare left room, room service handles the rest.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-27">Sun &middot; Sep 27</span><span class="title">A Capital Sunday</span><span class="lodge">Conrad Washington, DC</span></div>
+    <div class="wxday" data-date="2026-09-27" data-lat="38.9072" data-lon="-77.0369">🌦️ <b>Drizzle</b> · 59°F · low 54°F · 10% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 7:00 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 6:56 PM</div>
+    <div class="fixed">The congress carries on without us. A French brunch, a museum on its anniversary weekend, a parade if the sky cooperates, and Arlington in the afternoon.</div>
+    <div class="leg">🚗 1.2 mi · ~8 min up 14th Street</div>
+    <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">Brunch — Le Diplomate</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/le-diplomate" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">brunch</span><div class="note">The Dabney team's French bistro on 14th Street: onion soup, foie gras beignets, a proper omelette — the Sunday-morning room in DC.</div></div></div>
+    <div class="leg">🚗 1.3 mi · ~8 min down to the Mall</div>
+    <div class="stop"><div class="when">11:45 AM</div><div class="what"><span class="name">National Museum of African American History &amp; Culture</span><a class="dir" href="https://maps.apple.com/?daddr=National%20Museum%20of%20African%20American%20History%20and%20Culture%2C%201400%20Constitution%20Ave%20NW%2C%20Washington%2C%20DC&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">timed pass</span><div class="note">Closing day of "The Reunion," the museum's 10th-anniversary weekend — programs and performances on top of the permanent galleries. Start at the bottom and climb through history; wear a touch of purple, the museum's color for the weekend. Rain-proof for two hours. <i>Other Smithsonians, no pass needed:</i> Natural History (the Hope Diamond) and American History (the Star-Spangled Banner) are the next two doors east on the Mall.</div></div></div>
+    <div class="stop"><div class="when">1:45 PM</div><div class="what"><span class="name">Fiesta DC — Parade of the Nations</span><a class="dir" href="https://maps.apple.com/?daddr=Constitution%20Ave%20NW%20%26%2012th%20St%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free · 1–5</span><div class="note">The parade runs Constitution Avenue from 15th to 7th, right outside the museum doors — folk dance and brass from two dozen countries. Twenty minutes of it is plenty; skip if it's pouring.</div></div></div>
+    <div class="leg">🚗 3 mi · ~12 min over Memorial Bridge</div>
+    <div class="stop"><div class="when">2:45 PM</div><div class="what"><span class="name">Arlington National Cemetery</span><a class="dir" href="https://maps.apple.com/?daddr=Arlington%20National%20Cemetery%20Welcome%20Center%2C%20Arlington%2C%20VA&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">The Tomb of the Unknown Soldier — the Changing of the Guard is every half hour through September 30 — then the Kennedy graves and the view back across the river. Ninety minutes on foot or the tram if the rain settles in. <i>Georgetown instead:</i> the C&amp;O Canal towpath, M Street, and a drink at Fiola Mare on the water.</div></div></div>
+    <div class="stop"><div class="when">5:00 PM</div><div class="what"><span class="name">Back to the Conrad</span><span class="tag t-relax">unwind</span><div class="note">Dry off, rest, and a change for dinner.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">Rasika Penn Quarter</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/rasika" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-eat">dinner</span><div class="note">A half-mile walk down 9th Street — modern Indian that DC has voted its favorite room for two decades: palak chaat, black cod, lamb chops. The kitchen's Michelin and Beard pedigrees show.</div></div></div>
+    <div class="stop"><div class="when">Sports swap</div><div class="what"><span class="name">If a game wins the afternoon</span><span class="tag t-see">optional</span><div class="note">Commanders–Seahawks kicks at 1:00 at Northwest Stadium in Landover (10 mi / 30 min; back by 5), or the Nationals close the season against the Mets at 3:05 on Fan Appreciation Sunday (2 mi; back by 6:30). Either replaces the museum-to-Arlington stretch and still makes Rasika.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date" data-day="2026-09-28">Mon &middot; Sep 28</span><span class="title">Home</span><span class="lodge">DCA → DFW</span></div>
+    <div class="wxday" data-date="2026-09-28" data-lat="38.9072" data-lon="-77.0369">🌧️ <b>Light rain</b> · 56°F · low 53°F · 5% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 7:01 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 6:55 PM</div>
+    <div class="stop"><div class="when">8:00 AM</div><div class="what"><span class="name">Breakfast &amp; pack</span><span class="tag t-relax">slow</span><div class="note">Bags packed before breakfast so the morning stays yours.</div></div></div>
+    <div class="stop"><div class="when">9:00 AM</div><div class="what"><span class="name">The People's House — a White House experience</span><a class="dir" href="https://maps.apple.com/?daddr=The%20People%27s%20House%2C%201700%20Pennsylvania%20Ave%20NW%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free · pass</span><div class="note">A 0.7-mi walk down New York Avenue. With tours of the real house paused, this is the way in: a full-scale Oval Office you can sit in, the State Dining Room set for a state dinner, and the stories of the families who lived there. About an hour, and it's dry.</div></div></div>
+    <div class="stop"><div class="when">10:15 AM</div><div class="what"><span class="name">Lafayette Square &amp; the north portico</span><a class="dir" href="https://maps.apple.com/?daddr=Lafayette%20Square%2C%20Washington%2C%20DC&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">one block</span><div class="note">Step out the door to the closest public view of the White House, then back up 15th Street past the Treasury to the hotel. The Ellipse and the south lawn are five extra minutes if the rain holds off.</div></div></div>
+    <div class="stop"><div class="when">11:15 AM</div><div class="what"><span class="name">Check out &amp; ride to the airport</span><a class="dir" href="https://maps.apple.com/?daddr=Ronald%20Reagan%20Washington%20National%20Airport&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><div class="note">5 mi / ~15 min back over the 14th Street Bridge — two and a half hours ahead is plenty at National. No Centurion Lounge at DCA; Terminal 2 has the decent food.</div></div></div>
+    <div class="stop"><div class="when">1:52 PM ET</div><div class="what"><span class="name">Depart Washington — Flight AA 1177</span><span class="tag t-flight">flight</span><div class="note">DCA → DFW nonstop 737-800, lands 4:19 PM Central (recent arrivals at Terminal D). Reconfirm the departure time against the booking — the schedule shifts around this week.</div></div></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Dining bench</span><span class="title">More good tables</span><span class="lodge">backups within a mile of the Conrad</span></div>
+    <div class="stop"><div class="when">Penn Quarter</div><div class="what"><span class="name">Fiola</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/fiola-dc" target="_blank" rel="noopener">🍽 Reserve</a><div class="note">Fabio Trabocchi's Michelin-starred Italian, 0.7 mi south — the alternate for Friday if The Dabney is full. Tuesday–Saturday.</div></div></div>
+    <div class="stop"><div class="when">Navy Yard</div><div class="what"><span class="name">Albi</span><a class="dir" href="https://resy.com/cities/washington-dc/venues/albi" target="_blank" rel="noopener">🍽 Reserve</a><div class="note">Michael Rafidi's wood-fired Levantine cooking, a Michelin star, and the city's hardest table — a 10-minute ride. Tuesday–Saturday.</div></div></div>
+    <div class="stop"><div class="when">CityCenter</div><div class="what"><span class="name">Centrolina</span><a class="dir" href="https://www.centrolinadc.com" target="_blank" rel="noopener">🍽 Reserve</a><div class="note">Amy Brandwein's Italian on the plaza under the hotel — the lunch and the "we're tired" dinner.</div></div></div>
+    <div class="stop"><div class="when">Penn Quarter</div><div class="what"><span class="name">Minibar by José Andrés</span><a class="dir" href="https://www.minibarbyjoseandres.com" target="_blank" rel="noopener">🍽 Reserve</a><div class="note">Two stars, twelve seats, thirty courses. Books eight to ten weeks out, so it's a cancellation-list long shot — worth a call.</div></div></div>
+    <div class="stop"><div class="when">White House</div><div class="what"><span class="name">Old Ebbitt Grill</span><a class="dir" href="https://www.opentable.com/r/old-ebbitt-grill-washington" target="_blank" rel="noopener">🍽 Reserve</a><div class="note">Washington's oldest saloon, oysters and a burger by the White House — the Monday-morning brunch alternative to the hotel.</div></div></div>
+  </div>
+
+  <div class="bookend">The numbers — <a class="evt" href="budget.html">see the trip budget →</a></div>
+
+  <footer>Flight times from published Sep 2026 schedules · Convocation and reception details from the ACS Clinical Congress 2026 program · weather from a 16-day forecast pulled Sep 20 (the page refreshes it live). Directions open in Apple Maps. All times local Eastern. · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+/* Live forecast: refreshes each day's weather chip from Open-Meteo (free, no key)
+   every time the page loads. Chips carry their own coordinates (data-lat/data-lon);
+   fetches are grouped per location and include sunrise/sunset in local time. If the
+   service is unreachable or a date is out of the forecast window, the chip keeps
+   the values baked in below. */
+(function () {
+  var codeMap = {
+    0:["☀️","Clear"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],
+    3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],
+    51:["🌦️","Light drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],
+    61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],
+    71:["🌨️","Light snow"],73:["🌨️","Snow"],75:["🌨️","Heavy snow"],
+    80:["🌦️","Showers"],81:["🌦️","Showers"],82:["⛈️","Heavy showers"],
+    95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]
+  };
+  function fmtT(iso){ if(!iso) return ''; var m=iso.match(/T(\d{2}):(\d{2})/); if(!m) return '';
+    var h=+m[1], mm=m[2], ap=h>=12?'PM':'AM'; h=h%12||12; return h+':'+mm+' '+ap; }
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.wxday[data-date]'));
+  if (!chips.length) return;
+  var groups = {};
+  chips.forEach(function (c) {
+    var k = (c.getAttribute('data-lat')||'0') + '|' + (c.getAttribute('data-lon')||'0');
+    (groups[k] = groups[k] || []).push(c);
+  });
+  var updated = 0, pending = Object.keys(groups).length;
+  Object.keys(groups).forEach(function (k) {
+    var g = groups[k], p = k.split('|');
+    var ds = g.map(function (c) { return c.getAttribute('data-date'); }).sort();
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + p[0] + '&longitude=' + p[1]
+      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset'
+      + '&temperature_unit=fahrenheit&timezone=auto'
+      + '&start_date=' + ds[0] + '&end_date=' + ds[ds.length - 1];
+    fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (d && d.daily && d.daily.time) {
+        var day = d.daily;
+        g.forEach(function (chip) {
+          var i = day.time.indexOf(chip.getAttribute('data-date'));
+          if (i < 0) return;
+          var hi = day.temperature_2m_max[i], lo = day.temperature_2m_min[i],
+              pop = day.precipitation_probability_max[i], wc = day.weather_code[i];
+          if (hi == null || isNaN(hi)) return;
+          var m = codeMap[wc] || ["🌤️", "Mixed"];
+          var sr = day.sunrise ? fmtT(day.sunrise[i]) : '', ss = day.sunset ? fmtT(day.sunset[i]) : '';
+          var tail = (chip.textContent.split('—')[1] || '').trim();
+          chip.innerHTML = m[0] + ' <b>' + m[1] + '</b> · ' + Math.round(hi) + '°F · low '
+            + Math.round(lo) + '°F · ' + (pop != null ? pop : '—') + '% precip'
+            + (sr && ss ? ' · <svg class=\"sunico\" aria-label=\"sunrise\"><use href=\"#ico-sunrise\"/></svg> ' + sr + ' <svg class=\"sunico\" aria-label=\"sunset\"><use href=\"#ico-sunset\"/></svg> ' + ss : '')
+            + (tail ? ' — ' + tail : '');
+          updated++;
+        });
+      }
+    }).catch(function () { /* offline or blocked — keep the baked-in values */ }).then(function () {
+      pending--;
+      if (!pending && updated) {
+        var bar = document.querySelector('.wxbar');
+        if (bar && !document.getElementById('wxlivenote')) {
+          var n = document.createElement('div');
+          n.id = 'wxlivenote';
+          n.style.cssText = 'margin-top:8px;font-size:12px;color:#2f4b7c;font-style:italic;';
+          var now = new Date();
+          n.innerHTML = '🔄 Live forecast — refreshed '
+            + now.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+            + '. Updates automatically each time this page is opened.';
+          bar.appendChild(n);
+        }
+      }
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  function parseWhen(t){
+    var m=t.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+    if(!m) return null;
+    var h=(+m[1])%12; if(/pm/i.test(m[3])) h+=12;
+    return h*60+(m[2]?+m[2]:0);
+  }
+  function run(){
+    var now=new Date();
+    var today=now.toLocaleDateString('en-CA',{timeZone:'America/New_York'});
+    var mt=new Date(now.toLocaleString('en-US',{timeZone:'America/New_York'}));
+    var nowMin=mt.getHours()*60+mt.getMinutes();
+    var spans=[].slice.call(document.querySelectorAll('.date[data-day]'));
+    var todayCard=null;
+    spans.forEach(function(sp){
+      var d=sp.getAttribute('data-day'), card=sp.closest('.day');
+      if(!card) return;
+      if(d<today){ card.classList.add('past'); }
+      else if(d===today){ card.classList.add('today'); todayCard=card; }
+    });
+    if(!todayCard) return;                       /* current day not on this page -> stay at top */
+    var whens=[].slice.call(todayCard.querySelectorAll('.when'));
+    var target=null, lastTimed=null;
+    for(var i=0;i<whens.length;i++){
+      var tm=parseWhen(whens[i].textContent||'');
+      if(tm==null) continue;
+      lastTimed=whens[i];
+      if(tm>=nowMin){ target=whens[i]; break; }
+    }
+    var el=target||lastTimed||todayCard;
+    setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'center'}); }, 300);
+  }
+  if(document.readyState!=='loading') run(); else document.addEventListener('DOMContentLoaded', run);
+})();
+</script>
+</body>
+</html>
