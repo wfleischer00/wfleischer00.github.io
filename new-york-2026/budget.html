@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Anniversary — Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=Josefin+Sans:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#f6f2ea; --card:#ffffff; --ink:#1b1d24; --ink-soft:#5e6270;
+    --line:#e3dccd; --garnet:#8c1c2b; --garnet-soft:#f5e3e5;
+    --evergreen:#1f4a3c; --evergreen-soft:#e2eee7; --champagne:#b38c45; --deco:#ece5d5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 10px;width:112px;}
+  .kicker{font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--garnet);}
+  h1{font-family:"Bodoni Moda",Georgia,serif;font-weight:700;font-size:clamp(38px,6.6vw,54px);
+    margin:8px 0 4px;letter-spacing:.01em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;text-wrap:balance;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-size:13px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px 5px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);font-weight:600;}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-size:13.5px;}
+  .nav a{text-decoration:none;color:var(--evergreen);padding:7px 14px 6px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--garnet);border-color:var(--garnet);color:#fff;}
+  .nav a:hover{border-color:var(--evergreen);}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 14px;margin-bottom:18px;box-shadow:0 2px 10px rgba(27,29,36,.05);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--deco);padding-bottom:9px;margin-bottom:8px;}
+  .date{font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--garnet);font-weight:600;}
+  .title{font-family:"Bodoni Moda",Georgia,serif;font-weight:700;font-size:23px;}
+  .lodge{margin-left:auto;font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:8px;}
+  .tblwrap{overflow-x:auto;}
+  table.btab{width:100%;border-collapse:collapse;font-size:14px;}
+  .btab th,.btab td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  .btab th.n,.btab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .btab thead th{font-family:"Josefin Sans",Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--deco);}
+  .btab tfoot td{font-weight:700;border-top:2px solid var(--deco);border-bottom:none;color:var(--garnet);}
+  .bnote{display:block;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);}
+  .est{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--champagne);border:1px solid var(--champagne);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--garnet);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--evergreen);}
+  @media(max-width:520px){.lodge{margin-left:0;flex-basis:100%;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg class="crest" viewBox="0 0 130 66" aria-hidden="true">
+        <path d="M65 1.5l1.7 3.6 3.9.4-2.9 2.6.8 3.9L65 10l-3.5 2 .8-3.9-2.9-2.6 3.9-.4z" fill="#b38c45"/>
+        <line x1="65" y1="13" x2="65" y2="21" stroke="#1b1d24" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M59 58V33h2v-6h2v-5h4v5h2v6h2v25z" fill="#1b1d24"/>
+        <path d="M45 58V39h2.5v-4h7v4H57v19z" fill="#1b1d24" opacity=".88"/>
+        <path d="M73 58V41h2.5v-4h7v4H85v19z" fill="#1b1d24" opacity=".88"/>
+        <path d="M32 58V46h9v12z" fill="#1f4a3c"/>
+        <path d="M89 58V44h9v14z" fill="#1f4a3c"/>
+        <g stroke="#b38c45" stroke-width="1" stroke-linecap="round">
+          <line x1="62.5" y1="38" x2="67.5" y2="38"/><line x1="62.5" y1="44" x2="67.5" y2="44"/><line x1="62.5" y1="50" x2="67.5" y2="50"/>
+        </g>
+        <g fill="#b38c45" opacity=".75">
+          <circle cx="24" cy="20" r="1.2"/><circle cx="38" cy="10" r="1"/><circle cx="92" cy="14" r="1.2"/>
+          <circle cx="106" cy="27" r="1"/><circle cx="16" cy="36" r="1"/><circle cx="114" cy="40" r="1.2"/><circle cx="48" cy="24" r=".9"/><circle cx="82" cy="26" r=".9"/>
+        </g>
+        <line x1="8" y1="62" x2="122" y2="62" stroke="#8c1c2b" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+      </svg>
+      <div class="kicker">New York City &middot; Christmas 2026</div>
+      <h1>The Anniversary</h1>
+      <div class="sub">The budget — what's booked, what's still to spend</div>
+      <div class="meta"><span class="chip"><b>Dec 10 – 14, 2026</b>&nbsp;· 4 nights</span><span class="chip"><b>Park Lane New York</b> · Park View Studio Suite</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html">Itinerary</a><a href="budget.html" class="active">Budget</a></nav>
+    </header>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Summary</span><span class="title">The whole trip</span><span class="lodge">booked actuals + estimates for the rest</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th></th><th class="n">Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Booked <span class="bnote">both flights in first, the Park Lane (estimated folio), the Rink VIP Skate</span></td><td class="n">$11,495.44</td></tr>
+        <tr><td>Booked, amount not yet on the page <span class="bnote">the Rockettes tickets</span></td><td class="n">+ tickets</td></tr>
+        <tr><td>Still to come <span class="est">est</span> <span class="bnote">three dinners, lunches and brunch, breakfasts, cars, the subway, the Met, nightcaps</span></td><td class="n">$1,665 – 2,710</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td class="n">≈ $13,160 – 14,205 + Rockettes</td></tr></tfoot>
+    </table></div>
+    <div class="note">$2,211.37 of the airfare came out of four AA trip credits, so the new cash is about $10,950 – 12,000 plus the show. Shopping on Fifth Avenue isn't counted.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Booked</span><span class="title">Locked in</span><span class="lodge">actuals from your confirmations</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Item</th><th class="n">Cost</th><th>Paid with</th></tr></thead>
+      <tbody>
+        <tr><td>AA 546 out · AA 2925 home · first, both of you <span class="bnote">DFW 6:27 PM → LGA 10:49 PM Thu Dec 10, seats 1A/1C · LGA 1:55 PM → DFW 5:21 PM Mon Dec 14, seats 1E/1F · $1,786.05 + $164.75 taxes per ticket · two free checked bags each</span></td><td class="n">$3,901.60</td><td>$2,211.37 from four AA trip credits <span class="bnote">($172.00 + $1,286.40 + $751.80 + $1.17)</span> · $1,690.23 on a card</td></tr>
+        <tr><td>Park Lane New York — 4 nights, Park View Studio Suite <span class="bnote">$1,529.10 Thu · $1,619.10 Fri · $1,799.10 Sat · $1,124.10 Sun = $6,071.40 room · + 14.75% tax ($895.53) · + $3.50/night occupancy ($14.00) · + $49/night destination fee with tax ($224.91) · booked direct, pay at the hotel · free cancellation until 72 hours before arrival</span></td><td class="n">$7,205.84 <span class="est">est folio</span></td><td>at checkout</td></tr>
+        <tr><td>The Rink at Rockefeller Center — VIP Skate, Sat Dec 12, 8:20 PM, two <span class="bnote">$192.93 × 2 + $2.14 tax · all sales final</span></td><td class="n">$388.00</td><td>paid</td></tr>
+        <tr><td>Radio City Christmas Spectacular — Fri Dec 11, 7:00 PM, two</td><td class="n">per tickets</td><td>paid</td></tr>
+        <tr><td>Centurion New York — Gallery Dinner, Sun Dec 13, 5:30 PM <span class="bnote">the table is booked; the meal is in the estimates below</span></td><td class="n">—</td><td>—</td></tr>
+      </tbody>
+      <tfoot><tr><td>Booked so far</td><td class="n">$11,495.44</td><td>+ the Rockettes</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Ahead</span><span class="title">Still to spend</span><span class="lodge">estimates for two</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Item</th><th class="n">Range</th></tr></thead>
+      <tbody>
+        <tr><td>Avra Madison — Friday at 5 <span class="est">est</span> <span class="bnote">whole fish by the pound is what moves the number</span></td><td class="n">$350 – 550</td></tr>
+        <tr><td>The Polo Bar — Saturday at 6 <span class="est">est</span></td><td class="n">$300 – 450</td></tr>
+        <tr><td>Centurion New York — Sunday at 5:30 <span class="est">est</span></td><td class="n">$250 – 450</td></tr>
+        <tr><td>Cheesecake at Sarge's <span class="est">est</span> <span class="bnote">more if a whole cake comes home</span></td><td class="n">$25 – 40</td></tr>
+        <tr><td>All'Antico Vinaio, Saturday lunch, Café Boulud brunch <span class="est">est</span></td><td class="n">$245 – 420</td></tr>
+        <tr><td>Breakfasts at the hotel, Fri–Mon <span class="est">est</span></td><td class="n">$180 – 300</td></tr>
+        <tr><td>Cars — LaGuardia both ways, One Vanderbilt and home Sunday <span class="est">est</span> <span class="bnote">every Manhattan ride carries the $1.50 congestion charge</span></td><td class="n">$155 – 230</td></tr>
+        <tr><td>The subway and the Madison/Fifth buses <span class="est">est</span> <span class="bnote">$3.00 a ride each</span></td><td class="n">$20 – 40</td></tr>
+        <tr><td>The Met — two out-of-state adults</td><td class="n">$60</td></tr>
+        <tr><td>Nightcaps, coffee, the Winter Village <span class="est">est</span></td><td class="n">$80 – 170</td></tr>
+        <tr><td>Fifth Avenue shopping</td><td class="n">your call</td></tr>
+      </tbody>
+      <tfoot><tr><td>Still to come</td><td class="n">≈ $1,665 – 2,710</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Perks</span><span class="title">Working for you</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Benefit</th><th>How to use it</th></tr></thead>
+      <tbody>
+        <tr><td>Centurion Lounge, DFW Terminal D</td><td>Opens to you three hours before departure — 3:27 PM Thursday — open until 10.</td></tr>
+        <tr><td>Centurion Lounge, LaGuardia Terminal B</td><td>Level 4 after security; you're in on arrival Monday and can make it lunch.</td></tr>
+        <tr><td>First-class bags and meals</td><td>Two checked bags each at no charge (70 lb), dinner out and lunch home.</td></tr>
+        <tr><td>Bilt Palladium hotel credit, Jul–Dec</td><td>$200, still unused — but it only applies to a 2-night-plus stay booked through Bilt Travel and paid on the Palladium. The Park Lane is booked direct; if the same suite shows on Bilt Travel at the same rate, it could be rebooked before the 72-hour cancellation deadline.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bookend">Back to the plan — <a class="evt" href="index.html">the itinerary →</a></div>
+
+  <footer>Flight actuals from the AA receipt · hotel rates, taxes and fees from the Park Lane confirmation (folio is estimated from them) · Rink actual from the Rockefeller Center order · estimates researched Oct 25, 2026 · <a href="../">← All trips</a></footer>
+  </div>
+</body>
+</html>
