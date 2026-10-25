@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Odyssey — Barcelona to Athens by Sea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Jost:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f7f3ea; --card:#ffffff; --ink:#15243a; --ink-soft:#5a6576;
+    --line:#e5dccb; --aegean:#1f5f99; --aegean-soft:#e4eef8; --terra:#b4532f; --terra-soft:#f7e7df;
+    --olive:#5d6a33; --olive-soft:#edf0e0; --lemon:#c9961a; --lemon-soft:#fbf1d6; --key:#ebe2cf;
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 8px;width:132px;display:block;}
+  .kicker{font-family:Jost,Helvetica,Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--terra);}
+  h1{font-family:Cinzel,Georgia,serif;font-weight:700;font-size:clamp(38px,7vw,56px);
+    margin:8px 0 4px;letter-spacing:.04em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;text-wrap:balance;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px 5px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);font-weight:600;}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Jost,Helvetica,Arial,sans-serif;font-size:13.5px;}
+  .nav a{text-decoration:none;color:var(--aegean);padding:7px 14px 6px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--aegean);border-color:var(--aegean);color:#fff;}
+  .nav a:hover{border-color:var(--aegean);}
+  .key{height:10px;margin:22px auto 0;max-width:420px;opacity:.85;
+    background:repeating-linear-gradient(90deg,transparent 0 2px,var(--terra) 2px 4px,transparent 4px 14px);
+    -webkit-mask:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);mask:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(21,36,58,.05);}
+  .day.travel{border-top:4px solid var(--lemon);}
+  .day.city{border-top:4px solid var(--olive);}
+  .day.port{border-top:4px solid var(--terra);}
+  .day.sea{border-top:4px solid var(--aegean);}
+  .day.todo{border-top:4px solid var(--terra);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--key);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--terra);font-weight:600;}
+  .title{font-family:Cinzel,Georgia,serif;font-weight:700;font-size:22px;letter-spacing:.02em;}
+  .lodge{margin-left:auto;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--terra);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--aegean);}
+  @media(max-width:520px){.lodge{margin-left:0;flex-basis:100%;}}
+
+  .wxbar{background:var(--aegean-soft);border:1px solid #c8d9ec;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#1d3d5f;margin-bottom:22px;}
+  .wxbar b{color:#122a44;}
+  .sunico{width:15px;height:13px;vertical-align:-2px;}
+  .wxday{font-family:Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--aegean);
+    padding:7px 0 4px;border-bottom:1px dotted var(--line);}
+  .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
+  .stop{display:flex;gap:14px;padding:11px 0;border-bottom:1px dotted var(--line);}
+  .stop:last-child{border-bottom:none;}
+  .when{flex:0 0 96px;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;
+    color:var(--aegean);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .what{flex:1;min-width:0;}
+  .name{font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;margin-left:7px;font-family:Helvetica,Arial,sans-serif;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:1px;}
+  .t-flight{background:#e7ebf3;color:#34507e;}
+  .t-ship{background:var(--aegean-soft);color:var(--aegean);}
+  .t-see{background:var(--olive-soft);color:var(--olive);}
+  .t-eat{background:var(--lemon-soft);color:#86641a;}
+  .t-hike{background:#e6f0e4;color:#3d6b36;}
+  .t-relax{background:#efeae0;color:#76664b;}
+  .t-spa{background:#f1e8f3;color:#7a4c84;}
+  .t-todo{background:var(--terra-soft);color:var(--terra);}
+  .t-opt{background:#eef0f3;color:#5a6576;}
+  .t-ok{background:#e2f0e6;color:#2e6b45;}
+  .dir{font-family:Helvetica,Arial,sans-serif;font-size:12px;margin-left:8px;color:var(--terra);
+    text-decoration:none;white-space:nowrap;}
+  .dir:hover{text-decoration:underline;}
+  .leg{font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);
+    padding:4px 0 4px 110px;}
+  .day.past{opacity:.55;}
+  .day.past .title,.day.past .date,.day.past .lodge{text-decoration:line-through;}
+  .day.today{box-shadow:0 0 0 2px var(--terra),0 6px 18px rgba(180,83,47,.14);}
+  .day.today .date{color:var(--lemon);}
+  @media(max-width:520px){.stop{flex-direction:column;gap:2px;}.when{flex:none;}.leg{padding-left:0;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="ico-sunrise" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#1f5f99" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#c9961a" stroke-width="1.8"/>
+      <g stroke="#c9961a" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 4.8 10 3l1.8 1.8" fill="none" stroke="#c9961a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-sunset" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#1f5f99" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#c9961a" stroke-width="1.8"/>
+      <g stroke="#c9961a" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 3.6 10 5.4l1.8-1.8" fill="none" stroke="#c9961a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs></svg>
+
+    <header>
+      <svg class="crest" viewBox="0 0 140 70" aria-hidden="true">
+        <circle cx="70" cy="17" r="9" fill="#c9961a"/>
+        <g stroke="#c9961a" stroke-width="1.6" stroke-linecap="round">
+          <line x1="70" y1="2" x2="70" y2="5"/><line x1="55" y1="17" x2="58" y2="17"/><line x1="82" y1="17" x2="85" y2="17"/>
+          <line x1="59.4" y1="6.4" x2="61.5" y2="8.5"/><line x1="80.6" y1="6.4" x2="78.5" y2="8.5"/>
+        </g>
+        <path d="M44 44h52l-7 9H51z" fill="#b4532f"/>
+        <line x1="70" y1="20" x2="70" y2="44" stroke="#15243a" stroke-width="1.6"/>
+        <path d="M71.5 23c9 3 13 10 13 18H71.5z" fill="#15243a"/>
+        <path d="M68.5 26c-7 3-10 8-10 15h10z" fill="#15243a" opacity=".85"/>
+        <path d="M12 58c6-4 12-4 18 0s12 4 18 0 12-4 18 0 12 4 18 0 12-4 18 0 12 4 18 0" fill="none" stroke="#1f5f99" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M24 64c6-3 12-3 18 0s12 3 18 0 12-3 18 0 12 3 18 0 12-3 18 0" fill="none" stroke="#1f5f99" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+      </svg>
+      <div class="kicker">Barcelona &middot; Corsica &middot; Rome &middot; Amalfi &middot; Sicily &middot; Mykonos &middot; Athens</div>
+      <h1>The Odyssey</h1>
+      <div class="sub">Eight nights on Virgin's Scarlet Lady from Barcelona to Athens in a RockStar suite, with two nights at each end</div>
+      <div class="meta"><span class="chip"><b>May 5 – 18, 2027</b>&nbsp;· 13 nights</span><span class="chip"><b>Scarlet Lady</b> · May 8 – 16 · RockStar Quarters</span><span class="chip"><b>Planning</b> · nothing booked yet</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html" class="active">Itinerary</a><a href="budget.html">Budget</a></nav>
+      <div class="key"></div>
+    </header>
+
+  <div class="wxbar"><b>May in the Mediterranean:</b> highs in the low 70s from Barcelona to Sicily and near 80 in Athens, cool evenings on deck, and very little rain. The sun sets after 8 PM everywhere, so the sailaways come in daylight. On Etna's summit it is about 30 degrees colder, so bring a warm layer. Each day's chip shows a May normal until the trip is inside the 16-day forecast window (around Apr 20), then refreshes itself whenever the page opens. Times are local: Barcelona to Sicily is 7 hours ahead of Dallas, and Mykonos and Athens are 8.</div>
+
+  <div class="day ">
+    <div class="dayhead"><span class="date">At a glance</span><span class="title">The plan, day by day</span><span class="lodge">everything still to book</span></div>
+    <div class="stop"><div class="when">Wed 5</div><div class="what"><span class="name">Fly out after work</span><span class="tag t-flight">flight to book</span><div class="note">Centurion Lounge, then BA 192 in First at 7:40 PM via London. Or American's nonstop at 5:20 PM.</div></div></div>
+    <div class="stop"><div class="when">Thu 6</div><div class="what"><span class="name">Barcelona by 4: rooftop sunset, Bar Mut</span><span class="tag t-relax">hotel to book</span><div class="note">Two nights at El Palace, Barcelona's 1919 grand hotel on Gran Via.</div></div></div>
+    <div class="stop"><div class="when">Fri 7</div><div class="what"><span class="name">Sagrada Família → Casa Batlló → AIRE baths → Gothic Quarter → Lasarte</span><span class="tag t-todo">to book</span><div class="note">The one full Barcelona day, ending at Martín Berasategui's three-star table.</div></div></div>
+    <div class="stop"><div class="when">Sat 8</div><div class="what"><span class="name">Board Scarlet Lady, sail at 5</span><span class="tag t-ship">suite to book</span><div class="note">RockStar arrival around 12:45, lunch on Richard's Rooftop, sailaway from the suite-only deck.</div></div></div>
+    <div class="stop"><div class="when">Sun 9</div><div class="what"><span class="name">At sea: Mother's Day</span><span class="tag t-spa">spa</span><div class="note">Brunch, Thermal Suite, a couples massage and dinner at The Wake.</div></div></div>
+    <div class="stop"><div class="when">Mon 10</div><div class="what"><span class="name">Ajaccio, Corsica</span><span class="tag t-hike">easy walk</span><div class="note">Napoleon's old town, the Palais Fesch, the Parata headland and a seafood lunch facing the Sanguinaires.</div></div></div>
+    <div class="stop"><div class="when">Tue 11</div><div class="what"><span class="name">Rome</span><span class="tag t-todo">to book</span><div class="note">Private car and guide: the Vatican, St. Peter's, the Pantheon, lunch at Armando, Trevi and the Spanish Steps.</div></div></div>
+    <div class="stop"><div class="when">Wed 12</div><div class="what"><span class="name">Amalfi Coast</span><span class="tag t-hike">Path of the Gods</span><div class="note">Hike Bomerano to Nocelle, then a seaside lunch at Il San Pietro's Carlino.</div></div></div>
+    <div class="stop"><div class="when">Thu 13</div><div class="what"><span class="name">Sicily: Etna and Taormina</span><span class="tag t-todo">to book</span><div class="note">Cable car and 4x4 to the summit craters, lunch facing the volcano, the Greek theatre at golden hour.</div></div></div>
+    <div class="stop"><div class="when">Fri 14</div><div class="what"><span class="name">At sea</span><span class="tag t-relax">slow day</span><div class="note">Brunch at The Wake, the Rooftop, the spa, The Test Kitchen.</div></div></div>
+    <div class="stop"><div class="when">Sat 15</div><div class="what"><span class="name">Mykonos</span><span class="tag t-todo">to book</span><div class="note">Delos with a private guide, lunch at Nammos, the windmills and a sunset sailaway.</div></div></div>
+    <div class="stop"><div class="when">Sun 16</div><div class="what"><span class="name">Athens: off the ship</span><span class="tag t-relax">hotel to book</span><div class="note">Hotel Grande Bretagne, the Changing of the Guard, the Acropolis Museum, dinner on the GB Roof Garden.</div></div></div>
+    <div class="stop"><div class="when">Mon 17</div><div class="what"><span class="name">The Acropolis at 8 AM, Lycabettus at dusk</span><span class="tag t-todo">to book</span><div class="note">A private guide on the rock and in the Agora, the marble Stadium, then Spondi.</div></div></div>
+    <div class="stop"><div class="when">Tue 18</div><div class="what"><span class="name">Home</span><span class="tag t-flight">flight to book</span><div class="note">BA 639 at 7:55 AM via Heathrow and BA 193 in First, landing at DFW at 5:05 PM. Or American via Chicago.</div></div></div>
+  </div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">Before you go</span><span class="title">The booking calendar</span><span class="lodge">in the order things open</span></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">The suite on Scarlet Lady</span><a class="dir" href="https://www.virginvoyages.com/itinerary/europe/8-night-cruise-from-barcelona-to-france-italy-greece" target="_blank" rel="noopener">🗓 Voyage page</a><span class="tag t-todo">to book</span><div class="note">Sailing SC2705088NBRA, May 8–16, 2027. Suites are few and Posh and Gorgeous are already gone. Compare the RockStar categories on the budget page. Book through Amex Travel (800-525-3355) on a Platinum to get Amex's cruise benefits on top of Virgin's fare.</div></div></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">Flights: one ticket, into Barcelona, home from Athens</span><span class="tag t-todo">to book</span><div class="note">Price it as a multi-city ticket: two one-ways cost far more. BA First via London is the pick. Confirm the May 5 DFW–London aircraft is the 787-10 with First, because the A350 has none. Book Elissa's ticket in the name on her passport.</div></div></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">Hotels: El Palace (May 6–8) and Grande Bretagne (May 16–18)</span><a class="dir" href="https://www.americanexpress.com/en-us/travel/discover/property/Spain/Barcelona/El-Palace-Barcelona" target="_blank" rel="noopener">🗓 Amex Travel</a><span class="tag t-todo">to book</span><div class="note">Both are Fine Hotels + Resorts. At El Palace ask for a courtyard Junior Suite; at the GB, an Acropolis-view room and an 8:30 AM arrival note.</div></div></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">Lasarte, Fri May 7, 8:30 PM</span><a class="dir" href="https://www.restaurantlasarte.com/en/reserve" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-todo">to book</span><div class="note">Three stars, no published booking window, so reserve as soon as May shows. Disfrutar opened 12 months out and is almost surely full; watch its calendar for released tables.</div></div></div>
+    <div class="stop"><div class="when">Now – Jan</div><div class="what"><span class="name">Port-day drivers: Rome first, then Catania, Amalfi, Ajaccio, Mykonos</span><span class="tag t-todo">to book</span><div class="note">Rome Cabs (info@romecabs.com) for a custom 7:30 AM–6 PM day with a licensed guide; a Catania NCC driver 9:30 AM–7 PM; BlueKeys or similar for Amalfi 8:30 AM–5 PM; Ajaccio Voyages 10:30 AM–3:30 PM; a Mykonos standby car 1:45–7:15 PM. Two cruise ships share Salerno and three share Mykonos that week, so the good drivers go early.</div></div></div>
+    <div class="stop"><div class="when">Dec 24</div><div class="what"><span class="name">RockStar booking opens: spa treatments and Shore Things</span><span class="tag t-ship">135 days out</span><div class="note">Pre-book individual spa treatments (couples massages and Thermal Suite passes are sold only on board).</div></div></div>
+    <div class="stop"><div class="when">Jan 8</div><div class="what"><span class="name">Ship dining opens for suites (120 days out)</span><span class="tag t-ship">Virgin app</span><div class="note">Two dinners per restaurant on an 8-night sailing; brunch doesn't count. The plan: Sat Extra Virgin 8:00 · Sun Razzle Dazzle brunch 9:30 + The Wake 7:45 · Mon Pink Agave 8:00 · Tue Lucky Lotus 8:45 · Wed Gunbae 8:00 · Thu flexible (probably Scarlet Night) · Fri The Wake brunch 9:30 + The Test Kitchen 7:30 · Sat The Wake farewell 9:00. The Scarlet Night date appears the same day, so adjust around it.</div></div></div>
+    <div class="stop"><div class="when">Jan – Feb</div><div class="what"><span class="name">Private guides: Acropolis + Agora (May 17), Delos (May 15)</span><a class="dir" href="https://www.tourist-guides.gr/en/" target="_blank" rel="noopener">ℹ︎ Licensed guides</a><a class="dir" href="https://www.delostours.gr/en/contact-information.html" target="_blank" rel="noopener">ℹ︎ Delos Tours</a><span class="tag t-todo">to book</span><div class="note">Check ETIAS in January too: if the EU's pre-registration is live by then, each of you applies online.</div></div></div>
+    <div class="stop"><div class="when">Feb – Mar</div><div class="what"><span class="name">Lunch tables: Nammos (Mykonos), Rosso (Taormina), La Dolce Vita (Ajaccio)</span><span class="tag t-todo">to book</span><div class="note">Nammos via its contact form for 2:30 PM; Rosso for 3:00 PM on the terrace; La Dolce Vita for 1:00 PM, asking them to confirm Monday lunch on May 10.</div></div></div>
+    <div class="stop"><div class="when">~Mar 1</div><div class="what"><span class="name">Sagrada Família tower tickets, Fri 9:00 AM</span><a class="dir" href="https://sagradafamilia.org/en/sagrada-familia-and-tower" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">Released about two months out, online only. Then the private guide and Casa Batlló's 11:30 "Bon Appétit" slot.</div></div></div>
+    <div class="stop"><div class="when">~Mar 12</div><div class="what"><span class="name">Vatican Museums 9:30 AM tickets</span><a class="dir" href="https://tickets.museivaticani.va/home" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">Official portal only, about 60 days out, or let the Rome guide buy them.</div></div></div>
+    <div class="stop"><div class="when">Mid-Mar</div><div class="what"><span class="name">Athens dinners: GB Roof Garden (Sun 8:00) and Spondi (Mon 9:15)</span><a class="dir" href="https://www.sevenrooms.com/reservations/gbroofgardenrestaurantathlc" target="_blank" rel="noopener">🍽 GB Roof Garden</a><a class="dir" href="https://www.i-host.gr/reservations/new?restaurant=252&amp;lang=en&amp;channel=website" target="_blank" rel="noopener">🍽 Spondi</a><span class="tag t-todo">to book</span><div class="note">Front-row Acropolis-side table on the roof; an outdoor terrace table at Spondi.</div></div></div>
+    <div class="stop"><div class="when">Late Mar</div><div class="what"><span class="name">AIRE Ancient Baths, Fri May 7, 2:45 PM</span><a class="dir" href="https://beaire.com/en/aire-ancient-baths-barcelona" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-todo">to book</span><div class="note">A two-hour bath-and-massage experience for two; Friday afternoons fill first.</div></div></div>
+    <div class="stop"><div class="when">Apr 10, 5 PM CT</div><div class="what"><span class="name">Armando al Pantheon, Tue May 11, 1:45 PM</span><a class="dir" href="https://www.armandoalpantheon.it/prenota/" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-todo">to book</span><div class="note">Opens 30 days ahead at midnight Rome time, which is 5 PM the day before in Dallas. Online only.</div></div></div>
+    <div class="stop"><div class="when">~Apr 12</div><div class="what"><span class="name">Carlino at Il San Pietro, Wed May 12, 1:15 PM</span><a class="dir" href="https://ilsanpietro.prenota-web.it/prenotazioni/singlepage.asp?iframe=1&amp;lang=en&amp;ristorante=carlino" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-todo">to book</span><div class="note">The booking system opens 30 days out. Say you're arriving by car after hiking and must leave by 3:15.</div></div></div>
+    <div class="stop"><div class="when">Mid-Apr</div><div class="what"><span class="name">Bar Mut, Thu May 6, 8:45 PM</span><a class="dir" href="tel:+34932174338">📞 +34 932 17 43 38</a><span class="tag t-todo">to book</span><div class="note">Email reservas@barmut.com or call; there is no online booking.</div></div></div>
+    <div class="stop"><div class="when">Late Apr</div><div class="what"><span class="name">Acropolis 8:00 AM slot and Acropolis Museum tickets</span><a class="dir" href="https://tickets.hh.gr/en" target="_blank" rel="noopener">🎟 Acropolis</a><a class="dir" href="https://etickets.theacropolismuseum.gr/?culture=en" target="_blank" rel="noopener">🎟 Museum</a><span class="tag t-todo">to book</span><div class="note">Book the Acropolis as soon as May dates appear, or let the guide do it.</div></div></div>
+    <div class="stop"><div class="when">By May 7</div><div class="what"><span class="name">Virgin app: Ready to Sail, the earliest RockStar arrival time, the Bar Tab, self-carry off in Athens</span><span class="tag t-ship">Virgin app</span><div class="note">The Barcelona terminal (expect Moll Adossat A or B) posts 2–3 days out. Send it to the driver.</div></div></div>
+    <div class="stop"><div class="when">May 10–12</div><div class="what"><span class="name">Etna Tour 3000 tickets</span><a class="dir" href="https://www.funiviaetna.com/3000m/" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">Buy a few days ahead, after checking Etna's activity, because there are no refunds for weather or volcanic closures.</div></div></div>
+  </div>
+
+  <div class="day travel">
+    <div class="dayhead"><span class="date" data-day="2027-05-05" data-tz="America/Chicago">Wed &middot; May 5</span><span class="title">Wheels Up from Dallas</span><span class="lodge">→ overnight across the Atlantic</span></div>
+    <div class="wxday" data-date="2027-05-05" data-lat="32.8998" data-lon="-97.0403">⛅ <b>May normal</b> · 85°F · low 65°F · 29% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:38 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:13 PM — flight day</div>
+    <div class="fixed">Out of DFW in the evening, into Europe tomorrow. The pick is BA First via London at 7:40 PM; American's nonstop at 5:20 PM is the alternative. Either way: three hours at the airport, a real meal in the lounge, and sleep on the plane.</div>
+    <div class="stop"><div class="when">4:40 PM</div><div class="what"><span class="name">Leave home for DFW Terminal D</span><a class="dir" href="https://maps.apple.com/?daddr=DFW%20Airport%20Terminal%20D%2C%20Dallas%2C%20TX&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">car</span><div class="note">Three hours ahead of BA 192 (2:20 PM for American's 5:20 PM nonstop). Both leave from Terminal D, the international terminal. Traffic toward the airport builds after 4, so don't push it later.</div></div></div>
+    <div class="leg">🚗 ~20–25 mi · 35–50 min from central Dallas (more after 4 PM)</div>
+    <div class="stop"><div class="when">5:30 PM</div><div class="what"><span class="name">The Centurion Lounge, Terminal D (across from D12)</span><a class="dir" href="https://www.americanexpress.com/en-us/travel/lounges/the-platinum-card/DFW/The-Centurion-Lounge-Terminal-D-y4FS7hGiJz/" target="_blank" rel="noopener">ℹ︎ Lounge</a><span class="tag t-flight">lounge</span><div class="note">Entry opens three hours before departure. Have a proper dinner here, and the showers if you want to board fresh. Flying BA First, also ask at check-in about American's Flagship First Dining in Terminal D, which has admitted BA First passengers.</div></div></div>
+    <div class="stop"><div class="when">7:40 PM</div><div class="what"><span class="name">BA 192 to London Heathrow, in First</span><span class="tag t-flight">flight to book</span><div class="note">Google's 2027 schedule shows the 787-10, with BA's eight-seat First cabin. Confirm when you book, because the winter A350 has no First. About 9¼ hours; lands 10:55 AM Thursday. London is 6 hours ahead and Barcelona 7: eat in the lounge, skip dinner aboard, and sleep when the lights dim.</div></div></div>
+    <div class="stop"><div class="when">or 5:20 PM</div><div class="what"><span class="name">American 192 nonstop to Barcelona, Flagship Business</span><span class="tag t-opt">optional</span><div class="note">The 777-200 with lie-flat seats, about 9 hours 50 minutes, landing at Barcelona T1 at 10:10 AM Thursday. In 2026 American retimed this flight for part of May, so confirm the time again a month out.</div></div></div>
+  </div>
+
+  <div class="day city">
+    <div class="dayhead"><span class="date" data-day="2027-05-06" data-tz="Europe/Madrid">Thu &middot; May 6</span><span class="title">Landing in Barcelona</span><span class="lodge">→ El Palace Barcelona</span></div>
+    <div class="wxday" data-date="2027-05-06" data-lat="41.3917" data-lon="2.1716">☀️ <b>May normal</b> · 71°F · low 58°F · 16% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:44 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:54 PM</div>
+    <div class="fixed">A connection at Heathrow, Barcelona by 4, and a deliberately light evening: sunset on the hotel roof and market seafood at Bar Mut. On the American nonstop you land at 10:10 AM instead, so lunch, a 90-minute nap and a walk past the Gaudí façades on Passeig de Gràcia fill the afternoon.</div>
+    <div class="stop"><div class="when">10:55 AM</div><div class="what"><span class="name">Heathrow Terminal 5: connect</span><span class="tag t-flight">connection</span><div class="note">Follow the purple Flight Connections signs through transfer security, then rest in the BA lounge. (London time; Barcelona is an hour ahead.)</div></div></div>
+    <div class="stop"><div class="when">12:40 PM</div><div class="what"><span class="name">BA to Barcelona, Club Europe</span><span class="tag t-flight">flight</span><div class="note">An A320neo with the middle seat kept free, about 2 hours 15 minutes, landing at Barcelona T1 at 3:55 PM local. BA's 11:05 flight is too tight after a 10:55 landing.</div></div></div>
+    <div class="stop"><div class="when">3:55 PM</div><div class="what"><span class="name">Land Barcelona T1; private driver to the hotel</span><a class="dir" href="https://maps.apple.com/?daddr=Hotel%20El%20Palace%20Barcelona%2C%20Gran%20Via%20de%20les%20Corts%20Catalanes%20668%2C%20Barcelona&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">car to book</span><div class="note">Expect the EU's new Entry/Exit System at passport control, which takes fingerprints and a photo on a first Schengen entry. Meet the driver in arrivals around 4:40; he tracks the flight.</div></div></div>
+    <div class="leg">🚗 ~16 km · 30–40 min in late-afternoon traffic; at the hotel about 5:20</div>
+    <div class="stop"><div class="when">5:30 PM</div><div class="what"><span class="name">Check in at El Palace</span><a class="dir" href="https://www.hotelpalacebarcelona.com/en/" target="_blank" rel="noopener">ℹ︎ El Palace</a><span class="tag t-relax">hotel to book</span><div class="note">Barcelona's original Ritz, opened in 1919. Ask for a Junior Suite on the quiet inner courtyard (40–51 m², marble bath with a freestanding tub). It is a Fine Hotels + Resorts booking: breakfast for two each morning, an upgrade when available, and a guaranteed 4 PM checkout Saturday, which covers the trip to the ship.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">Sunset on the Rooftop Garden</span><a class="dir" href="https://www.hotelpalacebarcelona.com/restaurants-bars/rooftop-garden-terrace" target="_blank" rel="noopener">ℹ︎ Rooftop</a><span class="tag t-relax">aperitif</span><div class="note">El Palace's roof looks across the Eixample to the Sagrada Família. Order a vermut, a glass of cava or the house 1919 Spritz and let the day settle; open until 12:30 AM. Sunset is 8:54.</div></div></div>
+    <div class="leg">🚕 1.8 km · 8–10 min by taxi (or a 20-minute walk up Pau Claris)</div>
+    <div class="stop"><div class="when">8:45 PM</div><div class="what"><span class="name">Dinner at Bar Mut</span><a class="dir" href="https://maps.apple.com/?daddr=Bar%20Mut%2C%20Carrer%20de%20Pau%20Claris%20192%2C%20Barcelona&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.barmut.com/" target="_blank" rel="noopener">ℹ︎ Bar Mut</a><a class="dir" href="tel:+34932174338">📞 Reserve</a><span class="tag t-todo">to book</span><div class="note">A small, lively bar-restaurant at Pau Claris and Diagonal built around the day's market fish, the plancha and charcoal. You order as you go, which suits a tired first night. Ask what came in that morning, and order wine by the glass. Book by email (reservas@barmut.com) or phone.</div></div></div>
+  </div>
+
+  <div class="day city">
+    <div class="dayhead"><span class="date" data-day="2027-05-07" data-tz="Europe/Madrid">Fri &middot; May 7</span><span class="title">Gaudí, the Baths &amp; Three Stars</span><span class="lodge">El Palace Barcelona</span></div>
+    <div class="wxday" data-date="2027-05-07" data-lat="41.3917" data-lon="2.1716">☀️ <b>May normal</b> · 71°F · low 58°F · 16% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:42 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:55 PM — Lasarte night</div>
+    <div class="fixed">The one full Barcelona day. The big sights come early while you're fresh: the Sagrada Família in its 9 AM quiet hour, then Casa Batlló with a tapas lunch. An hour off, a thermal bath, golden hour on a Gothic rooftop, and a three-star dinner. Each piece is booked separately, so any one can drop without upsetting the rest.</div>
+    <div class="stop"><div class="when">8:00 AM</div><div class="what"><span class="name">Breakfast at the hotel</span><span class="tag t-relax">included</span><div class="note">Served in El Jardín. Eat lightly, because lunch is tapas at 11:30. Taxi from the door at 8:40.</div></div></div>
+    <div class="leg">🚕 2.2 km · 10 min to the Nativity façade entrance on Carrer de la Marina</div>
+    <div class="stop"><div class="when">9:00 AM</div><div class="what"><span class="name">The Sagrada Família, with the Nativity tower and a private guide</span><a class="dir" href="https://maps.apple.com/?daddr=Bas%C3%ADlica%20de%20la%20Sagrada%20Fam%C3%ADlia%2C%20Carrer%20de%20Mallorca%20401%2C%20Barcelona&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://sagradafamilia.org/en/sagrada-familia-and-tower" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">The 9–10 AM slot is the basilica's Quiet Hour, the calmest of the day. Book the "with tower" ticket (€36 each) and a licensed guide who meets you at the Nativity entrance for two hours. A lift goes up Gaudí's own tower and a narrow spiral stair comes down; bags go into lockers first. Covered shoulders, and hems to mid-thigh.</div></div></div>
+    <div class="leg">🚕 2.5 km · 10–15 min to Passeig de Gràcia 43</div>
+    <div class="stop"><div class="when">11:30 AM</div><div class="what"><span class="name">Casa Batlló: "Bon Appétit" visit with tapas</span><a class="dir" href="https://maps.apple.com/?daddr=Casa%20Batll%C3%B3%2C%20Passeig%20de%20Gr%C3%A0cia%2043%2C%20Barcelona&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.casabatllo.es/en/online-tickets/" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">The audio-guided house, the third-floor apartment (the house's last inhabited home) and the dragon-back rooftop, with tapas of your choice. About two hours. Treat it as a light lunch.</div></div></div>
+    <div class="leg">🚶 7–10 min back to the hotel</div>
+    <div class="stop"><div class="when">1:40 PM</div><div class="what"><span class="name">An hour off at the hotel</span><span class="tag t-relax">rest</span><div class="note">Feet up. Pack swimsuits for AIRE, which requires them and supplies towels and shoes. Taxi at 2:30.</div></div></div>
+    <div class="leg">🚕 2 km · 10–12 min to Passeig de Picasso 22</div>
+    <div class="stop"><div class="when">2:45 PM</div><div class="what"><span class="name">AIRE Ancient Baths, bath and massage for two</span><a class="dir" href="https://maps.apple.com/?daddr=AIRE%20Ancient%20Baths%20Barcelona%2C%20Passeig%20de%20Picasso%2022%2C%20Barcelona&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://beaire.com/en/aire-ancient-baths-barcelona" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-spa">to book</span><div class="note">Warm, hot and cold pools and steam by candlelight in a restored warehouse beside Ciutadella Park. Choose a two-hour experience: AIRE fits the massage into the session at a time you can't pick, and a three-hour one would eat the rooftop. Changes up to 48 hours ahead. To stay in instead, El Palace's Mayan spa (with a temazcal) is open until 9.</div></div></div>
+    <div class="leg">🚶 650 m · 8 min to Santa Maria del Mar</div>
+    <div class="stop"><div class="when">5:00 PM</div><div class="what"><span class="name">Santa Maria del Mar rooftop and the Gothic Quarter</span><a class="dir" href="https://maps.apple.com/?daddr=Bas%C3%ADlica%20de%20Santa%20Maria%20del%20Mar%2C%20Pla%C3%A7a%20de%20Santa%20Maria%201%2C%20Barcelona&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.santamariadelmar.barcelona/en/opening-hours-and-admission-fees/" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-see">€8 each</span><div class="note">El Born's 14th-century "cathedral of the sea." The €8 visit includes the towers and roof terraces, a golden-hour view over the old city; last admission is 5:30 and there are stairs. Then wander Carrer de Montcada past the Picasso Museum's palaces, across Via Laietana to the Cathedral façade, tiny Plaça de Sant Felip Neri and the Carrer del Bisbe bridge. Keep phones in front: these lanes are pickpocket country.</div></div></div>
+    <div class="leg">🚕 1.5 km · 8–10 min from Plaça Nova back to the hotel</div>
+    <div class="stop"><div class="when">6:45 PM</div><div class="what"><span class="name">Back to change</span><span class="tag t-relax">hotel</span><div class="note">More than an hour to dress for dinner. Lasarte is formal: long trousers and closed shoes for men, no jacket required.</div></div></div>
+    <div class="leg">🚶 12 min to Carrer de Mallorca 259 (or a 5-minute taxi)</div>
+    <div class="stop"><div class="when">8:30 PM</div><div class="what"><span class="name">Dinner at Lasarte, three Michelin stars</span><a class="dir" href="https://maps.apple.com/?daddr=Lasarte%2C%20Carrer%20de%20Mallorca%20259%2C%20Barcelona&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.restaurantlasarte.com/en/reserve" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="https://www.restaurantlasarte.com/en/the-menu" target="_blank" rel="noopener">ℹ︎ Menus</a><span class="tag t-todo">to book</span><div class="note">Martín Berasategui's Barcelona restaurant, inside the Monument Hotel and run day to day by Paolo Casagrande, with three stars since 2017. The tasting menu is €345 each (the Krug menu €450). Plan on 3–3½ hours. Cancelling inside 24 hours costs €150 each.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-08" data-tz="Europe/Madrid">Sat &middot; May 8</span><span class="title">Sail Away, RockStar Style</span><span class="lodge">→ Scarlet Lady</span></div>
+    <div class="wxday" data-date="2027-05-08" data-lat="41.353" data-lon="2.172">☀️ <b>May normal</b> · 70°F · low 59°F · 20% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:41 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:56 PM — sails 5:00 PM</div>
+    <div class="fixed">A slow hotel morning, then a short private run to the ship for a RockStar arrival around 12:45. Once aboard, book the spa first, have a late lunch and be on Richard's Rooftop well before the 5:00 PM sailaway. Virgin's all-aboard is 4:00, an hour before departure.</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">A long breakfast, then pack</span><span class="tag t-relax">hotel</span><div class="note">Nothing happens before noon. Pack a day bag with passports, medications, swimsuits for tomorrow's Thermal Suite and a light layer: checked bags reach the suite a couple of hours after you board. Virgin's luggage tags go on the big bags before you leave the room.</div></div></div>
+    <div class="stop"><div class="when">10:30 AM</div><div class="what"><span class="name">Check the terminal in the Virgin app</span><a class="dir" href="https://www.virginvoyages.com/faq/before-you-sail/port-information" target="_blank" rel="noopener">ℹ︎ Port FAQ</a><span class="tag t-ship">app</span><div class="note">Virgin lists Moll Adossat Terminals A/B and the WTC's Terminal Sur. Under the city's 2025 port deal the WTC terminal stops taking cruises at the end of 2026, so expect A or B on the Moll Adossat, but go by the app. Text the terminal letter and your arrival time to the driver.</div></div></div>
+    <div class="stop"><div class="when">12:15 PM</div><div class="what"><span class="name">Private car to the cruise terminal</span><a class="dir" href="https://maps.apple.com/?daddr=Moll%20Adossat%20cruise%20terminals%2C%20Moll%20Adossat%201%2C%20Barcelona&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">car to book</span><div class="note">A Mercedes V-Class has room for the big cases. Reach the curb 10–15 minutes before your RockStar arrival time and no earlier: the port has almost nowhere to wait, and arriving early doesn't get you aboard sooner. Porters take the checked bags at the curb.</div></div></div>
+    <div class="leg">🚗 ~5–8 km · 15–25 min via the Ronda Litoral</div>
+    <div class="stop"><div class="when">12:45 PM</div><div class="what"><span class="name">RockStar check-in and boarding</span><span class="tag t-ship">VIP entrance</span><div class="note">Through the VIP entrance and priority lane; black wristbands are your key and wallet. Suites board first, and general boarding begins around 2:15. The suite is ready when you walk in, with the bar stocked to your picks and the first round on the house.</div></div></div>
+    <div class="stop"><div class="when">1:30 PM</div><div class="what"><span class="name">Book the spa: Redemption Spa, Deck 5</span><span class="tag t-spa">do first</span><div class="note">Before unpacking: Thermal Suite slots for both of you at 11 AM tomorrow and 2 PM Friday, and a 2:30 PM couples massage tomorrow. Couples treatments and Thermal Suite passes are sold only on board, and the sea-day slots go first.</div></div></div>
+    <div class="stop"><div class="when">2:00 PM</div><div class="what"><span class="name">Late lunch on Richard's Rooftop</span><a class="dir" href="https://vvinsider.com/on-board/venue/richards-rooftop-bar/" target="_blank" rel="noopener">ℹ︎ The Rooftop</a><span class="tag t-eat">suites only</span><div class="note">The suite-only sundeck at the front of Deck 16. From noon to 5 the staff bring the RockStar menus to your lounger (bao, day-bed bowls, snacks). If the Rooftop kitchen isn't serving yet on embarkation day, The Galley on Deck 15 is: Bento Baby sushi or Noodle Around ramen.</div></div></div>
+    <div class="stop"><div class="when">3:15 PM</div><div class="what"><span class="name">Settle in, the safety drill, your RockStar Agent</span><span class="tag t-ship">required</span><div class="note">Watch the five-minute safety video in the app, then scan your wristband at your muster station when called (around 4). Both are required before sailing. Message your RockStar Agent to confirm the week's dinners and today's Sunset Happy Hour.</div></div></div>
+    <div class="stop"><div class="when">4:30 PM</div><div class="what"><span class="name">Sailaway from Richard's Rooftop</span><span class="tag t-ship">sails 5:00</span><div class="note">Loungers along the rail facing the open sea, drinks brought to you. The Rooftop faces forward, so for the classic look back at Montjuïc and the harbor, walk aft to The Dock on Deck 7, or watch from your terrace, for the last ten minutes. It's windy up top, so bring a layer.</div></div></div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Dinner at Extra Virgin</span><a class="dir" href="https://vvinsider.com/on-board/venue/extra-virgin/" target="_blank" rel="noopener">ℹ︎ Extra Virgin</a><span class="tag t-eat">book Jan 8</span><div class="note">The ship's Italian trattoria, Deck 6, with pasta made on board: fried artichokes and beef carpaccio to share, then cacio e pepe and the braised pork cheek or sea bass. Dinner is included; wine is extra. The Grog Walk bar crawl and a Red Room show follow if you have the energy.</div></div></div>
+  </div>
+
+  <div class="day sea">
+    <div class="dayhead"><span class="date" data-day="2027-05-09" data-tz="Europe/Paris">Sun &middot; May 9</span><span class="title">Mother's Day at Sea</span><span class="lodge">Scarlet Lady</span></div>
+    <div class="wxday" data-date="2027-05-09" data-lat="41.6" data-lon="5.8">☀️ <b>May normal</b> · 68°F · low 59°F · 15% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:24 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:42 PM — at sea</div>
+    <div class="fixed">No port today. Brunch, a long Thermal Suite session and a couples massage, a late afternoon on the Rooftop, and dinner at The Wake. It's U.S. Mother's Day, so call home in the early evening, when it's late morning in Dallas.</div>
+    <div class="stop"><div class="when">9:30 AM</div><div class="what"><span class="name">Brunch at Razzle Dazzle</span><a class="dir" href="https://vvinsider.com/on-board/venue/razzle-dazzle/" target="_blank" rel="noopener">ℹ︎ Razzle Dazzle</a><span class="tag t-eat">book Jan 8</span><div class="note">Deck 5, classic American brunch with touches from the evening Lucky Lotus menu. Add up to two hours of bottomless mimosas or Bloody Marys on the day. Sea-day brunch is the busiest meal of the trip, so book it at 120 days.</div></div></div>
+    <div class="stop"><div class="when">11:00 AM</div><div class="what"><span class="name">The Thermal Suite, three hours</span><span class="tag t-spa">book aboard</span><div class="note">Mud room, salt room, steam, sauna, hot and cold plunges and heated marble hammam benches. A good order: steam, salt, mud, then lie still. Robes and towels are provided; bring swimsuits. It sits low on Deck 5, where you feel the least motion.</div></div></div>
+    <div class="stop"><div class="when">2:30 PM</div><div class="what"><span class="name">Couples massage</span><span class="tag t-spa">book aboard</span><div class="note">The 75-minute Salvation Swedish ($509 for two) or the firmer Atonement Deep Tissue ($569), in the couples room added in the 2024 refit. Book at the desk as soon as you board.</div></div></div>
+    <div class="stop"><div class="when">4:00 PM</div><div class="what"><span class="name">Richard's Rooftop</span><span class="tag t-relax">suites only</span><div class="note">Daybeds and loungers, a snack before the kitchen stops at 5, and the RockStar Sunset Happy Hour with Moët or cocktails (check the app for the time).</div></div></div>
+    <div class="stop"><div class="when">6:30 PM</div><div class="what"><span class="name">Mother's Day calls home</span><span class="tag t-relax">11:30 AM in Dallas</span><div class="note">RockStar Wi-Fi covers messages and audio calls but not video. For FaceTime video, buy a 24-hour Premium pass (about $40) this afternoon.</div></div></div>
+    <div class="stop"><div class="when">7:45 PM</div><div class="what"><span class="name">Dinner at The Wake</span><a class="dir" href="https://vvinsider.com/on-board/venue/the-wake/" target="_blank" rel="noopener">ℹ︎ The Wake</a><span class="tag t-eat">book Jan 8</span><div class="note">The grandest room aboard, a mid-century chophouse at the stern reached by a sweeping staircase. Ask for a window over the wake. Bone marrow or clam chowder, the filet or New York strip with creamed spinach and the twice-baked potato, lemon cheesecake. The raw bar and tomahawk cost extra. If Scarlet Night lands tonight, move this to 6:30.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-10" data-tz="Europe/Paris">Mon &middot; May 10</span><span class="title">Napoleon's Town &amp; the Blood-Red Isles</span><span class="lodge">Ajaccio, Corsica · 8 AM – 6 PM</span></div>
+    <div class="wxday" data-date="2027-05-10" data-lat="41.9192" data-lon="8.7386">☀️ <b>May normal</b> · 72°F · low 53°F · 16% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:11 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:33 PM — aboard by 5:00</div>
+    <div class="fixed">Monday is Ajaccio's day off: the Maison Bonaparte, the market and many of the best restaurants are closed. So the day starts with the old town and the cathedral where Napoleon was baptized, then the Palais Fesch, open daily in May. A private driver takes you out the Route des Sanguinaires for the Parata walk and a long seafood lunch facing the islands, and you're back aboard by 5.</div>
+    <div class="stop"><div class="when">8:00 AM</div><div class="what"><span class="name">Scarlet Lady arrives in Ajaccio</span><a class="dir" href="https://www.virginvoyages.com/faq/the-days-at-sea/shore-things-and-ports" target="_blank" rel="noopener">ℹ︎ Port days</a><span class="tag t-ship">port day</span><div class="note">If the ship berths alongside, Place Foch is a 5–10 minute walk along the waterfront. If it tenders, book a tender time in the app once aboard (15–20 minutes each way; allow 30–45 with queues). Carry your wristband and photo ID.</div></div></div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Place Foch, the Bonaparte house and the cathedral</span><a class="dir" href="https://maps.apple.com/?daddr=Place%20Foch%2C%20Ajaccio%2C%20France&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.ajaccio-tourisme.com/en/visites-loisirs/cathedrale-notre-dame-de-lassomption/" target="_blank" rel="noopener">ℹ︎ Cathedral</a><span class="tag t-see">free</span><div class="note">A marble Napoleon above the four-lion fountain under the palms, then five minutes to the outside of the Maison Bonaparte on Rue Saint-Charles (closed Mondays) and into the cathedral next door, where he was baptized in 1771 (open from 8:30). About 45 minutes on flat cobbles.</div></div></div>
+    <div class="leg">🚶 10 min across Place Foch and up Rue du Cardinal Fesch</div>
+    <div class="stop"><div class="when">9:15 AM</div><div class="what"><span class="name">Palais Fesch and the Imperial Chapel</span><a class="dir" href="https://maps.apple.com/?daddr=Palais%20Fesch%2C%2050%20Rue%20du%20Cardinal%20Fesch%2C%20Ajaccio&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.musee-fesch.com/infos-pratiques" target="_blank" rel="noopener">ℹ︎ Hours</a><span class="tag t-see">€9 each</span><div class="note">Cardinal Fesch, Napoleon's uncle, built France's largest collection of Italian painting after the Louvre's. Open daily 9:15–6 from May, Mondays included. An unhurried hour; the ticket also covers the chapel where Napoleon's parents lie.</div></div></div>
+    <div class="stop"><div class="when">10:30 AM</div><div class="what"><span class="name">Private driver out the Route des Sanguinaires</span><a class="dir" href="https://maps.apple.com/?daddr=Pointe%20de%20la%20Parata%2C%20Route%20des%20Sanguinaires%2C%20Ajaccio&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="http://www.ajacciovoyage.com" target="_blank" rel="noopener">ℹ︎ Ajaccio Voyages</a><span class="tag t-relax">driver to book</span><div class="note">He meets you at the museum door and keeps the car with you until 3:30, so nothing depends on finding a taxi at the end of the road. Get the price and pickup point in writing.</div></div></div>
+    <div class="leg">🚗 12 km · 25–30 min along the coast road</div>
+    <div class="stop"><div class="when">11:00 AM</div><div class="what"><span class="name">Pointe de la Parata and the Genoese tower</span><a class="dir" href="https://www.train-corse.com/en/hikes/the-parata-peninsula-and-tower" target="_blank" rel="noopener">ℹ︎ The loop</a><span class="tag t-hike">easy</span><div class="note">The tip of the gulf: the Tour de la Parata on its granite spur with the red-rock Sanguinaires and their lighthouse strung out beyond. The loop is about 4 km and 1¾ hours with 180 m of climbing and some rocky steps; out to the foot of the tower and back is 45 minutes. No shade and almost always windy: grippy shoes, a windbreaker, hats and water.</div></div></div>
+    <div class="leg">🚗 2.5 km · 5 min back along the road</div>
+    <div class="stop"><div class="when">1:00 PM</div><div class="what"><span class="name">Lunch at La Dolce Vita, facing the islands</span><a class="dir" href="https://maps.apple.com/?daddr=H%C3%B4tel%20Dolce%20Vita%2C%20Route%20des%20%C3%8Eles%20Sanguinaires%2C%20Ajaccio&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="http://www.hotel-dolcevita.com/fr/restaurant" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="tel:+33495524242">📞 +33 4 95 52 42 42</a><span class="tag t-todo">to book</span><div class="note">A hotel terrace right over the water with the best lunch view on the road; the glass-roofed room is the fallback in wind. Order the day's catch or the fish trilogy with an AOC Ajaccio rosé. Ask them to confirm Monday lunch when you book; Le Palm Beach on Marinella beach is open Mondays as a backup.</div></div></div>
+    <div class="leg">🚗 11 km · 20–25 min back into town</div>
+    <div class="stop"><div class="when">3:30 PM</div><div class="what"><span class="name">Coffee at the Grand Café Napoléon</span><a class="dir" href="https://maps.apple.com/?daddr=Grand%20Caf%C3%A9%20Napol%C3%A9on%2C%2010%20Cours%20Napol%C3%A9on%2C%20Ajaccio&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-opt">optional</span><div class="note">An Ajaccio institution since 1830. An espresso on the terrace, then Rue Fesch for Corsican charcuterie, chestnut biscuits or myrtle liqueur.</div></div></div>
+    <div class="stop"><div class="when">4:30 PM</div><div class="what"><span class="name">Walk back; aboard by 5:00</span><span class="tag t-ship">sails 6:00</span><div class="note">Ten minutes down past Place Foch to the berth (on a tender day, be in the queue by 4:15). Watch the sailaway from the aft decks: the citadel, the Parata headland and the Sanguinaires light slide by.</div></div></div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Dinner at Pink Agave</span><span class="tag t-eat">book Jan 8</span><div class="note">Upscale Mexican through a lit tunnel on Deck 5: guacamole, roasted corn, the duck or the enchiladas, and the biggest tequila and mezcal list at sea.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-11" data-tz="Europe/Rome">Tue &middot; May 11</span><span class="title">Rome in One Unhurried Sweep</span><span class="lodge">Rome (Civitavecchia) · 7 AM – 8 PM</span></div>
+    <div class="wxday" data-date="2027-05-11" data-lat="41.9028" data-lon="12.4964">☀️ <b>May normal</b> · 73°F · low 55°F · 20% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 5:55 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:19 PM — aboard by 7:00</div>
+    <div class="fixed">Rome is 80 km from the pier, so a private car and guide make the day. The Vatican side comes first, because it's the first part of the city you reach: the Museums, the Sistine Chapel and St. Peter's. Then a short walk past Navona and the Pantheon, a long Roman lunch, Trevi and the Spanish Steps, where the driver collects you at 4:15. Back aboard around 6.</div>
+    <div class="stop"><div class="when">7:30 AM</div><div class="what"><span class="name">Off the ship; your driver waits on the pier</span><a class="dir" href="https://www.romecabs.com/shoreexcursions/shore-excursions-tours-from-civitavecchia/" target="_blank" rel="noopener">ℹ︎ Rome Cabs</a><span class="tag t-relax">driver + guide to book</span><div class="note">Drivers wait beside the ship in the private-driver area with a name sign, so skip the port shuttles. Ask Rome Cabs for a custom day with a licensed guide added. Carry only a small cross-body bag, ID and a scarf: the Vatican checks rucksacks, and you can't collect them if you leave through St. Peter's.</div></div></div>
+    <div class="leg">🚗 ~80 km · 75–95 min on the A12 to Viale Vaticano</div>
+    <div class="stop"><div class="when">9:30 AM</div><div class="what"><span class="name">Vatican Museums and the Sistine Chapel, with your guide</span><a class="dir" href="https://maps.apple.com/?daddr=Musei%20Vaticani%2C%20Viale%20Vaticano%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://tickets.museivaticani.va/home" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">The Museums' 2027 calendar shows Tuesday, May 11 as a normal day (8 AM–8 PM). Book the 9:30 timed ticket on the official portal, or let the guide. About 2½ hours: the Laocoön, the Gallery of Maps, the Raphael Rooms, then the Sistine Chapel, where photos are forbidden. Shoulders and knees covered, no hats.</div></div></div>
+    <div class="leg">🚶 The guided-group staircase from the Sistine Chapel into St. Peter's, if open that day</div>
+    <div class="stop"><div class="when">12:00 PM</div><div class="what"><span class="name">St. Peter's Basilica</span><a class="dir" href="https://maps.apple.com/?daddr=Basilica%20di%20San%20Pietro%2C%20Vatican%20City&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">About 40 minutes: Michelangelo's Pietà in the first chapel on the right, Bernini's bronze baldacchino and the Chair of St. Peter. If the staircase is closed, use the square entrance. Skip the dome; it's 320 steps even with the lift.</div></div></div>
+    <div class="leg">🚗 3.5 km · 15–20 min across the Tiber to Corso del Rinascimento</div>
+    <div class="stop"><div class="when">1:00 PM</div><div class="what"><span class="name">Piazza Navona</span><a class="dir" href="https://maps.apple.com/?daddr=Piazza%20Navona%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">Ten minutes in Rome's grandest Baroque square: Bernini's Four Rivers fountain facing Borromini's Sant'Agnese.</div></div></div>
+    <div class="leg">🚶 350 m · 5 min</div>
+    <div class="stop"><div class="when">1:15 PM</div><div class="what"><span class="name">The Pantheon</span><a class="dir" href="https://maps.apple.com/?daddr=Pantheon%2C%20Piazza%20della%20Rotonda%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.pantheonroma.com/visit-the-pantheon/" target="_blank" rel="noopener">ℹ︎ Pantheon</a><span class="tag t-see">€5 each</span><div class="note">Twenty-five minutes under the oculus, at Raphael's tomb and those of Italy's first kings. Pay at the door or ahead online.</div></div></div>
+    <div class="leg">🚶 1 min to Salita de' Crescenzi</div>
+    <div class="stop"><div class="when">1:45 PM</div><div class="what"><span class="name">Lunch at Armando al Pantheon</span><a class="dir" href="https://maps.apple.com/?daddr=Armando%20al%20Pantheon%2C%20Salita%20de'%20Crescenzi%2031%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.armandoalpantheon.it/prenota/" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-todo">to book</span><div class="note">The family trattoria a few steps from the Pantheon's piazza. A pasta each (cacio e pepe, amatriciana or gricia), carciofi alla romana if artichokes are still in season, abbacchio to share, and the house wine by the carafe. Tables are held only 15 minutes.</div></div></div>
+    <div class="leg">🚶 900 m · 12–15 min via Piazza di Pietra</div>
+    <div class="stop"><div class="when">3:10 PM</div><div class="what"><span class="name">Trevi Fountain</span><a class="dir" href="https://maps.apple.com/?daddr=Fontana%20di%20Trevi%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://fontanaditrevi.roma.it/en" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-see">€2 each</span><div class="note">Since February 2026 the area by the basin is ticketed (€2, card at the gate); the square above is free. Coin with the right hand over the left shoulder.</div></div></div>
+    <div class="leg">🚶 750 m · 12 min, then the 135 steps</div>
+    <div class="stop"><div class="when">3:45 PM</div><div class="what"><span class="name">Up the Spanish Steps; the driver at Trinità dei Monti, 4:15</span><a class="dir" href="https://maps.apple.com/?daddr=Piazza%20della%20Trinit%C3%A0%20dei%20Monti%2C%20Rome&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.hotelhasslerroma.com/en/restaurants-bars/7th-floor-terrace/" target="_blank" rel="noopener">☕ Hassler terrace</a><span class="tag t-see">pickup 4:15</span><div class="note">No sitting on the steps: that draws a fine. With 20 minutes in hand, have an espresso on the Hotel Hassler's 7th-floor terrace. Leave by 4:15, and no later than 4:30.</div></div></div>
+    <div class="leg">🚗 ~85 km · 90–120 min back to the pier in afternoon traffic</div>
+    <div class="stop"><div class="when">6:00 PM</div><div class="what"><span class="name">Back aboard</span><span class="tag t-ship">sails 8:00</span><div class="note">An hour before the assumed 7:00 all-aboard (Virgin posts it at the gangway and in the app). Then a drink on deck as the coast of Lazio fades, and a late, easy dinner at Lucky Lotus at 8:45: walnut prawns, Peking duck bao, Szechuan noodles.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-12" data-tz="Europe/Rome">Wed &middot; May 12</span><span class="title">The Path of the Gods</span><span class="lodge">Amalfi Coast (Salerno) · 8 AM – 7 PM</span></div>
+    <div class="wxday" data-date="2027-05-12" data-lat="40.6281" data-lon="14.485">☀️ <b>May normal</b> · 72°F · low 58°F · 20% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 5:49 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:09 PM — aboard by 6:00</div>
+    <div class="fixed">A private driver takes you up to Bomerano for the Path of the Gods, the most famous walk in Italy: about three hours, mostly level or downhill, high above Positano. He collects you in Nocelle and drops you at Il San Pietro for a long seaside lunch at Carlino, then drives you back along the coast. If the forecast or your legs say otherwise, a private boat or a Ravello garden day swaps in.</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Meet your driver at the Salerno terminal</span><a class="dir" href="https://bluekeys.it/services/private-transfer/salerno/agerola" target="_blank" rel="noopener">ℹ︎ BlueKeys</a><span class="tag t-relax">driver to book</span><div class="note">Ships dock at Zaha Hadid's Stazione Marittima; the driver waits in the forecourt with a name sign. Royal Caribbean's Brilliance of the Seas is in too, so expect buses on the coast. Pack trail shoes, 1½ L of water each, sunscreen and a smart-casual change for lunch.</div></div></div>
+    <div class="leg">🚗 ~54 km · about 1 hour on the A3 and the mountain road via Gragnano to Agerola</div>
+    <div class="stop"><div class="when">9:35 AM</div><div class="what"><span class="name">Bomerano: espresso and the trailhead</span><a class="dir" href="https://maps.apple.com/?daddr=Piazza%20Paolo%20Capasso%2C%20Bomerano%2C%20Agerola&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.travelmar.it/en/how-to-reach-path-of-gods" target="_blank" rel="noopener">ℹ︎ Trail access</a><span class="tag t-hike">trailhead</span><div class="note">At about 650 m it's noticeably cooler than the coast. The bars on Piazza Paolo Capasso have a cornetto, an espresso and the last proper restroom before Nocelle. The CAI 327 signs start at the piazza's southwest corner; it's 15 minutes along Via Sentiero degli Dei to the trail.</div></div></div>
+    <div class="stop"><div class="when">9:50 AM</div><div class="what"><span class="name">The Path of the Gods, Bomerano to Nocelle</span><span class="tag t-hike">2½–3 hrs</span><div class="note">About 6–8 km with roughly 200 m up and 400 m down, uneven stone but nothing technical. Two kilometers in, at Colle Serra, take the lower branch for the big views over Praiano to Li Galli and Capri; the upper one has fewer drop-offs. No toilets, and carry all your water. Starting before 10 keeps you ahead of the ship groups.</div></div></div>
+    <div class="stop"><div class="when">12:35 PM</div><div class="what"><span class="name">Nocelle: lemon granita, then the car</span><a class="dir" href="https://maps.apple.com/?daddr=Nocelle%2C%20Positano&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-eat">granita</span><div class="note">The kiosk at the trail's end does lemon granita with the whole coast below. WhatsApp the driver, then walk 5–10 minutes through the village to the road end. The car spares you the 1,500-odd steps down to the coast.</div></div></div>
+    <div class="leg">🚗 ~8 km · 20–30 min down through Positano to Via Laurito</div>
+    <div class="stop"><div class="when">1:15 PM</div><div class="what"><span class="name">Lunch at Carlino, Il San Pietro di Positano</span><a class="dir" href="https://maps.apple.com/?daddr=Il%20San%20Pietro%20di%20Positano%2C%20Via%20Laurito%202%2C%20Positano&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://ilsanpietro.prenota-web.it/prenotazioni/singlepage.asp?iframe=1&amp;lang=en&amp;ristorante=carlino" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="https://www.ilsanpietro.com/restaurants-bars/carlino/" target="_blank" rel="noopener">ℹ︎ Carlino</a><span class="tag t-todo">to book</span><div class="note">The cliffside hotel east of Positano. A lift through the rock takes you down to Carlino at the water's edge. The hotel takes only a few outside guests, so book. Handmade pasta with lemon or with tomatoes from the hotel's own terraces, the morning's catch grilled, a citrus dessert. Smart casual.</div></div></div>
+    <div class="leg">🚗 ~40 km · 1¼–1¾ hrs on the SS163 coast road (leave by 3:15; the inland A3 if Amalfi town is jammed)</div>
+    <div class="stop"><div class="when">4:45 PM</div><div class="what"><span class="name">Back aboard</span><span class="tag t-ship">sails 7:00</span><div class="note">An hour's margin before the assumed 6:00 all-aboard. Sit on the right on the way back for the sea. Tonight: Gunbae at 8, Korean barbecue grilled at the table on Deck 15. It's a party, so allow two hours.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-13" data-tz="Europe/Rome">Thu &middot; May 13</span><span class="title">Fire &amp; Stone: Etna to Taormina</span><span class="lodge">Catania, Sicily · 9 AM – 8:30 PM</span></div>
+    <div class="wxday" data-date="2027-05-13" data-lat="37.5079" data-lon="15.083">☀️ <b>May normal</b> · 74°F · low 59°F · 18% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 5:53 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:00 PM — aboard by 7:30</div>
+    <div class="fixed">Etna's summit craters in the cool of the morning, a late terrace lunch in Taormina looking back at the volcano, then the Greek theatre in the late light. One private driver handles the whole day, and a 5:45 pickup has you aboard around 7. Scarlet Night most often falls tonight, the last night before a sea day.</div>
+    <div class="stop"><div class="when">9:30 AM</div><div class="what"><span class="name">Private driver at the pier</span><span class="tag t-relax">driver to book</span><div class="note">A licensed NCC driver with a V-Class or E-Class from 9:30 to about 7, waiting at the terminal gate. The car carries your warm layers and a change for lunch all day. Ask for a drop at the San Domenico Palace and a firm 5:45 pickup on Via Pirandello.</div></div></div>
+    <div class="leg">🚗 35 km · about an hour up through Nicolosi to Rifugio Sapienza (1,900 m)</div>
+    <div class="stop"><div class="when">10:30 AM</div><div class="what"><span class="name">Etna: cable car, 4x4 and a guided crater walk (Tour 3000)</span><a class="dir" href="https://maps.apple.com/?daddr=Funivia%20dell'Etna%2C%20Rifugio%20Sapienza%2C%20Nicolosi&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.funiviaetna.com/3000m/" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-todo">to book</span><div class="note">The cable car to 2,500 m, 4x4 buses toward 3,000 m, then a volcanological guide on an easy 45-minute walk among the summit-area craters. About 2½ hours and €82 each; online tickets include Fast Track. Windbreakers and boots rent at the top station. It's about 30°F colder up there and often windy. No refunds for weather or volcanic closures.</div></div></div>
+    <div class="stop"><div class="when">1:15 PM</div><div class="what"><span class="name">The Silvestri craters (if you're down by 12:45)</span><a class="dir" href="https://maps.apple.com/?daddr=Crateri%20Silvestri%2C%20Nicolosi&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-opt">optional</span><div class="note">The 1892 cones right across the road, an easy 30-minute loop for €5 each. Skip them if the summit tour runs long: lunch matters more. If the upper zone is closed, they become the main Etna stop.</div></div></div>
+    <div class="leg">🚗 55 km · 75–85 min via Zafferana and the A18 to Taormina</div>
+    <div class="stop"><div class="when">3:00 PM</div><div class="what"><span class="name">Lunch on the Rosso terrace, San Domenico Palace</span><a class="dir" href="https://maps.apple.com/?daddr=San%20Domenico%20Palace%2C%20Piazza%20San%20Domenico%205%2C%20Taormina&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.fourseasons.com/taormina/dining/restaurants/rosso/" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="tel:+390942613254">📞 +39 0942 613254</a><span class="tag t-todo">to book</span><div class="note">A former Dominican convent, now a Four Seasons, whose terrace looks across the bay to Etna: lunch facing the mountain you were on that morning. Octopus or vitello tonnato, then the carnaroli with wild fennel, prawns and Bronte pistachio or the grilled sea bass, with an Etna Bianco. Change in the car first. Call to move to 3:30 if Etna runs long.</div></div></div>
+    <div class="leg">🚶 0.3 km · 5–8 min up to Piazza Duomo</div>
+    <div class="stop"><div class="when">4:15 PM</div><div class="what"><span class="name">Corso Umberto and Piazza IX Aprile</span><a class="dir" href="https://maps.apple.com/?daddr=Piazza%20IX%20Aprile%2C%20Taormina&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">The pedestrian main street, quieter once the midday groups leave, to the open terrace that frames Etna and the coast. An espresso on the piazza is plenty.</div></div></div>
+    <div class="leg">🚶 0.5 km · 8 min along Via del Teatro Greco</div>
+    <div class="stop"><div class="when">4:45 PM</div><div class="what"><span class="name">Teatro Antico di Taormina</span><a class="dir" href="https://maps.apple.com/?daddr=Teatro%20Antico%20di%20Taormina%2C%20Via%20del%20Teatro%20Greco%2040%2C%20Taormina&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://aditusculture.com/esperienze/taormina/musei-parchi-archeologici/teatro-antico-di-taormina" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-see">€14 each</span><div class="note">Sicily's most famous view: climb to the upper rows and walk the rim until Etna lines up in the gap of the ruined stage wall, with the bay of Naxos below. About 45 minutes. Re-check the May hours, which are set month by month.</div></div></div>
+    <div class="leg">🚶 0.4 km · 6–8 min down to Via Pirandello</div>
+    <div class="stop"><div class="when">5:45 PM</div><div class="what"><span class="name">Isola Bella from above; the driver on Via Pirandello</span><a class="dir" href="https://maps.apple.com/?daddr=Via%20Luigi%20Pirandello%2C%20Taormina&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">pickup</span><div class="note">The belvedere looks down on Isola Bella and its sandbar. Cameras guard the old-town traffic zone, so the driver meets you outside it near Porta Messina.</div></div></div>
+    <div class="leg">🚗 54 km · 50–70 min on the A18 back to the pier</div>
+    <div class="stop"><div class="when">7:00 PM</div><div class="what"><span class="name">Back aboard; sailaway with Etna behind</span><span class="tag t-ship">sails 8:30</span><div class="note">A flexible night: if it's Scarlet Night (wear red), The Galley or The Pizza Place before the 9 PM opening; otherwise rebook a favorite.</div></div></div>
+  </div>
+
+  <div class="day sea">
+    <div class="dayhead"><span class="date" data-day="2027-05-14" data-tz="Europe/Rome">Fri &middot; May 14</span><span class="title">The Slow Day Before Mykonos</span><span class="lodge">Scarlet Lady</span></div>
+    <div class="wxday" data-date="2027-05-14" data-lat="36.7" data-lon="21">☀️ <b>May normal</b> · 73°F · low 62°F · 8% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 5:31 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 7:39 PM — at sea</div>
+    <div class="fixed">A recovery day between Sicily and the Aegean: sleep in, brunch at The Wake, the Rooftop in the sun, a second spa session, and The Test Kitchen. Bed at a sensible hour, because the clocks probably go forward to Greek time tonight and Mykonos arrives at 8.</div>
+    <div class="stop"><div class="when">9:30 AM</div><div class="what"><span class="name">Brunch at The Wake</span><a class="dir" href="https://vvinsider.com/on-board/venue/the-wake/" target="_blank" rel="noopener">ℹ︎ The Wake</a><span class="tag t-eat">book Jan 8</span><div class="note">With the sea running out behind the stern windows; the menu adds hanger steak and filet from noon. One of the most-booked brunches on board.</div></div></div>
+    <div class="stop"><div class="when">11:00 AM</div><div class="what"><span class="name">Richard's Rooftop</span><span class="tag t-relax">suites only</span><div class="note">Ask for a shaded daybed: the mid-May sun is strong. From noon the RockStar menus come to your lounger if you want something after brunch.</div></div></div>
+    <div class="stop"><div class="when">2:00 PM</div><div class="what"><span class="name">A second Thermal Suite session</span><span class="tag t-spa">book aboard</span><div class="note">Or, for Elissa, the 75-minute Quartz Bed massage ($299) on a heated quartz bed, a Virgin signature that can be pre-booked from 135 days out.</div></div></div>
+    <div class="stop"><div class="when">5:30 PM</div><div class="what"><span class="name">Sunset Happy Hour, then lay out tomorrow</span><span class="tag t-relax">Rooftop</span><div class="note">Hats, walking sandals and some euros for Mykonos. Check the daily planner for the clock change.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">Dinner at The Test Kitchen</span><a class="dir" href="https://vvinsider.com/on-board/venue/the-test-kitchen/" target="_blank" rel="noopener">ℹ︎ The Test Kitchen</a><span class="tag t-eat">book Jan 8</span><div class="note">A fixed tasting menu of about five courses in a lab-like room on Deck 6. Three menus rotate (beef or venison, rack of lamb, or the "Study of Chicken"), so ask the host which runs tonight. Add the drinks pairing; allow 1½–2 hours.</div></div></div>
+  </div>
+
+  <div class="day port">
+    <div class="dayhead"><span class="date" data-day="2027-05-15" data-tz="Europe/Athens">Sat &middot; May 15</span><span class="title">Apollo's Island &amp; a Psarou Lunch</span><span class="lodge">Mykonos · 8 AM – 8:30 PM</span></div>
+    <div class="wxday" data-date="2027-05-15" data-lat="37.4467" data-lon="25.3289">☀️ <b>May normal</b> · 73°F · low 61°F · 8% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:11 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:21 PM — aboard by 7:00</div>
+    <div class="fixed">Delos on the 10 o'clock boat, while the site is cool and quiet. Then a long lunch on sheltered Psarou, and back into Chora when the light turns gold. A driver on standby all afternoon means no taxi lines on a three-ship day. Aboard by 7 for an 8:21 sunset under way.</div>
+    <div class="stop"><div class="when">8:45 AM</div><div class="what"><span class="name">Into town: the Sea Bus or a tender</span><a class="dir" href="https://www.mykonos-seabus.gr/" target="_blank" rel="noopener">🎟 Sea Bus</a><span class="tag t-relax">€2 each</span><div class="note">If the ship docks at Tourlos, the Sea Bus has its own cruise-dock stop: 8–12 minutes to the Old Port for €2, every 15–30 minutes. If it anchors, tenders land at the Old Port. Two other ships arrive an hour earlier, so a tender is possible; get in line early, and ask your RockStar Agent about priority.</div></div></div>
+    <div class="stop"><div class="when">9:00 AM</div><div class="what"><span class="name">Paraportiani and Little Venice, before the crowds</span><a class="dir" href="https://maps.apple.com/?daddr=Panagia%20Paraportiani%2C%20Mykonos&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">Five whitewashed chapels fused into one sculpture at the tip of the Kastro quarter, then the balconies of Little Venice over the water, calm and shaded in the morning. The marble lanes are polished slick, so wear flat shoes with grip. Be at the Delos kiosk by 9:40.</div></div></div>
+    <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">The boat to Delos</span><a class="dir" href="https://maps.apple.com/?daddr=Delos%20Tours%2C%20Old%20Port%2C%20Mykonos&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.delostours.gr/en/tours-and-itineraries.html" target="_blank" rel="noopener">ℹ︎ Timetable</a><span class="tag t-see">€25 each</span><div class="note">From the Old Port pier across from the Town Hall: 10:00 out, 13:30 back (the 2026 timetable), about 30 minutes each way; sit on the upper deck. A strong meltemi can cancel the boats, and then the plan becomes the Archaeological Museum in town.</div></div></div>
+    <div class="stop"><div class="when">10:30 AM</div><div class="what"><span class="name">Ancient Delos with a private licensed guide</span><a class="dir" href="https://cyclades.culture.gov.gr/en/hours-prices/" target="_blank" rel="noopener">ℹ︎ Hours</a><a class="dir" href="https://www.delostours.gr/en/contact-information.html" target="_blank" rel="noopener">✉︎ Request a guide</a><span class="tag t-todo">to book</span><div class="note">Apollo's birthplace and the most complete ancient town in the Aegean: the Sacred Way, the Terrace of the Lions, the mosaics in the House of Dionysus and the House of the Dolphins. The walk of the day is Mount Kynthos, 20 minutes up stone steps for the whole Cyclades. Almost no shade: hats, sunscreen, water, sneakers.</div></div></div>
+    <div class="stop"><div class="when">1:30 PM</div><div class="what"><span class="name">Back to Mykonos; your driver at the Old Port</span><span class="tag t-relax">driver to book</span><div class="note">The boats leave on time, so be at the jetty 10 minutes early. The driver waits at the Town Hall end of the pier from about 2:00.</div></div></div>
+    <div class="leg">🚗 about 15 min · 4 km to Psarou</div>
+    <div class="stop"><div class="when">2:30 PM</div><div class="what"><span class="name">Lunch at Nammos, Psarou Beach</span><a class="dir" href="https://maps.apple.com/?daddr=Nammos%2C%20Psarou%20Beach%2C%20Mykonos&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.nammos.com/mykonos/contact" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="tel:+302289022440">📞 +30 22890 22440</a><span class="tag t-todo">to book</span><div class="note">A small south-facing cove, sheltered from the north wind. Ask for a front-row table at the edge of the sand. The day's fish from local boats, simply grilled, with sashimi or maki to start. Resort chic: linen and sandals. Leave by 4:45.</div></div></div>
+    <div class="leg">🚗 15–20 min to the road behind the windmills</div>
+    <div class="stop"><div class="when">5:00 PM</div><div class="what"><span class="name">Kato Mili, the windmills</span><a class="dir" href="https://maps.apple.com/?daddr=Kato%20Mili%20Windmills%2C%20Mykonos&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">The row of mills looks across the bay at Little Venice: the classic photograph, best in this light. Fifteen minutes, then downhill into town.</div></div></div>
+    <div class="leg">🚶 5 min into Little Venice</div>
+    <div class="stop"><div class="when">5:15 PM</div><div class="what"><span class="name">Matoyianni, and a drink over the water</span><a class="dir" href="https://maps.apple.com/?daddr=Matoyianni%20Street%2C%20Mykonos&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-opt">optional</span><div class="note">Boutiques, jewelers and galleries on the main lane, then a balcony drink right over the waves in Little Venice. Leave by 6:30.</div></div></div>
+    <div class="leg">🚗 10–15 min to the berth (or the Sea Bus, or a 5-minute walk to the tender pier)</div>
+    <div class="stop"><div class="when">8:20 PM</div><div class="what"><span class="name">Sunset sailaway, then the farewell dinner</span><span class="tag t-ship">sails 8:30</span><div class="note">From Richard's Rooftop as Chora and the windmills turn pink behind you. Dinner at The Wake at 9. Tonight: choose self-carry and the earliest Athens disembarkation group in the app, and have breakfast booked for 6:30.</div></div></div>
+  </div>
+
+  <div class="day city">
+    <div class="dayhead"><span class="date" data-day="2027-05-16" data-tz="Europe/Athens">Sun &middot; May 16</span><span class="title">Off the Ship, Into the Old City</span><span class="lodge">→ Hotel Grande Bretagne</span></div>
+    <div class="wxday" data-date="2027-05-16" data-lat="37.9755" data-lon="23.7348">☀️ <b>May normal</b> · 79°F · low 63°F · 12% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:15 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:29 PM</div>
+    <div class="fixed">Off the ship early and at the hotel by about 8:30, then a slow first day. The Acropolis waits for tomorrow's 8 AM opening, when only two small ships are in Piraeus. Sunday is the day for the full-dress Changing of the Guard and for the Acropolis Museum, which stays open until 8 tonight but closes at 5 on Mondays.</div>
+    <div class="stop"><div class="when">6:30 AM</div><div class="what"><span class="name">Docked in Piraeus: breakfast, then walk off with your own bags</span><a class="dir" href="https://www.virginvoyages.com/faq/back-on-dry-land/disembarkation" target="_blank" rel="noopener">ℹ︎ Disembarkation</a><span class="tag t-ship">self-carry</span><div class="note">Allow up to an hour for the gangway to open. The early self-carry walk-off usually runs 7:30–8:30. Four ships turn around this morning, so the taxi lines will be long: have the driver waiting, and send him the terminal letter (usually B or C) from Virgin's pre-sailing email.</div></div></div>
+    <div class="leg">🚗 12–13 km · 30–40 min by pre-booked Mercedes via Syngrou Avenue</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">Hotel Grande Bretagne: drop bags, coffee</span><a class="dir" href="https://maps.apple.com/?daddr=Hotel%20Grande%20Bretagne%2C%20Syntagma%20Square%2C%20Athens&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.gbroofgarden.gr/" target="_blank" rel="noopener">ℹ︎ GB Roof Garden</a><span class="tag t-relax">hotel to book</span><div class="note">The 1874 grande dame on Syntagma Square, facing the Parliament. It's a Fine Hotels + Resorts booking: breakfast for two, noon check-in and an upgrade when available, 4 PM checkout. Ask in writing ahead for an early room and an Acropolis view, which is the point of staying here. If the room isn't ready, the concierge holds the bags.</div></div></div>
+    <div class="stop"><div class="when">10:45 AM</div><div class="what"><span class="name">The Sunday Changing of the Guard (11:00)</span><a class="dir" href="https://maps.apple.com/?daddr=Tomb%20of%20the%20Unknown%20Soldier%2C%20Syntagma%20Square%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">free</span><div class="note">Every hour the Evzones change guard at the Tomb of the Unknown Soldier, but Sunday at 11 is the full ceremony: a whole company in the black-and-white dress uniform and the 400-pleat kilt, marching in with a band. Be in place by 10:40 on the Syntagma side for the front row.</div></div></div>
+    <div class="leg">🚶 15 min via Amalias Avenue into Plaka</div>
+    <div class="stop"><div class="when">11:30 AM</div><div class="what"><span class="name">Plaka and Anafiotika</span><a class="dir" href="https://maps.apple.com/?daddr=Anafiotika%2C%20Stratonos%20Street%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-hike">stepped lanes</span><div class="note">Kydathineon and Adrianou through Plaka, then the stepped lanes off Stratonos into Anafiotika, a pocket of whitewashed island houses under the north face of the Acropolis, built by stonemasons from Anafi. 45–60 minutes; rubber soles.</div></div></div>
+    <div class="leg">🚶 10–15 min down to Dionysiou Areopagitou</div>
+    <div class="stop"><div class="when">1:00 PM</div><div class="what"><span class="name">The Acropolis Museum: terrace lunch, then the Parthenon Gallery</span><a class="dir" href="https://maps.apple.com/?daddr=Acropolis%20Museum%2C%20Dionysiou%20Areopagitou%2015%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://etickets.theacropolismuseum.gr/?culture=en" target="_blank" rel="noopener">🎟 Tickets</a><span class="tag t-see">€20 each</span><div class="note">Lunch first in the second-floor restaurant, which looks straight at the rock. Then the glass floor over the excavation, the Archaic Gallery and the Caryatids, and the top-floor Parthenon Gallery, aligned with the temple, with the frieze shown in sequence. About 2½ hours in all.</div></div></div>
+    <div class="leg">🚶 20 min along the pedestrian promenade to Thissio</div>
+    <div class="stop"><div class="when">4:00 PM</div><div class="what"><span class="name">A hammam afternoon (or a proper nap)</span><a class="dir" href="https://maps.apple.com/?daddr=Hammam%20Bathing%20House%2C%20Agion%20Asomaton%2017%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://hammam.gr/en/services-athens/booking/" target="_blank" rel="noopener">🍽 Reserve</a><span class="tag t-spa">optional</span><div class="note">The GB Spa's site says it's closed for renovation, so ask when you book the hotel. If it's still closed, Hammam Bathing House in Thissio does a marble-hammam session with a scrub and massage. If the room was ready early, sleep instead; the ship morning started at 6.</div></div></div>
+    <div class="leg">🚕 10 min back to Syntagma by 6:15</div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Dinner on the GB Roof Garden</span><a class="dir" href="https://www.sevenrooms.com/reservations/gbroofgardenrestaurantathlc" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="https://www.gbroofgarden.gr/our-menus" target="_blank" rel="noopener">ℹ︎ Menus</a><span class="tag t-todo">to book</span><div class="note">Athens' classic rooftop, eight floors above Syntagma, with the Acropolis and Lycabettus in view. Sunset is 8:29, so an 8:00 table catches the light changing on the Parthenon; ask for the front row on the Acropolis side. Sea bass tartare, then the Dover sole or charcoal-grilled sea bass, with a Santorini Assyrtiko. An elevator ride from your room.</div></div></div>
+  </div>
+
+  <div class="day city">
+    <div class="dayhead"><span class="date" data-day="2027-05-17" data-tz="Europe/Athens">Mon &middot; May 17</span><span class="title">The Parthenon at Opening, Lycabettus at Dusk</span><span class="lodge">Hotel Grande Bretagne</span></div>
+    <div class="wxday" data-date="2027-05-17" data-lat="37.9755" data-lon="23.7348">☀️ <b>May normal</b> · 79°F · low 63°F · 12% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:14 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:30 PM — Spondi night</div>
+    <div class="fixed">The big day, built around heat and crowds: the Acropolis at 8 with a private guide and the Agora while it's still cool, a long break through the midday heat, then the marble Stadium, Lycabettus at sunset and a 9:15 dinner at Spondi, an ordinary Athenian hour.</div>
+    <div class="stop"><div class="when">6:45 AM</div><div class="what"><span class="name">Early breakfast on the Roof Garden</span><span class="tag t-relax">included</span><div class="note">Forty minutes looking across at the rock you'll be standing on in an hour. Drink water: no food or drink is allowed on the Acropolis, and there's little shade.</div></div></div>
+    <div class="leg">🚗 8 min to the foot of the path, then 10 minutes up to the main gate</div>
+    <div class="stop"><div class="when">7:40 AM</div><div class="what"><span class="name">The Acropolis at opening, with a private licensed guide</span><a class="dir" href="https://maps.apple.com/?daddr=Acropolis%20of%20Athens%2C%20main%20entrance%2C%20Dionysiou%20Areopagitou%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://tickets.hh.gr/en" target="_blank" rel="noopener">🎟 Tickets</a><a class="dir" href="https://www.tourist-guides.gr/en/" target="_blank" rel="noopener">ℹ︎ Guides</a><span class="tag t-todo">to book</span><div class="note">Meet the guide at the main west entrance for the 8:00 slot (€30 each), ahead of the coach groups that fill the Propylaea stairs from about 9. The Propylaea, Athena Nike, the Parthenon, the Erechtheion and its Caryatid porch, the flag belvedere. About two hours. The marble is polished slick; rubber soles, hats and water.</div></div></div>
+    <div class="leg">🚶 10–15 min down Apostolou Pavlou to the Thiseio gate</div>
+    <div class="stop"><div class="when">10:30 AM</div><div class="what"><span class="name">The Ancient Agora and the Temple of Hephaestus</span><a class="dir" href="https://maps.apple.com/?daddr=Ancient%20Agora%20of%20Athens%2C%20Thiseio%20entrance%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-see">€20 each</span><div class="note">The best-preserved Doric temple in Greece, the Panathenaic Way where Socrates argued, and the finds in the rebuilt Stoa of Attalos. While the Adrianou gate is rebuilt, enter at Thiseio Square. 60–75 minutes; the guide finishes around 11:45.</div></div></div>
+    <div class="leg">🚕 10 min back to Syntagma</div>
+    <div class="stop"><div class="when">12:15 PM</div><div class="what"><span class="name">A long lunch, then the midday break</span><a class="dir" href="https://maps.apple.com/?daddr=King%20George%20Hotel%2C%20Syntagma%20Square%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">rest</span><div class="note">George, The Lobby Bar at the King George next door, or lunch on the GB Roof Garden (1–5 PM). Then rest until 5: Athens lives late.</div></div></div>
+    <div class="leg">🚶 15 min through the National Garden</div>
+    <div class="stop"><div class="when">5:45 PM</div><div class="what"><span class="name">The Panathenaic Stadium</span><a class="dir" href="https://maps.apple.com/?daddr=Panathenaic%20Stadium%2C%20Vasileos%20Konstantinou%2C%20Athens&amp;dirflg=w" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.panathenaicstadium.gr/en/visit/" target="_blank" rel="noopener">ℹ︎ Visit</a><span class="tag t-see">€12 each</span><div class="note">The all-marble stadium of the first modern Olympics in 1896, in soft light with few people. Walk the track, sit in the marble front row and see the Olympic torches in the tunnel.</div></div></div>
+    <div class="leg">🚗 10–15 min up the ring road to the Lycabettus car park</div>
+    <div class="stop"><div class="when">7:45 PM</div><div class="what"><span class="name">Lycabettus at sunset</span><a class="dir" href="https://maps.apple.com/?daddr=Lycabettus%20Hill%2C%20Athens&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.lycabettushill.com/getting-to-the-top/" target="_blank" rel="noopener">ℹ︎ Getting up</a><span class="tag t-hike">sunset 8:30</span><div class="note">The highest point in central Athens, 277 m: the Acropolis, the whole city and the sea from the chapel of Agios Georgios. The driver leaves you a 5–10 minute flight of steps from the top (or take the funicular from Kolonaki). On the west terrace by 8, with a light layer; leave about 8:50.</div></div></div>
+    <div class="leg">🚗 15–20 min down to Pangrati</div>
+    <div class="stop"><div class="when">9:15 PM</div><div class="what"><span class="name">Dinner at Spondi</span><a class="dir" href="https://maps.apple.com/?daddr=Spondi%2C%20Pyrronos%205%2C%20Athens&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><a class="dir" href="https://www.i-host.gr/reservations/new?restaurant=252&amp;lang=en&amp;channel=website" target="_blank" rel="noopener">🍽 Reserve</a><a class="dir" href="https://www.spondi.gr/en/" target="_blank" rel="noopener">ℹ︎ Spondi</a><span class="tag t-todo">to book</span><div class="note">One Michelin star since 2002: Arnaud Bignon's contemporary French cooking with Greek produce in a Pangrati townhouse with two terraces; ask for one. Take the €150 degustation with the sommelier's Greek pairing. Free changes until 24 hours out. Taxi home is 10 minutes.</div></div></div>
+  </div>
+
+  <div class="day travel">
+    <div class="dayhead"><span class="date" data-day="2027-05-18" data-tz="Europe/Athens">Tue &middot; May 18</span><span class="title">Home</span><span class="lodge">ATH → London → DFW</span></div>
+    <div class="wxday" data-date="2027-05-18" data-lat="37.9364" data-lon="23.9445">☀️ <b>May normal</b> · 79°F · low 63°F · 12% precip · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:14 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 8:31 PM — flight day</div>
+    <div class="fixed">An early start on BA via London, with the Concorde Room at Heathrow before First home, landing at DFW at 5:05 PM the same day. On American via Chicago it's a 7:30 car instead. Ask the hotel for a breakfast box the night before if you take the early flight.</div>
+    <div class="stop"><div class="when">5:15 AM</div><div class="what"><span class="name">Car to the airport</span><span class="tag t-relax">car to book</span><div class="note">Alarm at 4:30, car at the door at 5:15, about 5:55 at the airport, two hours before the flight. Check in online 24 hours ahead. (For American's 11:15, have breakfast on the Roof Garden from 6:30 and leave at 7:30; rush hour makes it 45–55 minutes.)</div></div></div>
+    <div class="leg">🚗 ~33 km · 35–40 min via the Attiki Odos at that hour</div>
+    <div class="stop"><div class="when">7:55 AM</div><div class="what"><span class="name">BA 639 Athens → London Heathrow</span><span class="tag t-flight">flight to book</span><div class="note">Club Europe, landing 10:00 AM London time. At Terminal 5 the connection to BA 193 is about three hours.</div></div></div>
+    <div class="stop"><div class="when">10:00 AM</div><div class="what"><span class="name">The Concorde Room, Heathrow T5</span><span class="tag t-flight">BA First</span><div class="note">BA First passengers departing Terminal 5 get the Concorde Room: à la carte dining, private cabanas, a proper lunch before the flight. (London time.)</div></div></div>
+    <div class="stop"><div class="when">12:55 PM</div><div class="what"><span class="name">BA 193 London → DFW, in First</span><span class="tag t-flight">flight to book</span><div class="note">About 10 hours, landing at DFW at 5:05 PM Central, home for dinner. (London time; Dallas is 6 hours behind.)</div></div></div>
+    <div class="stop"><div class="when">or 11:15 AM</div><div class="what"><span class="name">American 161 Athens → Chicago → DFW, Business</span><span class="tag t-opt">optional</span><div class="note">The 787 nonstop to O'Hare (2:55 PM), then AA 3077 at 4:44, landing at DFW at 7:28 PM. Leave the hotel at 7:30 AM.</div></div></div>
+  </div>
+
+  <div class="day sea">
+    <div class="dayhead"><span class="date">Aboard</span><span class="title">Scarlet Lady, the short guide</span><span class="lodge">RockStar Quarters</span></div>
+    <div class="stop"><div class="when">The suite</div><div class="what"><span class="name">What RockStar Quarters include</span><a class="dir" href="https://www.virginvoyages.com/cabins/suites" target="_blank" rel="noopener">ℹ︎ Suites</a><div class="note">Richard's Rooftop, the suite-only sundeck and bar at the front of Deck 16, with food brought to your lounger from noon to 5 and a daily Sunset Happy Hour. A curated in-suite bar with the first round free. Dining reservations from 120 days out and spa and Shore Things from 135. RockStar Agents before and during the voyage, the VIP entrance and first boarding, messaging-grade Wi-Fi, free Ship Eats delivery, and a priority line for shows. Not included: a bar tab, the Thermal Suite or transfers, which come with Mega RockStar suites.</div></div></div>
+    <div class="stop"><div class="when">Included</div><div class="what"><span class="name">What the fare covers, and what it doesn't</span><div class="note">All 20-plus places to eat, including the six signature restaurants with no cover charges; fitness classes; shows; basic Wi-Fi; water, soda, drip coffee and tea. Extra: alcohol, specialty coffee, the spa, Shore Things, and gratuities ($20 each per night prepaid, $22 on board), which have been a separate charge since October 2025. The ship is cashless and runs in dollars.</div></div></div>
+    <div class="stop"><div class="when">Dining</div><div class="what"><span class="name">Where to eat, night by night</span><div class="note"><b>The Wake</b>, the stern chophouse, for Sunday dinner, Friday brunch and the Saturday farewell. <b>Extra Virgin</b>, the Italian trattoria, on embarkation night. <b>Pink Agave</b>, upscale Mexican, after Ajaccio. <b>Lucky Lotus</b>, Razzle Dazzle's Chinese-inspired evening menu found only on Scarlet Lady, after Rome. <b>Gunbae</b>, table-grilled Korean barbecue, after Amalfi. <b>The Test Kitchen</b>, a five-course tasting menu, on the Friday sea day. <b>The Galley</b> and <b>The Pizza Place</b> need no booking; try the White Truffle &amp; Egg pie.</div></div></div>
+    <div class="stop"><div class="when">Dress</div><div class="what"><span class="name">No formal nights; one red one</span><div class="note">Smart casual everywhere, and The Wake is the dressiest room. Scarlet Night's one rule is to wear red. Its date appears when dining opens on Jan 8, probably Thursday, May 13 (8 PM in The Roundabout, the 9 PM opening, the Manor after-party at midnight).</div></div></div>
+    <div class="stop"><div class="when">Time</div><div class="what"><span class="name">Clocks</span><div class="note">The ship keeps local time: Central European from Barcelona to Sicily (7 hours ahead of Dallas), then Greek time (8 hours ahead), probably from the night of Friday, May 14.</div></div></div>
+  </div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">Getting around</span><span class="title">Ports, drivers and all-aboard</span><span class="lodge">read before each port</span></div>
+    <div class="stop"><div class="when">All aboard</div><div class="what"><span class="name">An hour before sailing</span><div class="note">Virgin's own page sets all-aboard an hour before departure in Barcelona and posts each port's time at the gangway and in the app. Every plan here has you back an hour before that. The ship waits only for its own Shore Things, never for a private driver, so keep the margin.</div></div></div>
+    <div class="stop"><div class="when">Drivers</div><div class="what"><span class="name">Pier pickups</span><div class="note">Every port day uses a private driver who meets you at the terminal with a name sign. Send each one the ship's name and the berth the evening before, and get prices in writing. Italy's licensed hire cars (NCC) may enter the restricted old-town zones where taxis and private cars can't.</div></div></div>
+    <div class="stop"><div class="when">Barcelona</div><div class="what"><span class="name">Taxis and the Moll Adossat</span><div class="note">Black-and-yellow taxis are metered and take cards. There's a €4.60 supplement to or from the cruise pier, and the airport–Moll Adossat fare is a fixed €46. Short hops around the Eixample run €10–15. Pickpockets work Passeig de Gràcia, the Gothic Quarter and the Sagrada Família queues.</div></div></div>
+    <div class="stop"><div class="when">Rome</div><div class="what"><span class="name">Train as a fallback</span><div class="note">Regional FL5 trains run every 30 minutes from Civitavecchia to Roma San Pietro (50–60 minutes, €4.60). On strike days only 6–9 AM and 6–9 PM are guaranteed, which is why the plan uses a car.</div></div></div>
+    <div class="stop"><div class="when">Athens</div><div class="what"><span class="name">Metro, taxis and the airport</span><div class="note">Yellow taxis are plentiful and can be called through Uber or FreeNow. The fixed fare between the center and the airport was set to rise to €50 by day (€65 from midnight to 5 AM). Metro Line 3 runs from Syntagma to the airport in about 40 minutes, but only with carry-ons.</div></div></div>
+    <div class="stop"><div class="when">Money</div><div class="what"><span class="name">Euros everywhere ashore</span><div class="note">Cards work almost everywhere. Carry €50–100 in small notes for kiosks, ferries, tips and the €1.50 restrooms at the Stadium. Tipping is modest: 5–10% at good restaurants and about 10% for a full-day driver.</div></div></div>
+    <div class="stop"><div class="when">Entry</div><div class="what"><span class="name">Passports and the EU's new border system</span><div class="note">Passports must be valid at least three months past May 18. The Entry/Exit System takes fingerprints and a photo on your first entry in Barcelona. Check in January whether ETIAS pre-registration has launched.</div></div></div>
+  </div>
+
+  <div class="bookend">The numbers, with every option — <a class="evt" href="budget.html">see the trip budget →</a></div>
+
+  <footer>Port times and all-aboard rule from Virgin's voyage page (Oct 25, 2026) · suite prices from Virgin's booking flow · flight times from Google Flights' 2027 schedules · hours, prices and booking windows from each venue's official page as of Oct 25, 2026 (re-check the month before) · weather is a May normal until the live 16-day forecast takes over. Directions open in Apple Maps. Times are local · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+/* Live forecast: refreshes each day's weather chip from Open-Meteo (free, no key)
+   every time the page loads. Chips carry their own coordinates (data-lat/data-lon);
+   fetches are grouped per location and include sunrise/sunset in local time. If the
+   service is unreachable or a date is out of the forecast window, the chip keeps
+   the values baked in below. */
+(function () {
+  var codeMap = {
+    0:["☀️","Clear"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],
+    3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],
+    51:["🌦️","Light drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],
+    61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],
+    71:["🌨️","Light snow"],73:["🌨️","Snow"],75:["🌨️","Heavy snow"],
+    80:["🌦️","Showers"],81:["🌦️","Showers"],82:["⛈️","Heavy showers"],
+    85:["🌨️","Snow showers"],86:["🌨️","Snow showers"],
+    95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]
+  };
+  function fmtT(iso){ if(!iso) return ''; var m=iso.match(/T(\d{2}):(\d{2})/); if(!m) return '';
+    var h=+m[1], mm=m[2], ap=h>=12?'PM':'AM'; h=h%12||12; return h+':'+mm+' '+ap; }
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.wxday[data-date]'));
+  if (!chips.length) return;
+  var groups = {};
+  chips.forEach(function (c) {
+    var k = (c.getAttribute('data-lat')||'0') + '|' + (c.getAttribute('data-lon')||'0');
+    (groups[k] = groups[k] || []).push(c);
+  });
+  /* The forecast only reaches 16 days out: skip locations whose dates are all beyond it,
+     and clamp the end date for a group that straddles the edge. */
+  var maxDay = new Date(Date.now() + 15 * 86400000).toISOString().slice(0, 10);
+  var keys = Object.keys(groups).filter(function (k) {
+    return groups[k].some(function (c) { return c.getAttribute('data-date') <= maxDay; });
+  });
+  var updated = 0, pending = keys.length;
+  keys.forEach(function (k) {
+    var g = groups[k], p = k.split('|');
+    var ds = g.map(function (c) { return c.getAttribute('data-date'); }).sort();
+    var end = ds[ds.length - 1] > maxDay ? maxDay : ds[ds.length - 1];
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + p[0] + '&longitude=' + p[1]
+      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset'
+      + '&temperature_unit=fahrenheit&timezone=auto'
+      + '&start_date=' + ds[0] + '&end_date=' + end;
+    fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (d && d.daily && d.daily.time) {
+        var day = d.daily;
+        g.forEach(function (chip) {
+          var i = day.time.indexOf(chip.getAttribute('data-date'));
+          if (i < 0) return;
+          var hi = day.temperature_2m_max[i], lo = day.temperature_2m_min[i],
+              pop = day.precipitation_probability_max[i], wc = day.weather_code[i];
+          if (hi == null || isNaN(hi)) return;
+          var m = codeMap[wc] || ["🌤️", "Mixed"];
+          var sr = day.sunrise ? fmtT(day.sunrise[i]) : '', ss = day.sunset ? fmtT(day.sunset[i]) : '';
+          var tail = (chip.textContent.split('—')[1] || '').trim();
+          chip.innerHTML = m[0] + ' <b>' + m[1] + '</b> · ' + Math.round(hi) + '°F · low '
+            + Math.round(lo) + '°F · ' + (pop != null ? pop : '—') + '% precip'
+            + (sr && ss ? ' · <svg class=\"sunico\" aria-label=\"sunrise\"><use href=\"#ico-sunrise\"/></svg> ' + sr + ' <svg class=\"sunico\" aria-label=\"sunset\"><use href=\"#ico-sunset\"/></svg> ' + ss : '')
+            + (tail ? ' — ' + tail : '');
+          updated++;
+        });
+      }
+    }).catch(function () { /* offline or blocked — keep the baked-in values */ }).then(function () {
+      pending--;
+      if (!pending && updated) {
+        var bar = document.querySelector('.wxbar');
+        if (bar && !document.getElementById('wxlivenote')) {
+          var n = document.createElement('div');
+          n.id = 'wxlivenote';
+          n.style.cssText = 'margin-top:8px;font-size:12px;color:#1f5f99;font-style:italic;';
+          var now = new Date();
+          n.innerHTML = '🔄 Live forecast — refreshed '
+            + now.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+            + '. Updates automatically each time this page is opened.';
+          bar.appendChild(n);
+        }
+      }
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  function parseWhen(t){
+    var m=t.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+    if(!m) return null;
+    var h=(+m[1])%12; if(/pm/i.test(m[3])) h+=12;
+    return h*60+(m[2]?+m[2]:0);
+  }
+  function run(){
+    var now=new Date();
+    var spans=[].slice.call(document.querySelectorAll('.date[data-day]'));
+    var todayCard=null, todayTz=null;
+    spans.forEach(function(sp){
+      var d=sp.getAttribute('data-day'), tz=sp.getAttribute('data-tz')||'Europe/Madrid', card=sp.closest('.day');
+      if(!card) return;
+      var today=now.toLocaleDateString('en-CA',{timeZone:tz});
+      if(d<today){ card.classList.add('past'); }
+      else if(d===today){ card.classList.add('today'); todayCard=card; todayTz=tz; }
+    });
+    if(!todayCard) return;                       /* current day not on this page -> stay at top */
+    var lt=new Date(now.toLocaleString('en-US',{timeZone:todayTz}));
+    var nowMin=lt.getHours()*60+lt.getMinutes();
+    var whens=[].slice.call(todayCard.querySelectorAll('.when'));
+    var target=null, lastTimed=null;
+    for(var i=0;i<whens.length;i++){
+      var tm=parseWhen(whens[i].textContent||'');
+      if(tm==null) continue;
+      lastTimed=whens[i];
+      if(tm>=nowMin){ target=whens[i]; break; }
+    }
+    var el=target||lastTimed||todayCard;
+    /* Smooth scrolling needs animation frames, which a background tab doesn't get;
+       if the page hasn't moved shortly after, jump instead. */
+    setTimeout(function(){
+      var y0=window.scrollY;
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(function(){ if(Math.abs(window.scrollY-y0)<2) el.scrollIntoView({block:'center'}); }, 900);
+    }, 300);
+  }
+  if(document.readyState!=='loading') run(); else document.addEventListener('DOMContentLoaded', run);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Odyssey — Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Jost:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f7f3ea; --card:#ffffff; --ink:#15243a; --ink-soft:#5a6576;
+    --line:#e5dccb; --aegean:#1f5f99; --aegean-soft:#e4eef8; --terra:#b4532f; --terra-soft:#f7e7df;
+    --olive:#5d6a33; --olive-soft:#edf0e0; --lemon:#c9961a; --lemon-soft:#fbf1d6; --key:#ebe2cf;
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 8px;width:132px;display:block;}
+  .kicker{font-family:Jost,Helvetica,Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--terra);}
+  h1{font-family:Cinzel,Georgia,serif;font-weight:700;font-size:clamp(38px,7vw,56px);
+    margin:8px 0 4px;letter-spacing:.04em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;text-wrap:balance;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px 5px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);font-weight:600;}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Jost,Helvetica,Arial,sans-serif;font-size:13.5px;}
+  .nav a{text-decoration:none;color:var(--aegean);padding:7px 14px 6px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--aegean);border-color:var(--aegean);color:#fff;}
+  .nav a:hover{border-color:var(--aegean);}
+  .key{height:10px;margin:22px auto 0;max-width:420px;opacity:.85;
+    background:repeating-linear-gradient(90deg,transparent 0 2px,var(--terra) 2px 4px,transparent 4px 14px);
+    -webkit-mask:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);mask:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(21,36,58,.05);}
+  .day.travel{border-top:4px solid var(--lemon);}
+  .day.city{border-top:4px solid var(--olive);}
+  .day.port{border-top:4px solid var(--terra);}
+  .day.sea{border-top:4px solid var(--aegean);}
+  .day.todo{border-top:4px solid var(--terra);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--key);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--terra);font-weight:600;}
+  .title{font-family:Cinzel,Georgia,serif;font-weight:700;font-size:22px;letter-spacing:.02em;}
+  .lodge{margin-left:auto;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--terra);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--aegean);}
+  @media(max-width:520px){.lodge{margin-left:0;flex-basis:100%;}}
+
+  .totalbar{position:sticky;top:0;z-index:5;background:rgba(247,243,234,.96);backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 -18px 18px;padding:10px 18px;
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .totalbar .lbl{font-family:Jost,Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .totalbar .amt{font-family:Cinzel,Georgia,serif;font-weight:700;font-size:26px;color:var(--terra);font-variant-numeric:tabular-nums;}
+  .totalbar .pts{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;color:var(--aegean);}
+  .totalbar .btns{margin-left:auto;display:flex;gap:6px;}
+  .btn{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;border:1px solid var(--line);background:var(--card);
+    color:var(--aegean);border-radius:999px;padding:6px 12px 5px;cursor:pointer;}
+  .btn:hover{border-color:var(--aegean);}
+  .opt{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px dotted var(--line);cursor:pointer;border-radius:6px;}
+  .opt:last-of-type{border-bottom:none;}
+  .opt:hover{background:#faf7f0;}
+  .opt input{margin-top:4px;width:18px;height:18px;accent-color:var(--terra);flex:none;cursor:pointer;}
+  .opt .txt{flex:1;min-width:0;}
+  .opt .lab{font-weight:700;font-size:15px;}
+  .opt .det{display:block;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .opt .n{font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:2px;text-align:right;}
+  .opt .n small{display:block;font-weight:400;font-size:11px;color:var(--aegean);}
+  .opt.on{background:var(--terra-soft);}
+  .opt.on .n{color:var(--terra);}
+  .badge{font-family:Helvetica,Arial,sans-serif;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;
+    padding:1px 5px;margin-left:6px;vertical-align:2px;font-weight:600;}
+  .b-rec{color:#fff;background:var(--olive);}
+  .b-est{color:var(--lemon);border:1px solid var(--lemon);}
+  .b-book{color:#fff;background:#2e6b45;}
+  .gsub{display:flex;justify-content:flex-end;gap:8px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;
+    color:var(--ink-soft);padding:8px 4px 2px;border-top:2px solid var(--key);margin-top:4px;}
+  .gsub b{color:var(--terra);font-variant-numeric:tabular-nums;}
+  .gintro{font-size:13.5px;color:var(--ink-soft);font-style:italic;padding:8px 0 4px;}
+  .tblwrap{overflow-x:auto;}
+  table.btab{width:100%;border-collapse:collapse;font-size:14px;}
+  .btab th,.btab td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  .btab th.n,.btab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .btab thead th{font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--key);}
+  .btab tfoot td{font-weight:700;border-top:2px solid var(--key);border-bottom:none;color:var(--terra);}
+  .btab td.sel{color:var(--ink-soft);font-size:13px;}
+  .bnote{display:block;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:var(--ink-soft);}
+  .sec{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--aegean);
+    display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+  .sec::before,.sec::after{content:"";flex:1;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg class="crest" viewBox="0 0 140 70" aria-hidden="true">
+        <circle cx="70" cy="17" r="9" fill="#c9961a"/>
+        <g stroke="#c9961a" stroke-width="1.6" stroke-linecap="round">
+          <line x1="70" y1="2" x2="70" y2="5"/><line x1="55" y1="17" x2="58" y2="17"/><line x1="82" y1="17" x2="85" y2="17"/>
+          <line x1="59.4" y1="6.4" x2="61.5" y2="8.5"/><line x1="80.6" y1="6.4" x2="78.5" y2="8.5"/>
+        </g>
+        <path d="M44 44h52l-7 9H51z" fill="#b4532f"/>
+        <line x1="70" y1="20" x2="70" y2="44" stroke="#15243a" stroke-width="1.6"/>
+        <path d="M71.5 23c9 3 13 10 13 18H71.5z" fill="#15243a"/>
+        <path d="M68.5 26c-7 3-10 8-10 15h10z" fill="#15243a" opacity=".85"/>
+        <path d="M12 58c6-4 12-4 18 0s12 4 18 0 12-4 18 0 12 4 18 0 12-4 18 0 12 4 18 0" fill="none" stroke="#1f5f99" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M24 64c6-3 12-3 18 0s12 3 18 0 12-3 18 0 12 3 18 0 12-3 18 0" fill="none" stroke="#1f5f99" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+      </svg>
+      <div class="kicker">Barcelona &middot; Corsica &middot; Rome &middot; Amalfi &middot; Sicily &middot; Mykonos &middot; Athens</div>
+      <h1>The Odyssey</h1>
+      <div class="sub">The budget — every option, tick the boxes and the totals follow</div>
+      <div class="meta"><span class="chip"><b>May 5 – 18, 2027</b>&nbsp;· 13 nights</span><span class="chip"><b>Scarlet Lady</b> · May 8 – 16 · RockStar Quarters</span><span class="chip"><b>Planning</b> · nothing booked yet</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html">Itinerary</a><a href="budget.html" class="active">Budget</a></nav>
+      <div class="key"></div>
+    </header>
+
+  <div class="totalbar"><span class="lbl">Your selection, for two</span><span class="amt" data-total>$46,827</span><span class="pts" data-pts-total>cash only</span><span class="btns"><button class="btn" id="btn-rec" type="button">Recommended</button><button class="btn" id="btn-clear" type="button">Clear all</button></span></div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Summary</span><span class="title">The whole trip</span><span class="lodge">updates as you tick</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Piece</th><th>Selected</th><th class="n">For two</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">Getting there and back</td></tr>
+        <tr><td><a href="#g-fly" style="color:inherit;text-decoration:none">Flights, Dallas → Barcelona · Athens → Dallas</a></td><td class="sel" data-sumsel="fly">BA First</td><td class="n" data-sumamt="fly">$16,962</td></tr>
+        <tr><td><a href="#g-dfw" style="color:inherit;text-decoration:none">Home ↔ DFW</a></td><td class="sel" data-sumsel="dfw">Black car</td><td class="n" data-sumamt="dfw">$220</td></tr>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">The cruise</td></tr>
+        <tr><td><a href="#g-suite" style="color:inherit;text-decoration:none">The suite on Scarlet Lady</a></td><td class="sel" data-sumsel="suite">Cheeky Corner</td><td class="n" data-sumamt="suite">$11,360</td></tr>
+        <tr><td><a href="#g-tips" style="color:inherit;text-decoration:none">Crew gratuities</a></td><td class="sel" data-sumsel="tips">Prepaid</td><td class="n" data-sumamt="tips">$320</td></tr>
+        <tr><td><a href="#g-bar" style="color:inherit;text-decoration:none">Bar Tab (prepaid drinks)</a></td><td class="sel" data-sumsel="bar">$925 tab</td><td class="n" data-sumamt="bar">$750</td></tr>
+        <tr><td><a href="#g-thermal" style="color:inherit;text-decoration:none">Thermal Suite</a></td><td class="sel" data-sumsel="thermal">Two sea-day passes each</td><td class="n" data-sumamt="thermal">$316</td></tr>
+        <tr><td><a href="#g-wifi" style="color:inherit;text-decoration:none">Wi-Fi</a></td><td class="sel" data-sumsel="wifi">24-hour pass</td><td class="n" data-sumamt="wifi">$40</td></tr>
+        <tr><td><a href="#g-onboard" style="color:inherit;text-decoration:none">Spa and extras on board</a></td><td class="sel" data-sumsel="onboard">Couples massage</td><td class="n" data-sumamt="onboard">$509</td></tr>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">Barcelona · May 6 – 8</td></tr>
+        <tr><td><a href="#g-bcnhotel" style="color:inherit;text-decoration:none">Barcelona hotel</a></td><td class="sel" data-sumsel="bcnhotel">El Palace</td><td class="n" data-sumamt="bcnhotel">$2,337</td></tr>
+        <tr><td><a href="#g-bcnair" style="color:inherit;text-decoration:none">Airport → hotel</a></td><td class="sel" data-sumsel="bcnair">Private car</td><td class="n" data-sumamt="bcnair">$138</td></tr>
+        <tr><td><a href="#g-bcnthu" style="color:inherit;text-decoration:none">Thursday evening</a></td><td class="sel" data-sumsel="bcnthu">Rooftop drinks</td><td class="n" data-sumamt="bcnthu">$69</td></tr>
+        <tr><td><a href="#g-bcndin1" style="color:inherit;text-decoration:none">Thursday dinner</a></td><td class="sel" data-sumsel="bcndin1">Bar Mut</td><td class="n" data-sumamt="bcndin1">$184</td></tr>
+        <tr><td><a href="#g-sagrada" style="color:inherit;text-decoration:none">The Sagrada Família</a></td><td class="sel" data-sumsel="sagrada">Tower + private guide</td><td class="n" data-sumamt="sagrada">$428</td></tr>
+        <tr><td><a href="#g-bcnspa" style="color:inherit;text-decoration:none">Friday afternoon spa</a></td><td class="sel" data-sumsel="bcnspa">AIRE</td><td class="n" data-sumamt="bcnspa">$345</td></tr>
+        <tr><td><a href="#g-bcnsee" style="color:inherit;text-decoration:none">Barcelona sights</a></td><td class="sel" data-sumsel="bcnsee">Casa Batlló + Santa Maria del Mar</td><td class="n" data-sumamt="bcnsee">$154</td></tr>
+        <tr><td><a href="#g-bcndin2" style="color:inherit;text-decoration:none">Friday dinner</a></td><td class="sel" data-sumsel="bcndin2">Lasarte</td><td class="n" data-sumamt="bcndin2">$1,254</td></tr>
+        <tr><td><a href="#g-bcnmove" style="color:inherit;text-decoration:none">Getting around Barcelona, and to the ship</a></td><td class="sel" data-sumsel="bcnmove">Taxis + Car to the ship</td><td class="n" data-sumamt="bcnmove">$186</td></tr>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">The ports</td></tr>
+        <tr><td><a href="#g-aja" style="color:inherit;text-decoration:none">Ajaccio day</a></td><td class="sel" data-sumsel="aja">Chauffeur</td><td class="n" data-sumamt="aja">$445</td></tr>
+        <tr><td><a href="#g-ajalunch" style="color:inherit;text-decoration:none">Ajaccio lunch</a></td><td class="sel" data-sumsel="ajalunch">La Dolce Vita</td><td class="n" data-sumamt="ajalunch">$230</td></tr>
+        <tr><td><a href="#g-ajax" style="color:inherit;text-decoration:none">Ajaccio extras</a></td><td class="sel" data-sumsel="ajax">Palais Fesch + Café</td><td class="n" data-sumamt="ajax">$36</td></tr>
+        <tr><td><a href="#g-rome" style="color:inherit;text-decoration:none">Rome day</a></td><td class="sel" data-sumsel="rome">Car + guide</td><td class="n" data-sumamt="rome">$1,553</td></tr>
+        <tr><td><a href="#g-romelunch" style="color:inherit;text-decoration:none">Rome lunch</a></td><td class="sel" data-sumsel="romelunch">Armando</td><td class="n" data-sumamt="romelunch">$127</td></tr>
+        <tr><td><a href="#g-romex" style="color:inherit;text-decoration:none">Rome tickets and tips</a></td><td class="sel" data-sumsel="romex">Vatican tickets + Pantheon + Trevi + Tips</td><td class="n" data-sumamt="romex">$190</td></tr>
+        <tr><td><a href="#g-amalfi" style="color:inherit;text-decoration:none">Amalfi Coast day</a></td><td class="sel" data-sumsel="amalfi">Driver + Path of the Gods</td><td class="n" data-sumamt="amalfi">$805</td></tr>
+        <tr><td><a href="#g-amalfilunch" style="color:inherit;text-decoration:none">Amalfi lunch</a></td><td class="sel" data-sumsel="amalfilunch">Carlino</td><td class="n" data-sumamt="amalfilunch">$345</td></tr>
+        <tr><td><a href="#g-amalfix" style="color:inherit;text-decoration:none">Amalfi extras</a></td><td class="sel" data-sumsel="amalfix">Tip</td><td class="n" data-sumamt="amalfix">$86</td></tr>
+        <tr><td><a href="#g-sicily" style="color:inherit;text-decoration:none">Sicily day</a></td><td class="sel" data-sumsel="sicily">Etna summit + Taormina</td><td class="n" data-sumamt="sicily">$1,095</td></tr>
+        <tr><td><a href="#g-sicilylunch" style="color:inherit;text-decoration:none">Sicily lunch</a></td><td class="sel" data-sumsel="sicilylunch">Rosso</td><td class="n" data-sumamt="sicilylunch">$403</td></tr>
+        <tr><td><a href="#g-sicilyx" style="color:inherit;text-decoration:none">Sicily extras</a></td><td class="sel" data-sumsel="sicilyx">Tip</td><td class="n" data-sumamt="sicilyx">$86</td></tr>
+        <tr><td><a href="#g-delos" style="color:inherit;text-decoration:none">Mykonos morning: Delos</a></td><td class="sel" data-sumsel="delos">Delos, private guide</td><td class="n" data-sumamt="delos">$449</td></tr>
+        <tr><td><a href="#g-mykmove" style="color:inherit;text-decoration:none">Mykonos afternoon transport</a></td><td class="sel" data-sumsel="mykmove">Standby driver</td><td class="n" data-sumamt="mykmove">$637</td></tr>
+        <tr><td><a href="#g-myklunch" style="color:inherit;text-decoration:none">Mykonos lunch</a></td><td class="sel" data-sumsel="myklunch">Nammos</td><td class="n" data-sumamt="myklunch">$437</td></tr>
+        <tr><td><a href="#g-mykx" style="color:inherit;text-decoration:none">Mykonos extras</a></td><td class="sel" data-sumsel="mykx">Little Venice drinks</td><td class="n" data-sumamt="mykx">$81</td></tr>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">Athens · May 16 – 18</td></tr>
+        <tr><td><a href="#g-athhotel" style="color:inherit;text-decoration:none">Athens hotel</a></td><td class="sel" data-sumsel="athhotel">Grande Bretagne</td><td class="n" data-sumamt="athhotel">$2,450</td></tr>
+        <tr><td><a href="#g-athx" style="color:inherit;text-decoration:none">Guarantee the room at 8:30 AM</a></td><td class="sel" data-sumsel="athx">nothing selected</td><td class="n" data-sumamt="athx">—</td></tr>
+        <tr><td><a href="#g-pir" style="color:inherit;text-decoration:none">Piraeus → hotel</a></td><td class="sel" data-sumsel="pir">Mercedes</td><td class="n" data-sumamt="pir">$100</td></tr>
+        <tr><td><a href="#g-athspa" style="color:inherit;text-decoration:none">Sunday afternoon</a></td><td class="sel" data-sumsel="athspa">Hammam</td><td class="n" data-sumamt="athspa">$275</td></tr>
+        <tr><td><a href="#g-athsun" style="color:inherit;text-decoration:none">Sunday dinner</a></td><td class="sel" data-sumsel="athsun">GB Roof Garden</td><td class="n" data-sumamt="athsun">$390</td></tr>
+        <tr><td><a href="#g-athmon" style="color:inherit;text-decoration:none">Monday dinner</a></td><td class="sel" data-sumsel="athmon">Spondi</td><td class="n" data-sumamt="athmon">$645</td></tr>
+        <tr><td><a href="#g-athsee" style="color:inherit;text-decoration:none">Athens sights and lunches</a></td><td class="sel" data-sumsel="athsee">Acropolis + Guide + Museum + Agora + Stadium + Museum lunch + Monday lunch</td><td class="n" data-sumamt="athsee">$714</td></tr>
+        <tr><td><a href="#g-athmove" style="color:inherit;text-decoration:none">Monday evening</a></td><td class="sel" data-sumsel="athmove">Car 4 hours</td><td class="n" data-sumamt="athmove">$325</td></tr>
+        <tr><td><a href="#g-athair" style="color:inherit;text-decoration:none">Hotel → airport</a></td><td class="sel" data-sumsel="athair">Mercedes</td><td class="n" data-sumamt="athair">$105</td></tr>
+        <tr><td colspan="3" style="font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aegean);border-bottom:1px solid var(--key);padding-top:14px">Perks and paperwork</td></tr>
+        <tr><td><a href="#g-perks" style="color:inherit;text-decoration:none">Credits that come back</a></td><td class="sel" data-sumsel="perks">Hotel credit (Barcelona) + Hotel credit (Athens) + Cruise onboard credit</td><td class="n" data-sumamt="perks">− $800</td></tr>
+        <tr><td><a href="#g-docs" style="color:inherit;text-decoration:none">Paperwork</a></td><td class="sel" data-sumsel="docs">ETIAS</td><td class="n" data-sumamt="docs">$46</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td class="sel" data-pts-total>cash only</td><td class="n" data-total>$46,827</td></tr></tfoot>
+    </table></div>
+    <div class="note">Prices are for both of you, in dollars, with euros at $1.15. <b>Pick</b> marks the plan on the itinerary; <b>est</b> marks an estimate rather than a quoted price. Ticks are saved in this browser only. Not counted: shopping, souvenirs, Scarlet Night outfits bought there, and any extra nights. Nothing is booked yet.</div>
+  </div>
+
+  <div class="sec">Getting there and back</div>
+
+  <div class="day " id="g-fly">
+    <div class="dayhead"><span class="date">May 5 &amp; 18</span><span class="title">Flights, Dallas → Barcelona · Athens → Dallas</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Priced on Google Flights on Oct 25 as one multi-city ticket for these dates; two separate one-ways would cost far more. Per person × 2.</div>
+    <label class="opt on"><input type="checkbox" id="fly-bafirst" data-g="fly" data-mode="one" data-cost="16962" data-pts="0" data-short="BA First" data-rec="1" checked><span class="txt"><span class="lab">BA First via London, both ways</span><span class="badge b-rec">pick</span><span class="det">BA 192 in First (787-10) DFW 7:40 PM → Heathrow, then Club Europe to Barcelona, 3:55 PM Thu. Home: BA 639 Athens 7:55 AM → Heathrow, then BA 193 in First, DFW 5:05 PM. $8,481 each.</span></span><span class="n">$16,962</span></label>
+    <label class="opt"><input type="checkbox" id="fly-aabiz" data-g="fly" data-mode="one" data-cost="14512" data-pts="0" data-short="AA Business"><span class="txt"><span class="lab">American Business both ways: the nonstop out, via Chicago home</span><span class="det">AA 192 nonstop DFW 5:20 PM → Barcelona 10:10 AM. Home: AA 161 Athens 11:15 AM → Chicago → DFW 7:28 PM (or AA 759 via Philadelphia). $7,256 each.</span></span><span class="n">$14,512</span></label>
+    <label class="opt"><input type="checkbox" id="fly-mix" data-g="fly" data-mode="one" data-cost="13080" data-pts="0" data-short="AA out, BA Business home"><span class="txt"><span class="lab">American nonstop out, BA Business home</span><span class="det">AA 192 nonstop out; BA 639 + BA 193 in Club Suites home, DFW 5:05 PM. $6,540 each.</span></span><span class="n">$13,080</span></label>
+    <div class="gsub">Selected <b data-sub="fly">$16,962</b></div>
+  </div>
+
+  <div class="day " id="g-dfw">
+    <div class="dayhead"><span class="date">May 5 &amp; 18</span><span class="title">Home ↔ DFW</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="dfw-black" data-g="dfw" data-mode="one" data-cost="220" data-pts="0" data-short="Black car" data-rec="1" checked><span class="txt"><span class="lab">Black car both ways</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">About $90–120 each way from central Dallas, tip included.</span></span><span class="n">$220</span></label>
+    <label class="opt"><input type="checkbox" id="dfw-ride" data-g="dfw" data-mode="one" data-cost="110" data-pts="0" data-short="Rideshare"><span class="txt"><span class="lab">Standard rideshare both ways</span><span class="badge b-est">est</span><span class="det">About $45–65 each way.</span></span><span class="n">$110</span></label>
+    <label class="opt"><input type="checkbox" id="dfw-park" data-g="dfw" data-mode="one" data-cost="360" data-pts="0" data-short="Park at DFW"><span class="txt"><span class="lab">Drive and park at Terminal D, 13 nights</span><span class="badge b-est">est</span><span class="det">About $28 a day.</span></span><span class="n">$360</span></label>
+    <div class="gsub">Selected <b data-sub="dfw">$220</b></div>
+  </div>
+
+  <div class="sec">The cruise</div>
+
+  <div class="day " id="g-suite">
+    <div class="dayhead"><span class="date">May 8 – 16</span><span class="title">The suite on Scarlet Lady</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Virgin's booking flow for this sailing on Oct 25, per cabin for two, including taxes and fees (gratuities are separate). Posh and Gorgeous are sold out.</div>
+    <label class="opt"><input type="checkbox" id="suite-lock" data-g="suite" data-mode="one" data-cost="8624" data-pts="0" data-short="RockStar, any"><span class="txt"><span class="lab">RockStar "Lock it in" rate</span><span class="det">$4,312 each. Virgin assigns any RockStar category, and no changes or modifications are allowed.</span></span><span class="n">$8,624</span></label>
+    <label class="opt"><input type="checkbox" id="suite-seriously" data-g="suite" data-mode="one" data-cost="8960" data-pts="0" data-short="Seriously Suite"><span class="txt"><span class="lab">Seriously Suite</span><span class="det">$4,480 each. 284 sq ft with a 68 sq ft terrace and a large shower; the entry RockStar category.</span></span><span class="n">$8,960</span></label>
+    <label class="opt"><input type="checkbox" id="suite-brilliant" data-g="suite" data-mode="one" data-cost="9840" data-pts="0" data-short="Brilliant Suite"><span class="txt"><span class="lab">Brilliant Suite</span><span class="det">$4,920 each. 396 sq ft on the highest suite deck, 86 sq ft terrace.</span></span><span class="n">$9,840</span></label>
+    <label class="opt"><input type="checkbox" id="suite-sweetaft" data-g="suite" data-mode="one" data-cost="10800" data-pts="0" data-short="Sweet Aft Suite"><span class="txt"><span class="lab">Sweet Aft Suite, "Pretty Big Terrace"</span><span class="det">$5,400 each. 236 sq ft at the stern looking straight out to sea, terrace 180–182 sq ft (the "Even Bigger" 223–268 sq ft terrace is $10,880).</span></span><span class="n">$10,800</span></label>
+    <label class="opt on"><input type="checkbox" id="suite-cheeky" data-g="suite" data-mode="one" data-cost="11360" data-pts="0" data-short="Cheeky Corner" data-rec="1" checked><span class="txt"><span class="lab">Cheeky Corner Suite, "Pretty Big Terrace"</span><span class="badge b-rec">pick</span><span class="det">$5,680 each. 311 sq ft aft corner suite with a corner sofa and a 304–306 sq ft terrace, the biggest outdoor space in the RockStar range.</span></span><span class="n">$11,360</span></label>
+    <label class="opt"><input type="checkbox" id="suite-cheekybig" data-g="suite" data-mode="one" data-cost="11760" data-pts="0" data-short="Cheeky Corner, biggest terrace"><span class="txt"><span class="lab">Cheeky Corner Suite, "Biggest Terrace"</span><span class="det">$5,880 each. Terrace 442–536 sq ft ("Even Bigger", 349–397 sq ft, is $11,600).</span></span><span class="n">$11,760</span></label>
+    <label class="opt"><input type="checkbox" id="suite-fab" data-g="suite" data-mode="one" data-cost="23520" data-pts="0" data-short="Mega: Fab Suite"><span class="txt"><span class="lab">Mega RockStar: Fab Suite</span><span class="det">$11,760 each. 689 sq ft + 261 sq ft terrace. Adds a daily bar tab, daily Thermal Suite, transfers or parking, a bottomless in-suite bar and Work-from-Sea Wi-Fi. If you pick a Mega suite, untick the Bar Tab, Thermal Suite and Wi-Fi lines below.</span></span><span class="n">$23,520</span></label>
+    <label class="opt"><input type="checkbox" id="suite-massive" data-g="suite" data-mode="one" data-cost="28000" data-pts="0" data-short="Mega: Massive Suite"><span class="txt"><span class="lab">Mega RockStar: Massive Suite</span><span class="det">$14,000 each. 830 sq ft + a 1,317 sq ft terrace with a hot tub; one of two aboard.</span></span><span class="n">$28,000</span></label>
+    <div class="gsub">Selected <b data-sub="suite">$11,360</b></div>
+  </div>
+
+  <div class="day " id="g-tips">
+    <div class="dayhead"><span class="date">Required</span><span class="title">Crew gratuities</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="tips-pre" data-g="tips" data-mode="one" data-cost="320" data-pts="0" data-short="Prepaid" data-rec="1" checked><span class="txt"><span class="lab">Prepay</span><span class="badge b-rec">pick</span><span class="det">$20 each a night × 8 nights.</span></span><span class="n">$320</span></label>
+    <label class="opt"><input type="checkbox" id="tips-board" data-g="tips" data-mode="one" data-cost="352" data-pts="0" data-short="On board"><span class="txt"><span class="lab">Pay on board</span><span class="det">$22 each a night × 8 nights.</span></span><span class="n">$352</span></label>
+    <div class="gsub">Selected <b data-sub="tips">$320</b></div>
+  </div>
+
+  <div class="day " id="g-bar">
+    <div class="dayhead"><span class="date">Before sailing</span><span class="title">Bar Tab (prepaid drinks)</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Bought up to 24 hours before sailing; drinks only, and unused credit isn't refunded.</div>
+    <label class="opt"><input type="checkbox" id="bar-b500" data-g="bar" data-mode="one" data-cost="500" data-pts="0" data-short="$600 tab"><span class="txt"><span class="lab">Pay $500, get $600</span></span><span class="n">$500</span></label>
+    <label class="opt on"><input type="checkbox" id="bar-b750" data-g="bar" data-mode="one" data-cost="750" data-pts="0" data-short="$925 tab" data-rec="1" checked><span class="txt"><span class="lab">Pay $750, get $925</span><span class="badge b-rec">pick</span><span class="det">About $115 a day for two: cocktails, and wine at dinner.</span></span><span class="n">$750</span></label>
+    <label class="opt"><input type="checkbox" id="bar-b1000" data-g="bar" data-mode="one" data-cost="1000" data-pts="0" data-short="$1,250 tab"><span class="txt"><span class="lab">Pay $1,000, get $1,250</span><span class="det">Bottles at most dinners, the bottomless brunches and the Test Kitchen pairing.</span></span><span class="n">$1,000</span></label>
+    <div class="gsub">Selected <b data-sub="bar">$750</b></div>
+  </div>
+
+  <div class="day " id="g-thermal">
+    <div class="dayhead"><span class="date">Sea days</span><span class="title">Thermal Suite</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="thermal-two" data-g="thermal" data-mode="one" data-cost="316" data-pts="0" data-short="Two sea-day passes each" data-rec="1" checked><span class="txt"><span class="lab">A three-hour sea-day pass each, May 9 and May 14</span><span class="badge b-rec">pick</span><span class="det">$79 each per slot, sold on board only.</span></span><span class="n">$316</span></label>
+    <label class="opt"><input type="checkbox" id="thermal-week" data-g="thermal" data-mode="one" data-cost="756" data-pts="0" data-short="7-day pass"><span class="txt"><span class="lab">Unlimited 7-day pass each</span><span class="det">$378 each, worth it only if you'd also go on port evenings.</span></span><span class="n">$756</span></label>
+    <div class="gsub">Selected <b data-sub="thermal">$316</b></div>
+  </div>
+
+  <div class="day " id="g-wifi">
+    <div class="dayhead"><span class="date">Aboard</span><span class="title">Wi-Fi</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="wifi-day" data-g="wifi" data-mode="one" data-cost="40" data-pts="0" data-short="24-hour pass" data-rec="1" checked><span class="txt"><span class="lab">One 24-hour Premium pass on Mother's Day</span><span class="badge b-rec">pick</span><span class="det">For FaceTime video home; the included Wi-Fi handles messages and audio calls the rest of the week.</span></span><span class="n">$40</span></label>
+    <label class="opt"><input type="checkbox" id="wifi-voy" data-g="wifi" data-mode="one" data-cost="240" data-pts="0" data-short="Premium all week"><span class="txt"><span class="lab">Premium all voyage, pre-purchased (2 devices)</span><span class="badge b-est">est</span><span class="det">$30 a day before sailing.</span></span><span class="n">$240</span></label>
+    <div class="gsub">Selected <b data-sub="wifi">$40</b></div>
+  </div>
+
+  <div class="day " id="g-onboard">
+    <div class="dayhead"><span class="date">Aboard</span><span class="title">Spa and extras on board</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="onboard-couples" data-g="onboard" data-mode="any" data-cost="509" data-pts="0" data-short="Couples massage" data-rec="1" checked><span class="txt"><span class="lab">Couples massage, 75 minutes (May 9)</span><span class="badge b-rec">pick</span><span class="det">Salvation Swedish; Atonement Deep Tissue is $569, either at 100 minutes $699.</span></span><span class="n">$509</span></label>
+    <label class="opt"><input type="checkbox" id="onboard-quartz" data-g="onboard" data-mode="any" data-cost="299" data-pts="0" data-short="Quartz Bed massage"><span class="txt"><span class="lab">Quartz Bed massage, 75 minutes, one person (May 14)</span></span><span class="n">$299</span></label>
+    <label class="opt"><input type="checkbox" id="onboard-brunch" data-g="onboard" data-mode="any" data-cost="100" data-pts="0" data-short="Bottomless brunches"><span class="txt"><span class="lab">Bottomless brunch drinks, two brunches</span><span class="badge b-est">est</span></span><span class="n">$100</span></label>
+    <div class="gsub">Selected <b data-sub="onboard">$509</b></div>
+  </div>
+
+  <div class="sec">Barcelona · May 6 – 8</div>
+
+  <div class="day " id="g-bcnhotel">
+    <div class="dayhead"><span class="date">2 nights</span><span class="title">Barcelona hotel</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Two nights plus 10% VAT and the city tax. Google shows El Palace from $689 a night for these dates; the figures below are for the room named.</div>
+    <label class="opt on"><input type="checkbox" id="bcnhotel-palace" data-g="bcnhotel" data-mode="one" data-cost="2337" data-pts="0" data-short="El Palace" data-rec="1" checked><span class="txt"><span class="lab">El Palace Barcelona, courtyard Junior Suite</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. The 1919 grand hotel on Gran Via: Rooftop Garden, Mayan spa with a temazcal, Rafa Zafra's Amar. About €900 a night.</span></span><span class="n">$2,337</span></label>
+    <label class="opt"><input type="checkbox" id="bcnhotel-mo" data-g="bcnhotel" data-mode="one" data-cost="2590" data-pts="0" data-short="Mandarin Oriental"><span class="txt"><span class="lab">Mandarin Oriental, Deluxe Room</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. Passeig de Gràcia, three minutes from Casa Batlló; the best spa in town, the Terrat rooftop by the pool. About €1,000 a night.</span></span><span class="n">$2,590</span></label>
+    <label class="opt"><input type="checkbox" id="bcnhotel-arts" data-g="bcnhotel" data-mode="one" data-cost="1957" data-pts="0" data-short="Hotel Arts"><span class="txt"><span class="lab">Hotel Arts, Deluxe Sea View</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. A beachfront tower at Port Olímpic; renovation work runs into June 2027 with some areas closed. About €750 a night.</span></span><span class="n">$1,957</span></label>
+    <label class="opt"><input type="checkbox" id="bcnhotel-monument" data-g="bcnhotel" data-mode="one" data-cost="1080" data-pts="0" data-short="Monument Hotel"><span class="txt"><span class="lab">Monument Hotel, Deluxe Room</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. A Modernista building near La Pedrera with Lasarte downstairs; Google shows it from $462 a night.</span></span><span class="n">$1,080</span></label>
+    <label class="opt"><input type="checkbox" id="bcnhotel-cotton" data-g="bcnhotel" data-mode="one" data-cost="1704" data-pts="0" data-short="Cotton House"><span class="txt"><span class="lab">Cotton House, entry suite</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. The old cotton guild headquarters next to El Palace: library, rooftop pool, intimate. About €650 a night.</span></span><span class="n">$1,704</span></label>
+    <div class="gsub">Selected <b data-sub="bcnhotel">$2,337</b></div>
+  </div>
+
+  <div class="day " id="g-bcnair">
+    <div class="dayhead"><span class="date">Thu May 6</span><span class="title">Airport → hotel</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="bcnair-car" data-g="bcnair" data-mode="one" data-cost="138" data-pts="0" data-short="Private car" data-rec="1" checked><span class="txt"><span class="lab">Private car with meet and greet</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$138</span></label>
+    <label class="opt"><input type="checkbox" id="bcnair-hotel" data-g="bcnair" data-mode="one" data-cost="219" data-pts="0" data-short="Hotel car"><span class="txt"><span class="lab">The hotel's S-Class</span><span class="badge b-est">est</span></span><span class="n">$219</span></label>
+    <label class="opt"><input type="checkbox" id="bcnair-taxi" data-g="bcnair" data-mode="one" data-cost="46" data-pts="0" data-short="Taxi"><span class="txt"><span class="lab">Taxi from the rank</span><span class="badge b-est">est</span></span><span class="n">$46</span></label>
+    <div class="gsub">Selected <b data-sub="bcnair">$138</b></div>
+  </div>
+
+  <div class="day " id="g-bcnthu">
+    <div class="dayhead"><span class="date">Thu May 6</span><span class="title">Thursday evening</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="bcnthu-roof" data-g="bcnthu" data-mode="any" data-cost="69" data-pts="0" data-short="Rooftop drinks" data-rec="1" checked><span class="txt"><span class="lab">Sunset drinks on the Rooftop Garden</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$69</span></label>
+    <label class="opt"><input type="checkbox" id="bcnthu-lunch" data-g="bcnthu" data-mode="any" data-cost="104" data-pts="0" data-short="Hotel lunch"><span class="txt"><span class="lab">Light lunch at the hotel (American nonstop only)</span><span class="badge b-est">est</span></span><span class="n">$104</span></label>
+    <div class="gsub">Selected <b data-sub="bcnthu">$69</b></div>
+  </div>
+
+  <div class="day " id="g-bcndin1">
+    <div class="dayhead"><span class="date">Thu May 6</span><span class="title">Thursday dinner</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="bcndin1-mut" data-g="bcndin1" data-mode="one" data-cost="184" data-pts="0" data-short="Bar Mut" data-rec="1" checked><span class="txt"><span class="lab">Bar Mut: market seafood and the grill</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$184</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin1-amar" data-g="bcndin1" data-mode="one" data-cost="403" data-pts="0" data-short="Amar"><span class="txt"><span class="lab">Amar at El Palace: oysters, caviar, fish by weight</span><span class="badge b-est">est</span></span><span class="n">$403</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin1-enigma" data-g="bcndin1" data-mode="one" data-cost="1012" data-pts="0" data-short="Enigma"><span class="txt"><span class="lab">Enigma, Albert Adrià (two stars), menu and wine (American nonstop only)</span><span class="det">€280 menu + €160 wine each.</span></span><span class="n">$1,012</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin1-light" data-g="bcndin1" data-mode="one" data-cost="138" data-pts="0" data-short="Supper in"><span class="txt"><span class="lab">A light supper in</span><span class="badge b-est">est</span></span><span class="n">$138</span></label>
+    <div class="gsub">Selected <b data-sub="bcndin1">$184</b></div>
+  </div>
+
+  <div class="day " id="g-sagrada">
+    <div class="dayhead"><span class="date">Fri May 7</span><span class="title">The Sagrada Família</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="sagrada-guide" data-g="sagrada" data-mode="one" data-cost="428" data-pts="0" data-short="Tower + private guide" data-rec="1" checked><span class="txt"><span class="lab">Tower tickets and a private guide, 9–11 AM</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">€36 each + about €300 for the guide.</span></span><span class="n">$428</span></label>
+    <label class="opt"><input type="checkbox" id="sagrada-group" data-g="sagrada" data-mode="one" data-cost="92" data-pts="0" data-short="Official group tour"><span class="txt"><span class="lab">The basilica's own guided tour with a tower</span><span class="det">€40 each.</span></span><span class="n">$92</span></label>
+    <label class="opt"><input type="checkbox" id="sagrada-app" data-g="sagrada" data-mode="one" data-cost="83" data-pts="0" data-short="Tower + app"><span class="txt"><span class="lab">Tower tickets with the app audio guide</span><span class="det">€36 each.</span></span><span class="n">$83</span></label>
+    <div class="gsub">Selected <b data-sub="sagrada">$428</b></div>
+  </div>
+
+  <div class="day " id="g-bcnspa">
+    <div class="dayhead"><span class="date">Fri May 7</span><span class="title">Friday afternoon spa</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="bcnspa-aire" data-g="bcnspa" data-mode="one" data-cost="345" data-pts="0" data-short="AIRE" data-rec="1" checked><span class="txt"><span class="lab">AIRE Ancient Baths, bath and massage for two</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt"><input type="checkbox" id="bcnspa-mospa" data-g="bcnspa" data-mode="one" data-cost="460" data-pts="0" data-short="Mandarin spa"><span class="txt"><span class="lab">Mandarin Oriental Spa, 60 minutes each</span><span class="badge b-est">est</span></span><span class="n">$460</span></label>
+    <label class="opt"><input type="checkbox" id="bcnspa-palspa" data-g="bcnspa" data-mode="one" data-cost="391" data-pts="0" data-short="El Palace spa"><span class="txt"><span class="lab">El Palace's Mayan spa, 60 minutes each</span><span class="badge b-est">est</span></span><span class="n">$391</span></label>
+    <div class="gsub">Selected <b data-sub="bcnspa">$345</b></div>
+  </div>
+
+  <div class="day " id="g-bcnsee">
+    <div class="dayhead"><span class="date">Thu – Sat</span><span class="title">Barcelona sights</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="bcnsee-batllo" data-g="bcnsee" data-mode="any" data-cost="136" data-pts="0" data-short="Casa Batlló" data-rec="1" checked><span class="txt"><span class="lab">Casa Batlló "Bon Appétit" with tapas</span><span class="badge b-rec">pick</span><span class="det">From €59 each.</span></span><span class="n">$136</span></label>
+    <label class="opt on"><input type="checkbox" id="bcnsee-smm" data-g="bcnsee" data-mode="any" data-cost="18" data-pts="0" data-short="Santa Maria del Mar" data-rec="1" checked><span class="txt"><span class="lab">Santa Maria del Mar towers and roof terraces</span><span class="badge b-rec">pick</span><span class="det">€8 each.</span></span><span class="n">$18</span></label>
+    <label class="opt"><input type="checkbox" id="bcnsee-cath" data-g="bcnsee" data-mode="any" data-cost="37" data-pts="0" data-short="Cathedral"><span class="txt"><span class="lab">Barcelona Cathedral with the roof (Saturday morning)</span><span class="det">€16 each.</span></span><span class="n">$37</span></label>
+    <label class="opt"><input type="checkbox" id="bcnsee-picasso" data-g="bcnsee" data-mode="any" data-cost="28" data-pts="0" data-short="Picasso Museum"><span class="txt"><span class="lab">Picasso Museum</span></span><span class="n">$28</span></label>
+    <label class="opt"><input type="checkbox" id="bcnsee-pedrera" data-g="bcnsee" data-mode="any" data-cost="91" data-pts="0" data-short="La Pedrera by night"><span class="txt"><span class="lab">La Pedrera Night Experience (Thursday)</span><span class="det">€39.50 each, with a rooftop show and cava.</span></span><span class="n">$91</span></label>
+    <div class="gsub">Selected <b data-sub="bcnsee">$154</b></div>
+  </div>
+
+  <div class="day " id="g-bcndin2">
+    <div class="dayhead"><span class="date">Fri May 7</span><span class="title">Friday dinner</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="bcndin2-lasarte" data-g="bcndin2" data-mode="one" data-cost="1254" data-pts="0" data-short="Lasarte" data-rec="1" checked><span class="txt"><span class="lab">Lasarte (three stars), tasting menu and wine pairing</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">€345 each + an estimated €200 pairing.</span></span><span class="n">$1,254</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin2-disfrutar" data-g="bcndin2" data-mode="one" data-cost="1162" data-pts="0" data-short="Disfrutar"><span class="txt"><span class="lab">Disfrutar (three stars), if a table opens</span><span class="det">€325 + €180 pairing each.</span></span><span class="n">$1,162</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin2-torres" data-g="bcndin2" data-mode="one" data-cost="1242" data-pts="0" data-short="Hermanos Torres"><span class="txt"><span class="lab">Cocina Hermanos Torres (three stars)</span><span class="det">€330 + €210 pairing each.</span></span><span class="n">$1,242</span></label>
+    <label class="opt"><input type="checkbox" id="bcndin2-compartir" data-g="bcndin2" data-mode="one" data-cost="253" data-pts="0" data-short="Compartir"><span class="txt"><span class="lab">Compartir, the relaxed alternative</span><span class="badge b-est">est</span></span><span class="n">$253</span></label>
+    <div class="gsub">Selected <b data-sub="bcndin2">$1,254</b></div>
+  </div>
+
+  <div class="day " id="g-bcnmove">
+    <div class="dayhead"><span class="date">Thu – Sat</span><span class="title">Getting around Barcelona, and to the ship</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="bcnmove-taxis" data-g="bcnmove" data-mode="any" data-cost="81" data-pts="0" data-short="Taxis" data-rec="1" checked><span class="txt"><span class="lab">Taxis as you go, Thursday and Friday</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$81</span></label>
+    <label class="opt"><input type="checkbox" id="bcnmove-standby" data-g="bcnmove" data-mode="any" data-cost="575" data-pts="0" data-short="Friday driver"><span class="txt"><span class="lab">A driver on standby Friday, 8:30 AM – 7 PM</span><span class="badge b-est">est</span></span><span class="n">$575</span></label>
+    <label class="opt on"><input type="checkbox" id="bcnmove-toship" data-g="bcnmove" data-mode="any" data-cost="105" data-pts="0" data-short="Car to the ship" data-rec="1" checked><span class="txt"><span class="lab">Private Mercedes to the ship, Saturday</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$105</span></label>
+    <div class="gsub">Selected <b data-sub="bcnmove">$186</b></div>
+  </div>
+
+  <div class="sec">The ports</div>
+
+  <div class="day " id="g-aja">
+    <div class="dayhead"><span class="date">Mon May 10</span><span class="title">Ajaccio day</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="aja-drv" data-g="aja" data-mode="one" data-cost="445" data-pts="0" data-short="Chauffeur" data-rec="1" checked><span class="txt"><span class="lab">Private chauffeur 10:30 – 3:30</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$445</span></label>
+    <label class="opt"><input type="checkbox" id="aja-guide" data-g="aja" data-mode="one" data-cost="1020" data-pts="0" data-short="Private guide"><span class="txt"><span class="lab">Private guide with a car, 4 hours</span><span class="det">ToursByLocals "Imperial Ajaccio &amp; the Sanguinaires," plus a taxi back from lunch.</span></span><span class="n">$1,020</span></label>
+    <label class="opt"><input type="checkbox" id="aja-taxi" data-g="aja" data-mode="one" data-cost="120" data-pts="0" data-short="Taxis"><span class="txt"><span class="lab">Walk the town, taxis to Parata and lunch</span><span class="badge b-est">est</span></span><span class="n">$120</span></label>
+    <label class="opt"><input type="checkbox" id="aja-shore" data-g="aja" data-mode="one" data-cost="300" data-pts="0" data-short="Shore Thing"><span class="txt"><span class="lab">Virgin's bike tour of the Sanguinaires, then taxis</span><span class="badge b-est">est</span></span><span class="n">$300</span></label>
+    <div class="gsub">Selected <b data-sub="aja">$445</b></div>
+  </div>
+
+  <div class="day " id="g-ajalunch">
+    <div class="dayhead"><span class="date">Mon May 10</span><span class="title">Ajaccio lunch</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="ajalunch-dolce" data-g="ajalunch" data-mode="one" data-cost="230" data-pts="0" data-short="La Dolce Vita" data-rec="1" checked><span class="txt"><span class="lab">La Dolce Vita, facing the Sanguinaires</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$230</span></label>
+    <label class="opt"><input type="checkbox" id="ajalunch-palm" data-g="ajalunch" data-mode="one" data-cost="140" data-pts="0" data-short="Le Palm Beach"><span class="txt"><span class="lab">Le Palm Beach, on Marinella beach</span><span class="badge b-est">est</span></span><span class="n">$140</span></label>
+    <label class="opt"><input type="checkbox" id="ajalunch-terr" data-g="ajalunch" data-mode="one" data-cost="115" data-pts="0" data-short="A Terrazzina"><span class="txt"><span class="lab">A Terrazzina at Les Mouettes</span><span class="badge b-est">est</span></span><span class="n">$115</span></label>
+    <label class="opt"><input type="checkbox" id="ajalunch-napo" data-g="ajalunch" data-mode="one" data-cost="110" data-pts="0" data-short="Grand Café"><span class="txt"><span class="lab">Grand Café Napoléon, in town</span><span class="badge b-est">est</span></span><span class="n">$110</span></label>
+    <div class="gsub">Selected <b data-sub="ajalunch">$230</b></div>
+  </div>
+
+  <div class="day " id="g-ajax">
+    <div class="dayhead"><span class="date">Mon May 10</span><span class="title">Ajaccio extras</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="ajax-fesch" data-g="ajax" data-mode="any" data-cost="21" data-pts="0" data-short="Palais Fesch" data-rec="1" checked><span class="txt"><span class="lab">Palais Fesch and the Imperial Chapel</span><span class="badge b-rec">pick</span></span><span class="n">$21</span></label>
+    <label class="opt on"><input type="checkbox" id="ajax-cafe" data-g="ajax" data-mode="any" data-cost="15" data-pts="0" data-short="Café" data-rec="1" checked><span class="txt"><span class="lab">Coffee at the Grand Café Napoléon</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$15</span></label>
+    <label class="opt"><input type="checkbox" id="ajax-boat" data-g="ajax" data-mode="any" data-cost="83" data-pts="0" data-short="Sanguinaires boat"><span class="txt"><span class="lab">Half-day boat to the Sanguinaires (Nave Va)</span><span class="badge b-est">est</span></span><span class="n">$83</span></label>
+    <label class="opt"><input type="checkbox" id="ajax-heli" data-g="ajax" data-mode="any" data-cost="600" data-pts="0" data-short="Helicopter"><span class="txt"><span class="lab">"Ajaccio from the Sky" helicopter, 20 minutes</span><span class="badge b-est">est</span></span><span class="n">$600</span></label>
+    <div class="gsub">Selected <b data-sub="ajax">$36</b></div>
+  </div>
+
+  <div class="day " id="g-rome">
+    <div class="dayhead"><span class="date">Tue May 11</span><span class="title">Rome day</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="rome-car" data-g="rome" data-mode="one" data-cost="1553" data-pts="0" data-short="Car + guide" data-rec="1" checked><span class="txt"><span class="lab">Private car and private guide, Vatican first</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">A custom Rome Cabs day (about €800) + a licensed guide for about 6 hours (about €550).</span></span><span class="n">$1,553</span></label>
+    <label class="opt"><input type="checkbox" id="rome-tourguy" data-g="rome" data-mode="one" data-cost="2201" data-pts="0" data-short="Rome in a Day"><span class="txt"><span class="lab">The Tour Guy's private "Rome in a Day" from the pier</span><span class="det">Colosseum, Forum, Trevi, Navona, the Vatican and St. Peter's in 9½ hours; the most rushed. Untick the Vatican tickets below.</span></span><span class="n">$2,201</span></label>
+    <label class="opt"><input type="checkbox" id="rome-train" data-g="rome" data-mode="one" data-cost="750" data-pts="0" data-short="Train + guide"><span class="txt"><span class="lab">Train and a private guide in Rome</span><span class="badge b-est">est</span><span class="det">Adds about 1½ hours of transit, and there's a strike risk.</span></span><span class="n">$750</span></label>
+    <label class="opt"><input type="checkbox" id="rome-shore" data-g="rome" data-mode="one" data-cost="460" data-pts="0" data-short="Shore Thing"><span class="txt"><span class="lab">Virgin's "A Day in Rome &amp; Vatican City"</span><span class="badge b-est">est</span><span class="det">By coach, at group pace; the ship waits if it runs late. Untick the Vatican tickets below.</span></span><span class="n">$460</span></label>
+    <div class="gsub">Selected <b data-sub="rome">$1,553</b></div>
+  </div>
+
+  <div class="day " id="g-romelunch">
+    <div class="dayhead"><span class="date">Tue May 11</span><span class="title">Rome lunch</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="romelunch-armando" data-g="romelunch" data-mode="one" data-cost="127" data-pts="0" data-short="Armando" data-rec="1" checked><span class="txt"><span class="lab">Armando al Pantheon</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$127</span></label>
+    <label class="opt"><input type="checkbox" id="romelunch-roscioli" data-g="romelunch" data-mode="one" data-cost="184" data-pts="0" data-short="Roscioli"><span class="txt"><span class="lab">Salumeria Roscioli (2:30 slot)</span><span class="badge b-est">est</span></span><span class="n">$184</span></label>
+    <label class="opt"><input type="checkbox" id="romelunch-hassler" data-g="romelunch" data-mode="one" data-cost="230" data-pts="0" data-short="Hassler terrace"><span class="txt"><span class="lab">The Hassler's 7th-floor terrace</span><span class="badge b-est">est</span></span><span class="n">$230</span></label>
+    <div class="gsub">Selected <b data-sub="romelunch">$127</b></div>
+  </div>
+
+  <div class="day " id="g-romex">
+    <div class="dayhead"><span class="date">Tue May 11</span><span class="title">Rome tickets and tips</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="romex-vatican" data-g="romex" data-mode="any" data-cost="58" data-pts="0" data-short="Vatican tickets" data-rec="1" checked><span class="txt"><span class="lab">Vatican Museums and Sistine Chapel</span><span class="badge b-rec">pick</span></span><span class="n">$58</span></label>
+    <label class="opt on"><input type="checkbox" id="romex-pantheon" data-g="romex" data-mode="any" data-cost="12" data-pts="0" data-short="Pantheon" data-rec="1" checked><span class="txt"><span class="lab">The Pantheon</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$12</span></label>
+    <label class="opt on"><input type="checkbox" id="romex-trevi" data-g="romex" data-mode="any" data-cost="5" data-pts="0" data-short="Trevi" data-rec="1" checked><span class="txt"><span class="lab">Trevi Fountain basin</span><span class="badge b-rec">pick</span></span><span class="n">$5</span></label>
+    <label class="opt on"><input type="checkbox" id="romex-tips" data-g="romex" data-mode="any" data-cost="115" data-pts="0" data-short="Tips" data-rec="1" checked><span class="txt"><span class="lab">Tips for the driver and guide</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$115</span></label>
+    <label class="opt"><input type="checkbox" id="romex-espresso" data-g="romex" data-mode="any" data-cost="46" data-pts="0" data-short="Hassler espresso"><span class="txt"><span class="lab">Espresso on the Hassler terrace</span><span class="badge b-est">est</span></span><span class="n">$46</span></label>
+    <div class="gsub">Selected <b data-sub="romex">$190</b></div>
+  </div>
+
+  <div class="day " id="g-amalfi">
+    <div class="dayhead"><span class="date">Wed May 12</span><span class="title">Amalfi Coast day</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="amalfi-path" data-g="amalfi" data-mode="one" data-cost="805" data-pts="0" data-short="Driver + Path of the Gods" data-rec="1" checked><span class="txt"><span class="lab">Private driver and the Path of the Gods</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$805</span></label>
+    <label class="opt"><input type="checkbox" id="amalfi-boat" data-g="amalfi" data-mode="one" data-cost="2013" data-pts="0" data-short="Private boat"><span class="txt"><span class="lab">Private boat: Positano and Amalfi, 8 hours</span><span class="det">From €1,750 a boat; skipper, fuel, Prosecco. Refunded if the captain cancels for the sea.</span></span><span class="n">$2,013</span></label>
+    <label class="opt"><input type="checkbox" id="amalfi-ravello" data-g="amalfi" data-mode="one" data-cost="748" data-pts="0" data-short="Ravello + Amalfi"><span class="txt"><span class="lab">Private driver: Ravello's gardens and Amalfi</span><span class="badge b-est">est</span></span><span class="n">$748</span></label>
+    <label class="opt"><input type="checkbox" id="amalfi-shore" data-g="amalfi" data-mode="one" data-cost="350" data-pts="0" data-short="Shore Thing"><span class="txt"><span class="lab">Virgin's guided Path of the Gods</span><span class="badge b-est">est</span></span><span class="n">$350</span></label>
+    <div class="gsub">Selected <b data-sub="amalfi">$805</b></div>
+  </div>
+
+  <div class="day " id="g-amalfilunch">
+    <div class="dayhead"><span class="date">Wed May 12</span><span class="title">Amalfi lunch</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="amalfilunch-carlino" data-g="amalfilunch" data-mode="one" data-cost="345" data-pts="0" data-short="Carlino" data-rec="1" checked><span class="txt"><span class="lab">Carlino at Il San Pietro, by the water</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt"><input type="checkbox" id="amalfilunch-caruso" data-g="amalfilunch" data-mode="one" data-cost="299" data-pts="0" data-short="Caruso Grill"><span class="txt"><span class="lab">Caruso Grill, Belmond Caruso, Ravello</span><span class="badge b-est">est</span></span><span class="n">$299</span></label>
+    <label class="opt"><input type="checkbox" id="amalfilunch-adolfo" data-g="amalfilunch" data-mode="one" data-cost="173" data-pts="0" data-short="Da Adolfo"><span class="txt"><span class="lab">Da Adolfo on Laurito beach (by boat)</span><span class="badge b-est">est</span></span><span class="n">$173</span></label>
+    <label class="opt"><input type="checkbox" id="amalfilunch-casual" data-g="amalfilunch" data-mode="one" data-cost="104" data-pts="0" data-short="Trattoria"><span class="txt"><span class="lab">A trattoria in Positano or Amalfi</span><span class="badge b-est">est</span></span><span class="n">$104</span></label>
+    <div class="gsub">Selected <b data-sub="amalfilunch">$345</b></div>
+  </div>
+
+  <div class="day " id="g-amalfix">
+    <div class="dayhead"><span class="date">Wed May 12</span><span class="title">Amalfi extras</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="amalfix-tip" data-g="amalfix" data-mode="any" data-cost="86" data-pts="0" data-short="Tip" data-rec="1" checked><span class="txt"><span class="lab">Tip for the driver or skipper</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$86</span></label>
+    <label class="opt"><input type="checkbox" id="amalfix-hikeguide" data-g="amalfix" data-mode="any" data-cost="345" data-pts="0" data-short="Hiking guide"><span class="txt"><span class="lab">A private hiking guide on the path</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt"><input type="checkbox" id="amalfix-villas" data-g="amalfix" data-mode="any" data-cost="41" data-pts="0" data-short="Ravello gardens"><span class="txt"><span class="lab">Villa Rufolo and Villa Cimbrone (Ravello day)</span></span><span class="n">$41</span></label>
+    <div class="gsub">Selected <b data-sub="amalfix">$86</b></div>
+  </div>
+
+  <div class="day " id="g-sicily">
+    <div class="dayhead"><span class="date">Thu May 13</span><span class="title">Sicily day</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="sicily-etna" data-g="sicily" data-mode="one" data-cost="1095" data-pts="0" data-short="Etna summit + Taormina" data-rec="1" checked><span class="txt"><span class="lab">Etna summit area and Taormina, private driver all day</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">Driver about €750, Tour 3000 €82 each, the theatre €14 each, Silvestri €5 each.</span></span><span class="n">$1,095</span></label>
+    <label class="opt"><input type="checkbox" id="sicily-wine" data-g="sicily" data-mode="one" data-cost="711" data-pts="0" data-short="Etna + wine lunch"><span class="txt"><span class="lab">Cable car to 2,500 m, Silvestri and a Benanti wine lunch</span><span class="badge b-est">est</span><span class="det">Back aboard about 3:30. Pair with the Benanti lunch below.</span></span><span class="n">$711</span></label>
+    <label class="opt"><input type="checkbox" id="sicily-trek" data-g="sicily" data-mode="one" data-cost="1334" data-pts="0" data-short="Etna trek"><span class="txt"><span class="lab">Guided Etna 3,000 m trek and a Benanti tasting</span><span class="badge b-est">est</span></span><span class="n">$1,334</span></label>
+    <label class="opt"><input type="checkbox" id="sicily-taormina" data-g="sicily" data-mode="one" data-cost="541" data-pts="0" data-short="Taormina only"><span class="txt"><span class="lab">Taormina and Isola Bella only</span><span class="badge b-est">est</span></span><span class="n">$541</span></label>
+    <div class="gsub">Selected <b data-sub="sicily">$1,095</b></div>
+  </div>
+
+  <div class="day " id="g-sicilylunch">
+    <div class="dayhead"><span class="date">Thu May 13</span><span class="title">Sicily lunch</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="sicilylunch-rosso" data-g="sicilylunch" data-mode="one" data-cost="403" data-pts="0" data-short="Rosso" data-rec="1" checked><span class="txt"><span class="lab">Rosso terrace, San Domenico Palace, 3 PM</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$403</span></label>
+    <label class="opt"><input type="checkbox" id="sicilylunch-timeo" data-g="sicilylunch" data-mode="one" data-cost="345" data-pts="0" data-short="Timeo"><span class="txt"><span class="lab">Ristorante Timeo, Belmond Grand Hotel Timeo</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt"><input type="checkbox" id="sicilylunch-benanti" data-g="sicilylunch" data-mode="one" data-cost="276" data-pts="0" data-short="Benanti"><span class="txt"><span class="lab">Benanti winery lunch, Selezione Premium</span><span class="det">€120 each.</span></span><span class="n">$276</span></label>
+    <label class="opt"><input type="checkbox" id="sicilylunch-rifugio" data-g="sicilylunch" data-mode="one" data-cost="46" data-pts="0" data-short="Rifugio"><span class="txt"><span class="lab">A quick lunch at Rifugio Sapienza (trek day)</span><span class="badge b-est">est</span></span><span class="n">$46</span></label>
+    <div class="gsub">Selected <b data-sub="sicilylunch">$403</b></div>
+  </div>
+
+  <div class="day " id="g-sicilyx">
+    <div class="dayhead"><span class="date">Thu May 13</span><span class="title">Sicily extras</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="sicilyx-tip" data-g="sicilyx" data-mode="any" data-cost="86" data-pts="0" data-short="Tip" data-rec="1" checked><span class="txt"><span class="lab">Tip for the driver</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$86</span></label>
+    <label class="opt"><input type="checkbox" id="sicilyx-granita" data-g="sicilyx" data-mode="any" data-cost="23" data-pts="0" data-short="Café"><span class="txt"><span class="lab">Espresso or granita on Piazza IX Aprile</span><span class="badge b-est">est</span></span><span class="n">$23</span></label>
+    <div class="gsub">Selected <b data-sub="sicilyx">$86</b></div>
+  </div>
+
+  <div class="day " id="g-delos">
+    <div class="dayhead"><span class="date">Sat May 15</span><span class="title">Mykonos morning: Delos</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="delos-private" data-g="delos" data-mode="one" data-cost="449" data-pts="0" data-short="Delos, private guide" data-rec="1" checked><span class="txt"><span class="lab">Delos with a private licensed guide</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$449</span></label>
+    <label class="opt"><input type="checkbox" id="delos-shared" data-g="delos" data-mode="one" data-cost="182" data-pts="0" data-short="Delos, group tour"><span class="txt"><span class="lab">Delos Tours' shared English tour</span><span class="det">€79 each with the boat and entry.</span></span><span class="n">$182</span></label>
+    <label class="opt"><input type="checkbox" id="delos-diy" data-g="delos" data-mode="one" data-cost="104" data-pts="0" data-short="Delos on your own"><span class="txt"><span class="lab">Delos on your own</span><span class="det">Boat €25 + site €20 each.</span></span><span class="n">$104</span></label>
+    <label class="opt"><input type="checkbox" id="delos-drive" data-g="delos" data-mode="one" data-cost="546" data-pts="0" data-short="Island drive"><span class="txt"><span class="lab">Skip Delos: a private island drive instead</span><span class="badge b-est">est</span></span><span class="n">$546</span></label>
+    <div class="gsub">Selected <b data-sub="delos">$449</b></div>
+  </div>
+
+  <div class="day " id="g-mykmove">
+    <div class="dayhead"><span class="date">Sat May 15</span><span class="title">Mykonos afternoon transport</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="mykmove-standby" data-g="mykmove" data-mode="one" data-cost="637" data-pts="0" data-short="Standby driver" data-rec="1" checked><span class="txt"><span class="lab">A driver on standby 1:45 – 7:15 PM, plus the Sea Bus</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$637</span></label>
+    <label class="opt"><input type="checkbox" id="mykmove-transfers" data-g="mykmove" data-mode="one" data-cost="216" data-pts="0" data-short="Transfers"><span class="txt"><span class="lab">Pre-booked one-way transfers, plus the Sea Bus</span><span class="badge b-est">est</span></span><span class="n">$216</span></label>
+    <label class="opt"><input type="checkbox" id="mykmove-taxis" data-g="mykmove" data-mode="one" data-cost="67" data-pts="0" data-short="Taxis + bus"><span class="txt"><span class="lab">Taxis, buses and the Sea Bus</span><span class="badge b-est">est</span></span><span class="n">$67</span></label>
+    <div class="gsub">Selected <b data-sub="mykmove">$637</b></div>
+  </div>
+
+  <div class="day " id="g-myklunch">
+    <div class="dayhead"><span class="date">Sat May 15</span><span class="title">Mykonos lunch</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="myklunch-nammos" data-g="myklunch" data-mode="one" data-cost="437" data-pts="0" data-short="Nammos" data-rec="1" checked><span class="txt"><span class="lab">Nammos, Psarou Beach</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$437</span></label>
+    <label class="opt"><input type="checkbox" id="myklunch-scorpios" data-g="myklunch" data-mode="one" data-cost="345" data-pts="0" data-short="Scorpios"><span class="txt"><span class="lab">Scorpios, Paraga</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt"><input type="checkbox" id="myklunch-alemagou" data-g="myklunch" data-mode="one" data-cost="276" data-pts="0" data-short="Alemagou"><span class="txt"><span class="lab">Alemagou, Ftelia Bay</span><span class="badge b-est">est</span></span><span class="n">$276</span></label>
+    <label class="opt"><input type="checkbox" id="myklunch-kikis" data-g="myklunch" data-mode="one" data-cost="92" data-pts="0" data-short="Kiki's"><span class="txt"><span class="lab">Kiki's Tavern (walk-in)</span><span class="badge b-est">est</span></span><span class="n">$92</span></label>
+    <div class="gsub">Selected <b data-sub="myklunch">$437</b></div>
+  </div>
+
+  <div class="day " id="g-mykx">
+    <div class="dayhead"><span class="date">Sat May 15</span><span class="title">Mykonos extras</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="mykx-drinks" data-g="mykx" data-mode="any" data-cost="81" data-pts="0" data-short="Little Venice drinks" data-rec="1" checked><span class="txt"><span class="lab">Drinks on a Little Venice balcony</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$81</span></label>
+    <div class="gsub">Selected <b data-sub="mykx">$81</b></div>
+  </div>
+
+  <div class="sec">Athens · May 16 – 18</div>
+
+  <div class="day " id="g-athhotel">
+    <div class="dayhead"><span class="date">2 nights</span><span class="title">Athens hotel</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Two nights plus the climate fee. Google shows the Grande Bretagne from $854 a night for these dates; the figures below are for the room named.</div>
+    <label class="opt on"><input type="checkbox" id="athhotel-gb" data-g="athhotel" data-mode="one" data-cost="2450" data-pts="0" data-short="Grande Bretagne" data-rec="1" checked><span class="txt"><span class="lab">Hotel Grande Bretagne, Acropolis-view Deluxe</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. 1874, on Syntagma; the GB Roof Garden upstairs. Its spa says it's closed for renovation, so ask.</span></span><span class="n">$2,450</span></label>
+    <label class="opt"><input type="checkbox" id="athhotel-kg" data-g="athhotel" data-mode="one" data-cost="1875" data-pts="0" data-short="King George"><span class="txt"><span class="lab">King George, Acropolis-view Deluxe</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. The GB's smaller sister next door, with Tudor Hall (one star) on its roof. Google from $698.</span></span><span class="n">$1,875</span></label>
+    <label class="opt"><input type="checkbox" id="athhotel-fs" data-g="athhotel" data-mode="one" data-cost="3255" data-pts="0" data-short="Four Seasons Astir"><span class="txt"><span class="lab">Four Seasons Astir Palace, sea view</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. A resort on the Riviera, 30–50 minutes from the Acropolis each way.</span></span><span class="n">$3,255</span></label>
+    <label class="opt"><input type="checkbox" id="athhotel-dolli" data-g="athhotel" data-mode="one" data-cost="2680" data-pts="0" data-short="The Dolli"><span class="txt"><span class="lab">The Dolli at Acropolis, Junior Suite</span><span class="badge b-est">est</span><span class="det">Fine Hotels + Resorts. A 46-room neoclassical mansion with a rooftop pool facing the Acropolis. Google from $1,114.</span></span><span class="n">$2,680</span></label>
+    <div class="gsub">Selected <b data-sub="athhotel">$2,450</b></div>
+  </div>
+
+  <div class="day " id="g-athx">
+    <div class="dayhead"><span class="date">Optional</span><span class="title">Guarantee the room at 8:30 AM</span><span class="lodge">add any</span></div>
+    <label class="opt"><input type="checkbox" id="athx-night" data-g="athx" data-mode="any" data-cost="1225" data-pts="0" data-short="Extra night"><span class="txt"><span class="lab">Add the night of May 15 at the GB</span><span class="badge b-est">est</span><span class="det">Only if the hotel won't promise an early room in writing.</span></span><span class="n">$1,225</span></label>
+    <div class="gsub">Selected <b data-sub="athx">$0</b></div>
+  </div>
+
+  <div class="day " id="g-pir">
+    <div class="dayhead"><span class="date">Sun May 16</span><span class="title">Piraeus → hotel</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="pir-merc" data-g="pir" data-mode="one" data-cost="100" data-pts="0" data-short="Mercedes" data-rec="1" checked><span class="txt"><span class="lab">Pre-booked Mercedes at the terminal</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$100</span></label>
+    <label class="opt"><input type="checkbox" id="pir-hotel" data-g="pir" data-mode="one" data-cost="150" data-pts="0" data-short="Hotel car"><span class="txt"><span class="lab">The hotel's S-Class</span><span class="badge b-est">est</span></span><span class="n">$150</span></label>
+    <label class="opt"><input type="checkbox" id="pir-taxi" data-g="pir" data-mode="one" data-cost="40" data-pts="0" data-short="Taxi"><span class="txt"><span class="lab">Taxi from the rank (long queue that morning)</span><span class="badge b-est">est</span></span><span class="n">$40</span></label>
+    <div class="gsub">Selected <b data-sub="pir">$100</b></div>
+  </div>
+
+  <div class="day " id="g-athspa">
+    <div class="dayhead"><span class="date">Sun May 16</span><span class="title">Sunday afternoon</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="athspa-hammam" data-g="athspa" data-mode="one" data-cost="275" data-pts="0" data-short="Hammam" data-rec="1" checked><span class="txt"><span class="lab">Hammam Bathing House: hammam, scrub and massage</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$275</span></label>
+    <label class="opt"><input type="checkbox" id="athspa-hotelspa" data-g="athspa" data-mode="one" data-cost="460" data-pts="0" data-short="Hotel spa"><span class="txt"><span class="lab">Two hotel-spa massages (if the GB Spa has reopened)</span><span class="badge b-est">est</span></span><span class="n">$460</span></label>
+    <label class="opt"><input type="checkbox" id="athspa-nap" data-g="athspa" data-mode="one" data-cost="0" data-pts="0" data-short="Nap"><span class="txt"><span class="lab">A nap instead</span></span><span class="n">$0</span></label>
+    <div class="gsub">Selected <b data-sub="athspa">$275</b></div>
+  </div>
+
+  <div class="day " id="g-athsun">
+    <div class="dayhead"><span class="date">Sun May 16</span><span class="title">Sunday dinner</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="athsun-roof" data-g="athsun" data-mode="one" data-cost="390" data-pts="0" data-short="GB Roof Garden" data-rec="1" checked><span class="txt"><span class="lab">GB Roof Garden, à la carte with a bottle</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$390</span></label>
+    <label class="opt"><input type="checkbox" id="athsun-tudor" data-g="athsun" data-mode="one" data-cost="400" data-pts="0" data-short="Tudor Hall"><span class="txt"><span class="lab">Tudor Hall (one star), à la carte</span><span class="badge b-est">est</span></span><span class="n">$400</span></label>
+    <label class="opt"><input type="checkbox" id="athsun-sense" data-g="athsun" data-mode="one" data-cost="550" data-pts="0" data-short="SENSE"><span class="txt"><span class="lab">SENSE at AthensWas (one star), tasting menu</span><span class="badge b-est">est</span></span><span class="n">$550</span></label>
+    <div class="gsub">Selected <b data-sub="athsun">$390</b></div>
+  </div>
+
+  <div class="day " id="g-athmon">
+    <div class="dayhead"><span class="date">Mon May 17</span><span class="title">Monday dinner</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="athmon-spondi" data-g="athmon" data-mode="one" data-cost="645" data-pts="0" data-short="Spondi" data-rec="1" checked><span class="txt"><span class="lab">Spondi (one star), €150 degustation and pairing</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$645</span></label>
+    <label class="opt"><input type="checkbox" id="athmon-tudor" data-g="athmon" data-mode="one" data-cost="690" data-pts="0" data-short="Tudor Hall"><span class="txt"><span class="lab">Tudor Hall, degustation and pairing</span><span class="det">€165 + €110 each.</span></span><span class="n">$690</span></label>
+    <label class="opt"><input type="checkbox" id="athmon-sense" data-g="athmon" data-mode="one" data-cost="550" data-pts="0" data-short="SENSE"><span class="txt"><span class="lab">SENSE at AthensWas, tasting menu</span><span class="badge b-est">est</span></span><span class="n">$550</span></label>
+    <label class="opt"><input type="checkbox" id="athmon-varoulko" data-g="athmon" data-mode="one" data-cost="345" data-pts="0" data-short="Varoulko"><span class="txt"><span class="lab">Varoulko Seaside, Mikrolimano</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <div class="gsub">Selected <b data-sub="athmon">$645</b></div>
+  </div>
+
+  <div class="day " id="g-athsee">
+    <div class="dayhead"><span class="date">Sun – Mon</span><span class="title">Athens sights and lunches</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="athsee-acro" data-g="athsee" data-mode="any" data-cost="69" data-pts="0" data-short="Acropolis" data-rec="1" checked><span class="txt"><span class="lab">Acropolis, 8:00 AM timed tickets</span><span class="badge b-rec">pick</span><span class="det">€30 each.</span></span><span class="n">$69</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-guide" data-g="athsee" data-mode="any" data-cost="345" data-pts="0" data-short="Guide" data-rec="1" checked><span class="txt"><span class="lab">Private licensed guide, about 4 hours</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$345</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-museum" data-g="athsee" data-mode="any" data-cost="46" data-pts="0" data-short="Museum" data-rec="1" checked><span class="txt"><span class="lab">The Acropolis Museum</span><span class="badge b-rec">pick</span><span class="det">€20 each.</span></span><span class="n">$46</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-agora" data-g="athsee" data-mode="any" data-cost="46" data-pts="0" data-short="Agora" data-rec="1" checked><span class="txt"><span class="lab">The Ancient Agora and Stoa of Attalos</span><span class="badge b-rec">pick</span></span><span class="n">$46</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-stadium" data-g="athsee" data-mode="any" data-cost="28" data-pts="0" data-short="Stadium" data-rec="1" checked><span class="txt"><span class="lab">The Panathenaic Stadium</span><span class="badge b-rec">pick</span></span><span class="n">$28</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-lunch1" data-g="athsee" data-mode="any" data-cost="90" data-pts="0" data-short="Museum lunch" data-rec="1" checked><span class="txt"><span class="lab">Sunday lunch at the Acropolis Museum</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$90</span></label>
+    <label class="opt on"><input type="checkbox" id="athsee-lunch2" data-g="athsee" data-mode="any" data-cost="90" data-pts="0" data-short="Monday lunch" data-rec="1" checked><span class="txt"><span class="lab">Monday lunch near the hotel</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$90</span></label>
+    <div class="gsub">Selected <b data-sub="athsee">$714</b></div>
+  </div>
+
+  <div class="day " id="g-athmove">
+    <div class="dayhead"><span class="date">Mon May 17</span><span class="title">Monday evening</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="athmove-car4" data-g="athmove" data-mode="one" data-cost="325" data-pts="0" data-short="Car 4 hours" data-rec="1" checked><span class="txt"><span class="lab">Car and driver 5:30 – 9:30 PM, taxi home</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$325</span></label>
+    <label class="opt"><input type="checkbox" id="athmove-car6" data-g="athmove" data-mode="one" data-cost="460" data-pts="0" data-short="Car all evening"><span class="txt"><span class="lab">Car and driver all evening</span><span class="badge b-est">est</span></span><span class="n">$460</span></label>
+    <label class="opt"><input type="checkbox" id="athmove-walk" data-g="athmove" data-mode="one" data-cost="70" data-pts="0" data-short="Taxis + funicular"><span class="txt"><span class="lab">Walk, taxis and the funicular</span><span class="badge b-est">est</span></span><span class="n">$70</span></label>
+    <div class="gsub">Selected <b data-sub="athmove">$325</b></div>
+  </div>
+
+  <div class="day " id="g-athair">
+    <div class="dayhead"><span class="date">Tue May 18</span><span class="title">Hotel → airport</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="athair-merc" data-g="athair" data-mode="one" data-cost="105" data-pts="0" data-short="Mercedes" data-rec="1" checked><span class="txt"><span class="lab">Pre-booked Mercedes</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span></span><span class="n">$105</span></label>
+    <label class="opt"><input type="checkbox" id="athair-hotel" data-g="athair" data-mode="one" data-cost="150" data-pts="0" data-short="Hotel car"><span class="txt"><span class="lab">The hotel's S-Class</span><span class="badge b-est">est</span></span><span class="n">$150</span></label>
+    <label class="opt"><input type="checkbox" id="athair-taxi" data-g="athair" data-mode="one" data-cost="63" data-pts="0" data-short="Taxi"><span class="txt"><span class="lab">Fixed-fare taxi</span></span><span class="n">$63</span></label>
+    <div class="gsub">Selected <b data-sub="athair">$105</b></div>
+  </div>
+
+  <div class="sec">Perks and paperwork</div>
+
+  <div class="day " id="g-perks">
+    <div class="dayhead"><span class="date">Card benefits</span><span class="title">Credits that come back</span><span class="lodge">add any</span></div>
+    <div class="gintro">These reduce the total. They need the hotels prepaid as Fine Hotels + Resorts bookings on Amex Travel, each on a different personal Platinum, and the cruise booked through Amex Travel.</div>
+    <label class="opt on"><input type="checkbox" id="perks-fhr1" data-g="perks" data-mode="any" data-cost="-300" data-pts="0" data-short="Hotel credit (Barcelona)" data-rec="1" checked><span class="txt"><span class="lab">Platinum hotel credit, Jan–Jun 2027: Barcelona</span><span class="badge b-rec">pick</span></span><span class="n">− $300</span></label>
+    <label class="opt on"><input type="checkbox" id="perks-fhr2" data-g="perks" data-mode="any" data-cost="-300" data-pts="0" data-short="Hotel credit (Athens)" data-rec="1" checked><span class="txt"><span class="lab">Second Platinum hotel credit, Jan–Jun 2027: Athens</span><span class="badge b-rec">pick</span></span><span class="n">− $300</span></label>
+    <label class="opt on"><input type="checkbox" id="perks-cyc" data-g="perks" data-mode="any" data-cost="-200" data-pts="0" data-short="Cruise onboard credit" data-rec="1" checked><span class="txt"><span class="lab">Amex Cruise &amp; Yacht Collection onboard credit</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">$100–300 per stateroom, plus one amenity and an extra Membership Rewards point per dollar.</span></span><span class="n">− $200</span></label>
+    <div class="gsub">Selected <b data-sub="perks">− $800</b></div>
+  </div>
+
+  <div class="day " id="g-docs">
+    <div class="dayhead"><span class="date">Before you go</span><span class="title">Paperwork</span><span class="lodge">add any</span></div>
+    <label class="opt on"><input type="checkbox" id="docs-etias" data-g="docs" data-mode="any" data-cost="46" data-pts="0" data-short="ETIAS" data-rec="1" checked><span class="txt"><span class="lab">ETIAS travel authorization, if it has launched</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">€20 each; check in January.</span></span><span class="n">$46</span></label>
+    <label class="opt"><input type="checkbox" id="docs-ins" data-g="docs" data-mode="any" data-cost="1500" data-pts="0" data-short="Trip insurance"><span class="txt"><span class="lab">A top-up trip-insurance policy</span><span class="badge b-est">est</span><span class="det">The Platinum's trip cancellation and interruption cover is capped at about $10,000 per trip, well under this trip's prepaid cost.</span></span><span class="n">$1,500</span></label>
+    <div class="gsub">Selected <b data-sub="docs">$46</b></div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Points</span><span class="title">Award seats, checked Oct 25</span><span class="lodge">point.me (Amex), for two</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Route</th><th>What was there</th><th class="n">Points + fees each</th></tr></thead>
+      <tbody>
+        <tr><td>DFW → Barcelona, Wed May 5</td><td>No First anywhere, and nothing on BA, Iberia or American. Only Air France via Paris and Delta.</td><td class="n">342,000 + $355 (Air France)</td></tr>
+        <tr><td>DFW → Barcelona, Thu May 6</td><td>BA Business via Heathrow (no First). That would mean one night in Barcelona, not two.</td><td class="n">121,000 + $639</td></tr>
+        <tr><td>Athens → DFW, May 16–18</td><td>Air France Business via Paris with an overnight there; BA only for a single seat on May 17.</td><td class="n">202,000 + $469</td></tr>
+        <tr><td>Athens → New York, Chicago, Philadelphia</td><td>BA Business via London (Asia Miles), then a separate flight home. No Emirates First and no American.</td><td class="n">from 79,000</td></tr>
+        <tr><td>London → DFW, May 17–18</td><td>BA 193 in Business for one seat only; no First.</td><td class="n">99,000 + $599</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">No First award seats exist for two on any route or date, so the budget assumes cash. The best Business awards would cut Barcelona to one night or add an overnight in Paris. Membership Rewards are worth 1.1¢ each into the Roth, and at $8,481 a seat almost any award would beat that, so it's worth re-checking point.me in early spring.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Perks</span><span class="title">Working for you</span><span class="lodge">the card benefits on this trip</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Benefit</th><th>How to use it</th></tr></thead>
+      <tbody>
+        <tr><td>Fine Hotels + Resorts at El Palace and the Grande Bretagne</td><td>Prepay each on Amex Travel with a different personal Platinum: daily breakfast for two, an upgrade and noon check-in when available, a guaranteed 4 PM checkout (useful on embarkation day), and the $300 Jan–Jun hotel credit on each card.</td></tr>
+        <tr><td>Amex Cruise &amp; Yacht Collection</td><td>Virgin Voyages is a partner. Book the suite through Amex Travel (800-525-3355) and pay in full on a Platinum: $100–300 onboard credit, one extra amenity, and an extra point per dollar. Ask Amex to apply any current Virgin promotion as well.</td></tr>
+        <tr><td>Flights on the Platinum</td><td>5x Membership Rewards on airfare booked directly with the airline or Amex Travel: about 85,000 points on the BA First tickets.</td></tr>
+        <tr><td>Centurion Lounge, DFW Terminal D</td><td>Opens to you three hours before departure; dinner before the overnight.</td></tr>
+        <tr><td>BA First</td><td>The Concorde Room at Heathrow on the way home; ask about American's Flagship First Dining at DFW on the way out.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bookend">Back to the plan — <a class="evt" href="index.html">the itinerary →</a></div>
+
+  <footer>Suite prices from Virgin's booking flow and flight fares from Google Flights, both Oct 25, 2026 · hotel "from" rates from Google Hotels for these dates · venue prices from official pages; estimates where none are published · euros at $1.15 · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+(function(){
+  var KEY='med2027-budget-v1';
+  var boxes=[].slice.call(document.querySelectorAll('input[data-g]'));
+  function fmt(n){ return (n<0?'− $':'$')+Math.abs(Math.round(n)).toLocaleString('en-US'); }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(boxes.filter(function(b){return b.checked;}).map(function(b){return b.id;}))); }catch(e){} }
+  function restore(){
+    try{ var s=JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+      boxes.forEach(function(b){ b.checked = s.indexOf(b.id)>=0; }); }catch(e){}
+  }
+  function update(){
+    var total=0, pts=0, by={};
+    boxes.forEach(function(b){
+      b.closest('.opt').classList.toggle('on', b.checked);
+      var g=b.getAttribute('data-g'); by[g]=by[g]||{sum:0,names:[]};
+      if(b.checked){ var c=+b.getAttribute('data-cost'), p=+b.getAttribute('data-pts');
+        total+=c; pts+=p; by[g].sum+=c; by[g].names.push(b.getAttribute('data-short')); }
+    });
+    Object.keys(by).forEach(function(g){
+      var s=document.querySelector('[data-sub="'+g+'"]'); if(s) s.textContent=fmt(by[g].sum);
+      var r=document.querySelector('[data-sumamt="'+g+'"]'); if(r) r.textContent=by[g].names.length?fmt(by[g].sum):'—';
+      var n=document.querySelector('[data-sumsel="'+g+'"]'); if(n) n.textContent=by[g].names.length?by[g].names.join(' + '):'nothing selected';
+    });
+    [].slice.call(document.querySelectorAll('[data-total]')).forEach(function(e){ e.textContent=fmt(total); });
+    [].slice.call(document.querySelectorAll('[data-pts-total]')).forEach(function(e){
+      e.textContent = pts ? '+ '+pts.toLocaleString('en-US')+' points' : 'cash only'; });
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){
+      if(b.checked && b.getAttribute('data-mode')==='one'){
+        boxes.forEach(function(o){ if(o!==b && o.getAttribute('data-g')===b.getAttribute('data-g')) o.checked=false; });
+      }
+      update(); save();
+    });
+  });
+  var rec=document.getElementById('btn-rec'), clr=document.getElementById('btn-clear');
+  if(rec) rec.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked=b.hasAttribute('data-rec'); }); update(); save(); });
+  if(clr) clr.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked=false; }); update(); save(); });
+  restore(); update();
+})();
+</script>
+</body>
+</html>
