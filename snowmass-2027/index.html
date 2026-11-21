@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Valentine Run — Snowmass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Jost:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f3f6f9; --card:#ffffff; --ink:#1b2838; --ink-soft:#5b6777;
+    --line:#dbe3ec; --rose:#b3264a; --rose-soft:#f8e4ea;
+    --pine:#2f5d50; --pine-soft:#e3eee9; --glacier:#2d6a9f; --glacier-soft:#e4eef7; --snow:#e8eef4; --gold:#b98b2e;
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 10px;width:120px;}
+  .kicker{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--rose);}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:clamp(38px,6.4vw,52px);
+    margin:8px 0 4px;letter-spacing:.005em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;text-wrap:balance;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px 5px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);font-weight:600;}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Jost,Helvetica,Arial,sans-serif;font-size:13.5px;}
+  .nav a{text-decoration:none;color:var(--glacier);padding:7px 14px 6px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--pine);border-color:var(--pine);color:#fff;}
+  .nav a:hover{border-color:var(--glacier);}
+  .wxbar{background:var(--glacier-soft);border:1px solid #c9dbeb;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#24405e;margin-bottom:22px;}
+  .wxbar b{color:var(--ink);}
+  .glance{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px 8px;margin-bottom:22px;}
+  .glance h2{font-family:Fraunces,Georgia,serif;font-size:20px;margin:0 0 6px;}
+  .grow{display:flex;gap:12px;padding:7px 0;border-bottom:1px dotted var(--line);font-size:14px;align-items:baseline;}
+  .grow:last-child{border-bottom:none;}
+  .grow .gd{flex:0 0 76px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;color:var(--rose);letter-spacing:.06em;text-transform:uppercase;}
+  .grow .gp{flex:1;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(27,40,56,.05);}
+  .day.conf{border-top:4px solid var(--glacier);}
+  .day.ski{border-top:4px solid var(--pine);}
+  .day.valentine{border-top:4px solid var(--rose);}
+  .day.travel{border-top:4px solid var(--gold);}
+  .day.todo{border-top:4px solid var(--glacier);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--snow);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--rose);font-weight:600;}
+  .title{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:23px;}
+  .lodge{margin-left:auto;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .sunico{width:15px;height:13px;vertical-align:-2px;}
+  .wxday{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;color:var(--glacier);
+    padding:7px 0 4px;border-bottom:1px dotted var(--line);}
+  .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
+  .stop{display:flex;gap:14px;padding:11px 0;border-bottom:1px dotted var(--line);}
+  .stop:last-child{border-bottom:none;}
+  .when{flex:0 0 92px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;
+    color:var(--glacier);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .what{flex:1;min-width:0;}
+  .name{font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;margin-left:7px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px 1px;vertical-align:1px;}
+  .t-flight{background:#f6eedb;color:#8a6519;}
+  .t-conf{background:var(--glacier-soft);color:var(--glacier);}
+  .t-ski{background:var(--pine-soft);color:var(--pine);}
+  .t-eat{background:var(--rose-soft);color:var(--rose);}
+  .t-relax{background:#eeebe4;color:#6f6450;}
+  .t-todo{background:#fff1d6;color:#94650c;}
+  .t-book{background:#e3f1e7;color:#2e6b45;}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .dir{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;margin-left:8px;color:var(--rose);
+    text-decoration:none;white-space:nowrap;}
+  .dir:hover{text-decoration:underline;}
+  .leg{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);
+    padding:4px 0 4px 106px;}
+  .day.past{opacity:.55;}
+  .day.past .title,.day.past .date,.day.past .lodge{text-decoration:line-through;}
+  .day.today{box-shadow:0 0 0 2px var(--rose),0 6px 18px rgba(179,38,74,.12);}
+  .day.today .date{color:var(--gold);}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--rose);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--glacier);}
+  @media(max-width:520px){.stop{flex-direction:column;gap:2px;}.when{flex:none;}.leg{padding-left:0;}.lodge{margin-left:0;flex-basis:100%;}.grow .gd{flex-basis:64px;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="ico-sunrise" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2d6a9f" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b98b2e" stroke-width="1.8"/>
+      <g stroke="#b98b2e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 4.8 10 3l1.8 1.8" fill="none" stroke="#b98b2e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-sunset" viewBox="0 0 20 17">
+      <line x1="1" y1="13.5" x2="19" y2="13.5" stroke="#2d6a9f" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M4.5 13.5a5.5 5.5 0 0 1 11 0" fill="none" stroke="#b98b2e" stroke-width="1.8"/>
+      <g stroke="#b98b2e" stroke-width="1.4" stroke-linecap="round">
+        <line x1="13.25" y1="7.87" x2="14.25" y2="6.14"/><line x1="6.75" y1="7.87" x2="5.75" y2="6.14"/>
+        <line x1="15.63" y1="10.25" x2="17.36" y2="9.25"/><line x1="4.37" y1="10.25" x2="2.64" y2="9.25"/>
+        <line x1="10" y1="6.6" x2="10" y2="4.4"/>
+      </g>
+      <path d="M8.2 3.6 10 5.4l1.8-1.8" fill="none" stroke="#b98b2e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs></svg>
+
+    <header>
+      <svg class="crest" viewBox="0 0 140 70" aria-hidden="true">
+        <!-- a heart rising over two snow-capped peaks -->
+        <path d="M70 26c-1.2-1.6-9-6.6-9-12.2 0-3.3 2.5-5.8 5.4-5.8 1.6 0 2.9.8 3.6 2 .7-1.2 2-2 3.6-2 2.9 0 5.4 2.5 5.4 5.8 0 5.6-7.8 10.6-9 12.2z" fill="#b3264a"/>
+        <path d="M8 62 44 22l20 24 14-16 54 32z" fill="#2f5d50"/>
+        <path d="M44 22l-10 11 5 3 5-4 5 4 4-2z" fill="#fff"/>
+        <path d="M78 30l-7 8 4 2 3-3 4 3 3-2z" fill="#fff"/>
+        <line x1="4" y1="64" x2="136" y2="64" stroke="#2d6a9f" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <div class="kicker">CARVE 2027 &middot; Snowmass Village, Colorado</div>
+      <h1>The Valentine Run</h1>
+      <div class="sub">Four days of vascular surgery at 8,200 feet, Valentine's Day in the mountains, and three days of skiing to finish</div>
+      <div class="meta"><span class="chip"><b>Feb 13 – 20, 2027</b>&nbsp;· 7 nights</span><span class="chip"><b>Viewline Resort Snowmass</b> · ski-in/ski-out</span><span class="chip"><b>Hotel &amp; CARVE booked ✓</b> · flights to book</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html" class="active">Itinerary</a><a href="budget.html">Budget</a></nav>
+    </header>
+
+  <div class="wxbar"><b>Mid-February in Snowmass:</b> days around 30°F on the village slopes and colder up top, nights in the single digits, dry powder most weeks, and strong sun at altitude. Pack layers, goggles and sunscreen. Snowmass Village sits at 8,200 feet, so drink plenty of water the first two days and go easy on the wine at Saturday's dinner. Each day's chip refreshes itself with a live forecast once the trip is 16 days out.</div>
+
+  <div class="glance">
+    <h2>At a glance</h2>
+    <div class="grow"><span class="gd">Sat 13</span><span class="gp">Fly DFW → Aspen, check in, fit the skis, then dinner at Bosq <span class="tag t-todo">book flights + Bosq</span></span></div>
+    <div class="grow"><span class="gd">Sun 14</span><span class="gp">A free day, the 4:30 welcome reception, then Valentine's dinner at Element 47 <span class="tag t-todo">book now</span></span></div>
+    <div class="grow"><span class="gd">Mon 15</span><span class="gp">CARVE 7:25–12 and 3:15–6:15. Midday on the snow. Presidents' Day <span class="tag t-book">registered ✓</span></span></div>
+    <div class="grow"><span class="gd">Tue 16</span><span class="gp">CARVE 7:30–12 and 3:15–6:15. Midday on the snow <span class="tag t-book">registered ✓</span></span></div>
+    <div class="grow"><span class="gd">Wed 17</span><span class="gp">CARVE closes at noon, then ski day one, an afternoon</span></div>
+    <div class="grow"><span class="gd">Thu 18</span><span class="gp">Ski day two, then the snowcat dinner at The Cabin <span class="tag t-todo">lift tickets</span></span></div>
+    <div class="grow"><span class="gd">Fri 19</span><span class="gp">Ski day three, and a farewell dinner</span></div>
+    <div class="grow"><span class="gd">Sat 20</span><span class="gp">Shuttle to ASE and the afternoon nonstop home <span class="tag t-todo">book flights</span></span></div>
+  </div>
+
+  <div class="day travel">
+    <div class="dayhead"><span class="date" data-day="2027-02-13" data-tz="America/Denver">Sat &middot; Feb 13</span><span class="title">Up to the Mountains</span><span class="lodge">→ Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-13" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:59 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:40 PM</div>
+    <div class="stop"><div class="when">9:00 AM CT</div><div class="what"><span class="name">Alto to DFW, then the Centurion Lounge</span><a class="dir" href="https://maps.apple.com/?daddr=DFW%20Airport%20Terminal%20D&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-relax">ride</span><div class="note">Three hours before the flight, as usual: check the ski bags at the counter, then the Centurion Lounge in Terminal D near D12. Aspen flights are small American Eagle jets and often leave from the regional gates, so check the gate before you settle in. The Alto is William's airport ride, so it goes on the expense report.</div></div></div>
+    <div class="stop"><div class="when">12:05 PM CT</div><div class="what"><span class="name">American nonstop DFW → Aspen (ASE)</span><span class="tag t-todo">to book</span><div class="note">The pick from American's five nonstops that day: depart 12:05 PM, land 2:03 PM Mountain, about three hours. It's a regional jet with a small first-class cabin. Sit on the right going in: the approach up the Roaring Fork Valley passes close to the peaks. Earlier (8:30, 10:31) and later (2:35, 6:45 PM) nonstops cost the same. Aspen is a mountain airport where wind or snow can divert flights, so the midday flight leaves the most room to recover the same day.</div></div></div>
+    <div class="stop"><div class="when">2:30 PM MT</div><div class="what"><span class="name">The Viewline's free shuttle up to Snowmass</span><a class="dir" href="https://maps.apple.com/?daddr=Viewline%20Resort%20Snowmass%2C%20100%20Elbert%20Ln%2C%20Snowmass%20Village%2C%20CO&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-todo">reserve 3 business days ahead</span><div class="note">8 miles and about 20 minutes. The shuttle is free but has to be booked through the hotel at least three business days before arrival. Book it as soon as the flight is ticketed, and reserve Saturday the 20th's ride to the airport at the same time.</div></div></div>
+    <div class="stop"><div class="when">3:15 PM</div><div class="what"><span class="name">Check in, then fit the skis</span><span class="tag t-ski">gear</span><div class="note">CARVE's block rate is run of house, so ask at the desk for a slope-side room with a mountain view. If you're renting, get fitted this afternoon so Sunday morning starts on the lift, not in a rental line. The shops in Snowmass Base Village and on the Mall stay open until early evening, and most will store skis overnight at the base.</div></div></div>
+    <div class="stop"><div class="when">8:00 PM</div><div class="what"><span class="name">Bosq — Aspen's Michelin star</span><span class="tag t-todo">book now</span><a class="dir" href="https://www.opentable.com/r/bosq-aspen" target="_blank" rel="noopener">🍽 Reserve</a><div class="note"><b>Bosq</b>, Aspen's only Michelin-starred restaurant (one star, 2025), 20–25 minutes down to town. Its 5-course menu is $215 and the 9-course Chef's Tasting $295 per person. Saturday the 13th had only four tables left on Nov 21 (6:15, 6:30, 8:00, 8:15), and Bosq is closed Sundays, so it can't be the Valentine's dinner. Take 8:00 if you'd rather land, settle in and change first. A big tasting menu on the first night at altitude is a lot, so if Friday the 19th is open, the farewell dinner is the better slot for it; this line moves there if so.</div></div></div>
+  </div>
+
+  <div class="day valentine">
+    <div class="dayhead"><span class="date" data-day="2027-02-14" data-tz="America/Denver">Sun &middot; Feb 14</span><span class="title">Valentine's Day</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-14" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:58 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:41 PM — Valentine's Day</div>
+    <div class="fixed">CARVE starts only with the evening reception, so the day is yours. Skiing today is optional. A 4-day ticket that starts today costs $166 more per person than the 3-day one that starts Wednesday, and it covers today, Wednesday, Thursday and Friday (4 days within 6). Holiday weekend: expect a busy mountain.</div>
+    <div class="stop"><div class="when">Morning</div><div class="what"><span class="name">Your call: a holiday ski day, or a slow morning and the spa</span><span class="tag t-relax">free</span><div class="note">If you take the 4-day ticket, ski until about 2:30; the lifts run until roughly 3:30. Otherwise sleep in and take a long breakfast. A couples' massage in the village leaves you fresh for the evening: book it when you book dinner, because Valentine's slots go early.</div></div></div>
+    <div class="stop"><div class="when">4:30 PM</div><div class="what"><span class="name">CARVE welcome reception</span><span class="tag t-conf">non-CME</span><div class="note">At the Viewline. William checks in and collects his badge. An hour is plenty before heading up to change for dinner. The Fellows program may add a Sunday session; CARVE hasn't posted it yet.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">The Valentine's dinner — Element 47</span><span class="tag t-todo">book now</span><a class="dir" href="https://resy.com/cities/aspen-co/venues/element-47?date=2027-02-14&amp;seats=2" target="_blank" rel="noopener">🍽 Reserve</a><div class="note"><b>Element 47 at The Little Nell</b>: Aspen's grandest hotel dining room, in the Michelin Guide, with a 20,000-bottle cellar and a private wine-cellar room. It's open Sunday night, and on Nov 21 Resy already showed tables for two from 6:00 to 8:45, including 7:30, so it can be booked today. Cancelling within 48 hours costs $100 a person. There's no Valentine's menu yet, but the Nell ran set menus at Christmas and New Year's, so one may appear. Ask for a window table and mention the occasion. Leave the reception by 6:30 and allow 25 minutes down the valley. <i>The more unusual night:</i> <b>Pine Creek Cookhouse</b> in Ashcroft, a horse-drawn sleigh ride to a four-course dinner in a mountain cabin ($205 a person plus drinks and 22% service, check-in 6:00 PM), about 40 minutes away, so you'd leave the reception at 5:15. Its Feb 14 dinner isn't bookable yet: <a class="evt" href="https://www.pinecreekcookhouse.com/" target="_blank" rel="noopener">call 970-925-1044</a>.</div></div></div>
+  </div>
+
+  <div class="day conf">
+    <div class="dayhead"><span class="date" data-day="2027-02-15" data-tz="America/Denver">Mon &middot; Feb 15</span><span class="title">CARVE, Day One</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-15" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:57 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:42 PM — Presidents' Day</div>
+    <div class="fixed">A classic ski-meeting day: sessions in the morning and late afternoon, with a three-hour break in the middle that is meant for skiing. Elissa has the mountain all day. It's a holiday Monday, so expect lift lines until about 11.</div>
+    <div class="stop"><div class="when">7:25 AM</div><div class="what"><span class="name">Morning sessions</span><span class="tag t-conf">CME</span><div class="note">Welcome at 7:25, then the program until noon. Grab breakfast on the way in.</div></div></div>
+    <div class="stop"><div class="when">12:00 PM</div><div class="what"><span class="name">Midday on the snow together</span><span class="tag t-ski">12:00 – 3:15</span><div class="note">CARVE breaks from 12:00 to 3:15, with lunch on your own. From the ski-in/ski-out door that's about two hours of skiing: meet Elissa on the mountain, have lunch at a slope-side lodge, and be back in the building by 3:10. A multi-day ticket's days are counted per day skied, so a midday run here uses a whole day. Elissa's own ticket can start today if she wants a day on her own.</div></div></div>
+    <div class="stop"><div class="when">3:15 PM</div><div class="what"><span class="name">Afternoon sessions</span><span class="tag t-conf">to 6:15</span><div class="note">The day's last talk ends at 6:15.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">Dinner</span><span class="tag t-eat">confirm</span><a class="dir" href="https://www.opentable.com/r/cache-cache-aspen" target="_blank" rel="noopener">🍽 Reserve</a><div class="note"><b>Cache Cache</b>, Aspen's long-running French bistro, open nightly from 5:30. February dates open on OpenTable on <b>Jan 1 at 6:00 PM MT</b>. Or <b>Matsuhisa Aspen</b> for Nobu's sushi: the downstairs dining room is booked by phone only (970-544-6628) and opens 30 days ahead, about Jan 15.</div></div></div>
+  </div>
+
+  <div class="day conf">
+    <div class="dayhead"><span class="date" data-day="2027-02-16" data-tz="America/Denver">Tue &middot; Feb 16</span><span class="title">CARVE, Day Two</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-16" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:56 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:43 PM</div>
+    <div class="stop"><div class="when">7:30 AM</div><div class="what"><span class="name">Fellows' case presentations, then the morning program</span><span class="tag t-conf">CME</span><div class="note">Until noon.</div></div></div>
+    <div class="stop"><div class="when">12:00 PM</div><div class="what"><span class="name">Midday on the snow</span><span class="tag t-ski">12:00 – 3:15</span><div class="note">The same window as Monday, and the mountain is quieter now that the holiday weekend is over.</div></div></div>
+    <div class="stop"><div class="when">3:15 PM</div><div class="what"><span class="name">Afternoon sessions</span><span class="tag t-conf">to 6:15</span><div class="note">Ending with the complications cases at 5:45.</div></div></div>
+    <div class="stop"><div class="when">7:30 PM</div><div class="what"><span class="name">Dinner</span><span class="tag t-eat">confirm</span><div class="note">Whichever of Cache Cache and Matsuhisa wasn't Monday's. Or stay in Snowmass Village after a long day of sessions: the Viewline's own restaurants are casual and in the building.</div></div></div>
+  </div>
+
+  <div class="day ski">
+    <div class="dayhead"><span class="date" data-day="2027-02-17" data-tz="America/Denver">Wed &middot; Feb 17</span><span class="title">CARVE Closes · Ski Day One</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-17" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:55 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:44 PM</div>
+    <div class="stop"><div class="when">7:30 AM</div><div class="what"><span class="name">The last morning of CARVE</span><span class="tag t-conf">CME</span><div class="note">The program ends at noon with "My Toughest Case &amp; What I Learned." Complete the post-test and evaluation to claim credit, up to 21.75 AMA PRA Category 1.</div></div></div>
+    <div class="stop"><div class="when">12:15 PM</div><div class="what"><span class="name">Ski day one: an afternoon</span><span class="tag t-ski">ticket day 1</span><div class="note">Change and go: about three hours before the lifts close. Elissa can ski the morning and meet William at noon. The 3-day ticket's window runs Wednesday through Sunday, so all three ski days fit.</div></div></div>
+    <div class="stop"><div class="when">Evening</div><div class="what"><span class="name">Dinner</span><span class="tag t-eat">confirm</span><div class="note">An easy night after the first ski afternoon: in the village, or room service and an early night before two full days on the snow.</div></div></div>
+  </div>
+
+  <div class="day ski">
+    <div class="dayhead"><span class="date" data-day="2027-02-18" data-tz="America/Denver">Thu &middot; Feb 18</span><span class="title">Ski Day Two</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-18" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:54 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:45 PM</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">A full day at Snowmass</span><span class="tag t-ski">ticket day 2</span><div class="note">First chair from the hotel. Snowmass is the biggest of Aspen's four mountains, and its long, wide cruisers suit a relaxed day. Ride the Elk Camp Gondola for the morning groomers, and if the legs and the weather agree, take a run off the Big Burn in the afternoon. The resort's ticket works on all four mountains, so Aspen Mountain or Highlands are an option for Friday: about 25 minutes away on the free bus.</div></div></div>
+    <div class="stop"><div class="when">Lunch</div><div class="what"><span class="name">On the mountain</span><span class="tag t-eat">walk-in</span><div class="note">The Elk Camp Restaurant at the top of the gondola is a walk-in cafeteria. For a sit-down lunch, Gwyn's High Alpine is worth a reservation. Allow about $80 for two. The midday breaks on Monday and Tuesday work the same way.</div></div></div>
+    <div class="stop"><div class="when">Evening</div><div class="what"><span class="name">Snowcat dinner on the mountain</span><span class="tag t-todo">Tock, early Jan</span><a class="dir" href="https://www.exploretock.com/the-cabin-aspen" target="_blank" rel="noopener">🍽 Reserve</a><div class="note"><b>Snowcat dinner at The Cabin</b>, on Snowmass Mountain: a heated snowcat up the dark slopes to a five-course dinner, $229.49 a person all-in, prepaid and non-refundable. It runs Tuesdays and Thursdays, leaves from Base Village a few minutes from the hotel, and Tock opens one month at a time, so February should open in early January. If you want something grander, <b>Cloud Nine</b> on Aspen Highlands also runs Thursday snowcat dinners ($280 plus 22% service, wine pairing $120; <a class="evt" href="https://www.exploretock.com/cloud-nine-aspen" target="_blank" rel="noopener">Tock</a>).</div></div></div>
+  </div>
+
+  <div class="day ski">
+    <div class="dayhead"><span class="date" data-day="2027-02-19" data-tz="America/Denver">Fri &middot; Feb 19</span><span class="title">Ski Day Three</span><span class="lodge">Viewline Resort Snowmass</span></div>
+    <div class="wxday" data-date="2027-02-19" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:52 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:46 PM</div>
+    <div class="stop"><div class="when">8:30 AM</div><div class="what"><span class="name">The last day on the snow</span><span class="tag t-ski">ticket day 3</span><div class="note">Ski whatever you liked best on Thursday. Return rental gear by closing, or have the shop pick it up from the hotel.</div></div></div>
+    <div class="stop"><div class="when">Evening</div><div class="what"><span class="name">Farewell dinner</span><span class="tag t-eat">confirm</span><div class="note">If Bosq has a table on Friday, this is the night for it. Otherwise Matsuhisa or Cache Cache, whichever you haven't tried. Either way, ask for a 7:30 table, which leaves time to clean up after skiing.</div></div></div>
+  </div>
+
+  <div class="day travel">
+    <div class="dayhead"><span class="date" data-day="2027-02-20" data-tz="America/Denver">Sat &middot; Feb 20</span><span class="title">Home</span><span class="lodge">ASE → DFW</span></div>
+    <div class="wxday" data-date="2027-02-20" data-lat="39.2130" data-lon="-106.9378">🌨️ <b>Typical mid-February</b> · 30°F · low 8°F · <svg class="sunico" aria-label="sunrise"><use href="#ico-sunrise"/></svg> 6:51 AM <svg class="sunico" aria-label="sunset"><use href="#ico-sunset"/></svg> 5:47 PM</div>
+    <div class="stop"><div class="when">Morning</div><div class="what"><span class="name">Breakfast, pack, check out</span><span class="tag t-relax">slow</span><div class="note">No skiing today: boots and skis packed the night before.</div></div></div>
+    <div class="stop"><div class="when">12:45 PM</div><div class="what"><span class="name">The hotel shuttle down to ASE</span><a class="dir" href="https://maps.apple.com/?daddr=Aspen%2FPitkin%20County%20Airport&amp;dirflg=d" target="_blank" rel="noopener">📍 Directions</a><span class="tag t-todo">reserve</span><div class="note">Twenty minutes down the valley. Aspen's terminal is small, so 90 minutes ahead is plenty.</div></div></div>
+    <div class="stop"><div class="when">2:38 PM MT</div><div class="what"><span class="name">American nonstop Aspen → DFW</span><span class="tag t-todo">to book</span><div class="note">Lands 5:56 PM Central. The other nonstops that day leave at 7:30 AM, 10:56 AM, 1:05 PM and 4:53 PM. The 4:53 is a spare if a storm delays things. Then Alto home.</div></div></div>
+  </div>
+
+  <div class="day todo">
+    <div class="dayhead"><span class="date">To do</span><span class="title">Before you go</span><span class="lodge">in date order</span></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">Book the Aspen nonstops</span><div class="note">Saturday the 13th at 12:05 PM out and Saturday the 20th at 2:38 PM home. Prices are already high for this week. William's ticket is the one TVA reimburses, so keep its receipt separate from Elissa's.</div></div></div>
+    <div class="stop"><div class="when">By Jan 17</div><div class="what"><span class="name">Buy two Aspen Snowmass lift tickets</span><a class="dir" href="https://shop.aspensnowmass.com/l/all-lift-tickets/all-lift-ticket/c/lift-tickets" target="_blank" rel="noopener">🎟 Tickets</a><div class="note">A 3-day ticket starting Wed Feb 17 is $762 per adult, or a 4-day starting Sun Feb 14 is $928, prices as of Nov 21. Both already include the advance discount, which needs 30 days ahead. Prices are dynamic and generally rise, so earlier is better. The Ikon Session pass doesn't include Aspen Snowmass at all.</div></div></div>
+    <div class="stop"><div class="when">Now</div><div class="what"><span class="name">Reserve Element 47 for Valentine's, and Bosq</span><div class="note">Element 47 for Sun 7:30 PM on Resy, already open. Bosq on OpenTable: Friday the 19th if it has a table, otherwise Saturday the 13th at 8:00. Book a couples' massage for Sunday afternoon at the same time.</div></div></div>
+    <div class="stop"><div class="when">Jan 1</div><div class="what"><span class="name">Cache Cache opens February on OpenTable</span><div class="note">At 6:00 PM MT. In early January, also book The Cabin's Thursday snowcat dinner on Tock. Around Jan 15, phone Matsuhisa for downstairs tables.</div></div></div>
+    <div class="stop"><div class="when">Jan 4</div><div class="what"><span class="name">Last day to cancel CARVE for a refund</span><div class="note">The full amount less $100 if cancelled by Jan 4. Nothing after.</div></div></div>
+    <div class="stop"><div class="when">Jan 14</div><div class="what"><span class="name">The hotel becomes non-refundable</span><div class="note">Cancelling or shortening the stay within 30 days of arrival costs the full room and tax.</div></div></div>
+    <div class="stop"><div class="when">Feb 9</div><div class="what"><span class="name">Book the hotel shuttle both ways</span><div class="note">At least three business days before Saturday's arrival. Ask for the Feb 20 ride to ASE in the same call.</div></div></div>
+  </div>
+
+  <div class="bookend">The numbers, TVA and personal — <a class="evt" href="budget.html">see the trip budget →</a></div>
+
+  <footer>CARVE dates, agenda and hotel terms from carve-cme.com (the agenda is still marked tentative) · hotel actuals from the Viewline confirmation of Nov 4 · flight times from Google Flights, Nov 21 · lift ticket prices from the Aspen Snowmass store, Nov 21 · sunrise and sunset are typical for the dates, and the live forecast takes over within 16 days. All times are Mountain unless marked CT. · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+/* Live forecast: refreshes each day's weather chip from Open-Meteo (free, no key)
+   every time the page loads. Chips carry their own coordinates (data-lat/data-lon);
+   fetches are grouped per location and include sunrise/sunset in local time. If the
+   service is unreachable or a date is out of the forecast window, the chip keeps
+   the values baked in below. */
+(function () {
+  var codeMap = {
+    0:["☀️","Clear"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],
+    3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],
+    51:["🌦️","Light drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],
+    61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],
+    71:["🌨️","Light snow"],73:["🌨️","Snow"],75:["🌨️","Heavy snow"],
+    80:["🌦️","Showers"],81:["🌦️","Showers"],82:["⛈️","Heavy showers"],
+    85:["🌨️","Snow showers"],86:["🌨️","Snow showers"],
+    95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]
+  };
+  function fmtT(iso){ if(!iso) return ''; var m=iso.match(/T(\d{2}):(\d{2})/); if(!m) return '';
+    var h=+m[1], mm=m[2], ap=h>=12?'PM':'AM'; h=h%12||12; return h+':'+mm+' '+ap; }
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.wxday[data-date]'));
+  if (!chips.length) return;
+  var groups = {};
+  chips.forEach(function (c) {
+    var k = (c.getAttribute('data-lat')||'0') + '|' + (c.getAttribute('data-lon')||'0');
+    (groups[k] = groups[k] || []).push(c);
+  });
+  /* The forecast only reaches 16 days out: skip locations whose dates are all beyond it,
+     and clamp the end date for a group that straddles the edge. */
+  var maxDay = new Date(Date.now() + 15 * 86400000).toISOString().slice(0, 10);
+  var keys = Object.keys(groups).filter(function (k) {
+    return groups[k].some(function (c) { return c.getAttribute('data-date') <= maxDay; });
+  });
+  var updated = 0, pending = keys.length;
+  keys.forEach(function (k) {
+    var g = groups[k], p = k.split('|');
+    var ds = g.map(function (c) { return c.getAttribute('data-date'); }).sort();
+    var end = ds[ds.length - 1] > maxDay ? maxDay : ds[ds.length - 1];
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + p[0] + '&longitude=' + p[1]
+      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset'
+      + '&temperature_unit=fahrenheit&timezone=auto'
+      + '&start_date=' + ds[0] + '&end_date=' + end;
+    fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (d && d.daily && d.daily.time) {
+        var day = d.daily;
+        g.forEach(function (chip) {
+          var i = day.time.indexOf(chip.getAttribute('data-date'));
+          if (i < 0) return;
+          var hi = day.temperature_2m_max[i], lo = day.temperature_2m_min[i],
+              pop = day.precipitation_probability_max[i], wc = day.weather_code[i];
+          if (hi == null || isNaN(hi)) return;
+          var m = codeMap[wc] || ["🌤️", "Mixed"];
+          var sr = day.sunrise ? fmtT(day.sunrise[i]) : '', ss = day.sunset ? fmtT(day.sunset[i]) : '';
+          var tail = (chip.textContent.split('—')[1] || '').trim();
+          chip.innerHTML = m[0] + ' <b>' + m[1] + '</b> · ' + Math.round(hi) + '°F · low '
+            + Math.round(lo) + '°F · ' + (pop != null ? pop : '—') + '% precip'
+            + (sr && ss ? ' · <svg class=\"sunico\" aria-label=\"sunrise\"><use href=\"#ico-sunrise\"/></svg> ' + sr + ' <svg class=\"sunico\" aria-label=\"sunset\"><use href=\"#ico-sunset\"/></svg> ' + ss : '')
+            + (tail ? ' — ' + tail : '');
+          updated++;
+        });
+      }
+    }).catch(function () { /* offline or blocked — keep the baked-in values */ }).then(function () {
+      pending--;
+      if (!pending && updated) {
+        var bar = document.querySelector('.wxbar');
+        if (bar && !document.getElementById('wxlivenote')) {
+          var n = document.createElement('div');
+          n.id = 'wxlivenote';
+          n.style.cssText = 'margin-top:8px;font-size:12px;color:#2d6a9f;font-style:italic;';
+          var now = new Date();
+          n.innerHTML = '🔄 Live forecast — refreshed '
+            + now.toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+            + '. Updates automatically each time this page is opened.';
+          bar.appendChild(n);
+        }
+      }
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  function parseWhen(t){
+    var m=t.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+    if(!m) return null;
+    var h=(+m[1])%12; if(/pm/i.test(m[3])) h+=12;
+    return h*60+(m[2]?+m[2]:0);
+  }
+  function run(){
+    var now=new Date();
+    var spans=[].slice.call(document.querySelectorAll('.date[data-day]'));
+    var todayCard=null, todayTz=null;
+    spans.forEach(function(sp){
+      var d=sp.getAttribute('data-day'), tz=sp.getAttribute('data-tz')||'America/Denver', card=sp.closest('.day');
+      if(!card) return;
+      var today=now.toLocaleDateString('en-CA',{timeZone:tz});
+      if(d<today){ card.classList.add('past'); }
+      else if(d===today){ card.classList.add('today'); todayCard=card; todayTz=tz; }
+    });
+    if(!todayCard) return;                       /* current day not on this page -> stay at top */
+    var lt=new Date(now.toLocaleString('en-US',{timeZone:todayTz}));
+    var nowMin=lt.getHours()*60+lt.getMinutes();
+    var whens=[].slice.call(todayCard.querySelectorAll('.when'));
+    var target=null, lastTimed=null;
+    for(var i=0;i<whens.length;i++){
+      var tm=parseWhen(whens[i].textContent||'');
+      if(tm==null) continue;
+      lastTimed=whens[i];
+      if(tm>=nowMin){ target=whens[i]; break; }
+    }
+    var el=target||lastTimed||todayCard;
+    /* Smooth scrolling needs animation frames, which a background tab doesn't get;
+       if the page hasn't moved shortly after, jump instead. */
+    setTimeout(function(){
+      var y0=window.scrollY;
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(function(){ if(Math.abs(window.scrollY-y0)<2) el.scrollIntoView({block:'center'}); }, 900);
+    }, 300);
+  }
+  if(document.readyState!=='loading') run(); else document.addEventListener('DOMContentLoaded', run);
+})();
+</script>
+</body>
+</html>

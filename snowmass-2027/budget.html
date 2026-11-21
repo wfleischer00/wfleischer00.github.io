@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Valentine Run — Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Jost:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f3f6f9; --card:#ffffff; --ink:#1b2838; --ink-soft:#5b6777;
+    --line:#dbe3ec; --rose:#b3264a; --rose-soft:#f8e4ea;
+    --pine:#2f5d50; --pine-soft:#e3eee9; --glacier:#2d6a9f; --glacier-soft:#e4eef7; --snow:#e8eef4; --gold:#b98b2e;
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 18px 56px;}
+  header{text-align:center;margin-bottom:26px;}
+  .crest{margin:0 auto 10px;width:120px;}
+  .kicker{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--rose);}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:clamp(38px,6.4vw,52px);
+    margin:8px 0 4px;letter-spacing:.005em;text-wrap:balance;}
+  .sub{font-style:italic;color:var(--ink-soft);font-size:16.5px;text-wrap:balance;}
+  .meta{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px 5px;color:var(--ink-soft);}
+  .chip b{color:var(--ink);font-weight:600;}
+  .nav{margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+    font-family:Jost,Helvetica,Arial,sans-serif;font-size:13.5px;}
+  .nav a{text-decoration:none;color:var(--glacier);padding:7px 14px 6px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);}
+  .nav a.active{background:var(--pine);border-color:var(--pine);color:#fff;}
+  .nav a:hover{border-color:var(--glacier);}
+  .wxbar{background:var(--glacier-soft);border:1px solid #c9dbeb;border-radius:10px;
+    padding:13px 16px;font-size:14.5px;color:#24405e;margin-bottom:22px;}
+  .wxbar b{color:var(--ink);}
+  .glance{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px 8px;margin-bottom:22px;}
+  .glance h2{font-family:Fraunces,Georgia,serif;font-size:20px;margin:0 0 6px;}
+  .grow{display:flex;gap:12px;padding:7px 0;border-bottom:1px dotted var(--line);font-size:14px;align-items:baseline;}
+  .grow:last-child{border-bottom:none;}
+  .grow .gd{flex:0 0 76px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;color:var(--rose);letter-spacing:.06em;text-transform:uppercase;}
+  .grow .gp{flex:1;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 12px;margin-bottom:18px;box-shadow:0 2px 10px rgba(27,40,56,.05);}
+  .day.conf{border-top:4px solid var(--glacier);}
+  .day.ski{border-top:4px solid var(--pine);}
+  .day.valentine{border-top:4px solid var(--rose);}
+  .day.travel{border-top:4px solid var(--gold);}
+  .day.todo{border-top:4px solid var(--glacier);}
+  .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    border-bottom:2px solid var(--snow);padding-bottom:9px;margin-bottom:4px;}
+  .date{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--rose);font-weight:600;}
+  .title{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:23px;}
+  .lodge{margin-left:auto;font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);}
+  .sunico{width:15px;height:13px;vertical-align:-2px;}
+  .wxday{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;color:var(--glacier);
+    padding:7px 0 4px;border-bottom:1px dotted var(--line);}
+  .fixed{font-size:14px;color:var(--ink-soft);font-style:italic;padding:9px 0 3px;border-bottom:1px dotted var(--line);}
+  .stop{display:flex;gap:14px;padding:11px 0;border-bottom:1px dotted var(--line);}
+  .stop:last-child{border-bottom:none;}
+  .when{flex:0 0 92px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;
+    color:var(--glacier);padding-top:2px;font-variant-numeric:tabular-nums;}
+  .what{flex:1;min-width:0;}
+  .name{font-weight:700;font-size:15.5px;}
+  .tag{display:inline-block;margin-left:7px;font-family:Jost,Helvetica,Arial,sans-serif;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px 1px;vertical-align:1px;}
+  .t-flight{background:#f6eedb;color:#8a6519;}
+  .t-conf{background:var(--glacier-soft);color:var(--glacier);}
+  .t-ski{background:var(--pine-soft);color:var(--pine);}
+  .t-eat{background:var(--rose-soft);color:var(--rose);}
+  .t-relax{background:#eeebe4;color:#6f6450;}
+  .t-todo{background:#fff1d6;color:#94650c;}
+  .t-book{background:#e3f1e7;color:#2e6b45;}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .dir{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;margin-left:8px;color:var(--rose);
+    text-decoration:none;white-space:nowrap;}
+  .dir:hover{text-decoration:underline;}
+  .leg{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);
+    padding:4px 0 4px 106px;}
+  .day.past{opacity:.55;}
+  .day.past .title,.day.past .date,.day.past .lodge{text-decoration:line-through;}
+  .day.today{box-shadow:0 0 0 2px var(--rose),0 6px 18px rgba(179,38,74,.12);}
+  .day.today .date{color:var(--gold);}
+  .bookend{text-align:center;font-style:italic;color:var(--ink-soft);margin:26px 0 8px;font-size:15px;}
+  .evt{color:var(--rose);}
+  footer{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
+  footer a{color:var(--glacier);}
+  @media(max-width:520px){.stop{flex-direction:column;gap:2px;}.when{flex:none;}.leg{padding-left:0;}.lodge{margin-left:0;flex-basis:100%;}.grow .gd{flex-basis:64px;}}
+
+  .totalbar{position:sticky;top:0;z-index:5;background:rgba(243,246,249,.96);backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 -18px 18px;padding:10px 18px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .totalbar .lbl{font-family:Jost,Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .totalbar .amt{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:26px;color:var(--rose);font-variant-numeric:tabular-nums;}
+  .totalbar .split{font-family:Jost,Helvetica,Arial,sans-serif;font-size:13px;color:var(--ink-soft);}
+  .totalbar .split b{font-variant-numeric:tabular-nums;color:var(--glacier);}
+  .totalbar .split b.p{color:var(--pine);}
+  .totalbar .btns{margin-left:auto;display:flex;gap:6px;}
+  .btn{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12.5px;border:1px solid var(--line);background:var(--card);
+    color:var(--glacier);border-radius:999px;padding:6px 12px 5px;cursor:pointer;}
+  .btn:hover{border-color:var(--glacier);}
+  .opt{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px dotted var(--line);cursor:pointer;border-radius:6px;}
+  .opt:last-of-type{border-bottom:none;}
+  .opt:hover{background:#f7f9fb;}
+  .opt input{margin-top:4px;width:18px;height:18px;accent-color:var(--rose);flex:none;cursor:pointer;}
+  .opt .txt{flex:1;min-width:0;}
+  .opt .lab{font-weight:700;font-size:15px;}
+  .opt .det{display:block;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .opt .n{font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:2px;text-align:right;}
+  .opt .n small{display:block;font-weight:400;font-size:11px;color:var(--glacier);}
+  .opt.on{background:var(--rose-soft);}
+  .opt.on .n{color:var(--rose);}
+  .badge{font-family:Helvetica,Arial,sans-serif;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;
+    padding:1px 5px;margin-left:6px;vertical-align:2px;font-weight:600;}
+  .b-rec{color:#fff;background:var(--pine);}
+  .b-est{color:var(--gold);border:1px solid var(--gold);}
+  .b-book{color:#fff;background:#2e6b45;}
+  .b-warn{color:#fff;background:var(--rose);}
+  .b-tva{color:var(--glacier);border:1px solid var(--glacier);}
+  .opt.booked{cursor:default;}
+  .opt.booked.on{background:#e9f3ec;}
+  .opt.booked.on .n{color:#2e6b45;}
+  .opt.booked input{accent-color:#2e6b45;cursor:default;}
+  .gintro{font-size:13.5px;color:var(--ink-soft);font-style:italic;padding:8px 0 4px;}
+  .tblwrap{overflow-x:auto;}
+  table.btab{width:100%;border-collapse:collapse;font-size:14px;}
+  .btab th,.btab td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  .btab th.n,.btab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .btab thead th{font-family:Jost,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--snow);}
+  .btab tfoot td{font-weight:700;border-top:2px solid var(--snow);border-bottom:none;color:var(--rose);}
+  .btab td.sel{color:var(--ink-soft);font-size:13px;}
+  .sec{font-family:Jost,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--glacier);
+    display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+  .sec::before,.sec::after{content:"";flex:1;border-top:1px solid var(--line);}
+  @media(max-width:520px){.totalbar .btns{margin-left:0;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg class="crest" viewBox="0 0 140 70" aria-hidden="true">
+        <!-- a heart rising over two snow-capped peaks -->
+        <path d="M70 26c-1.2-1.6-9-6.6-9-12.2 0-3.3 2.5-5.8 5.4-5.8 1.6 0 2.9.8 3.6 2 .7-1.2 2-2 3.6-2 2.9 0 5.4 2.5 5.4 5.8 0 5.6-7.8 10.6-9 12.2z" fill="#b3264a"/>
+        <path d="M8 62 44 22l20 24 14-16 54 32z" fill="#2f5d50"/>
+        <path d="M44 22l-10 11 5 3 5-4 5 4 4-2z" fill="#fff"/>
+        <path d="M78 30l-7 8 4 2 3-3 4 3 3-2z" fill="#fff"/>
+        <line x1="4" y1="64" x2="136" y2="64" stroke="#2d6a9f" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <div class="kicker">CARVE 2027 &middot; Snowmass Village, Colorado</div>
+      <h1>The Valentine Run</h1>
+      <div class="sub">The budget: what's booked, the options still open, and who pays for each</div>
+      <div class="meta"><span class="chip"><b>Feb 13 – 20, 2027</b>&nbsp;· 7 nights</span><span class="chip"><b>Viewline Resort Snowmass</b> · ski-in/ski-out</span><span class="chip"><b>Hotel &amp; CARVE booked ✓</b> · flights to book</span></div>
+      <nav class="nav"><a href="../" title="All trips">⌂ Trips</a><a href="index.html">Itinerary</a><a href="budget.html" class="active">Budget</a></nav>
+    </header>
+
+  <div class="totalbar"><span class="lbl">Your selection</span><span class="amt" data-total>$0</span><span class="split">TVA <b data-tva-total>$0</b> · personal <b class="p" data-pers-total>$0</b></span><span class="btns"><button class="btn" id="btn-rec" type="button">Recommended</button><button class="btn" id="btn-clear" type="button">Booked only</button></span></div>
+
+  <div class="day">
+    <div class="dayhead"><span class="date">Summary</span><span class="title">The whole trip, by line</span><span class="lodge">tick options below to change it</span></div>
+    <div class="tblwrap"><table class="btab">
+      <thead><tr><th>Item</th><th>Selected</th><th class="n">TVA</th><th class="n">Total</th></tr></thead>
+      <tbody>
+        <tr><td>CARVE registration</td><td class="sel" data-sumsel="reg">—</td><td class="n" data-sumtva="reg">—</td><td class="n" data-sumamt="reg">—</td></tr>
+        <tr><td>Hotel</td><td class="sel" data-sumsel="hotel">—</td><td class="n" data-sumtva="hotel">—</td><td class="n" data-sumamt="hotel">—</td></tr>
+        <tr><td>Flights</td><td class="sel" data-sumsel="fly">—</td><td class="n" data-sumtva="fly">—</td><td class="n" data-sumamt="fly">—</td></tr>
+        <tr><td>DFW, home and back</td><td class="sel" data-sumsel="dfw">—</td><td class="n" data-sumtva="dfw">—</td><td class="n" data-sumamt="dfw">—</td></tr>
+        <tr><td>Airport ⇄ hotel</td><td class="sel" data-sumsel="ase">—</td><td class="n" data-sumtva="ase">—</td><td class="n" data-sumamt="ase">—</td></tr>
+        <tr><td>Valentine's dinner</td><td class="sel" data-sumsel="val">—</td><td class="n" data-sumtva="val">—</td><td class="n" data-sumamt="val">—</td></tr>
+        <tr><td>Bosq</td><td class="sel" data-sumsel="bosq">—</td><td class="n" data-sumtva="bosq">—</td><td class="n" data-sumamt="bosq">—</td></tr>
+        <tr><td>Snowcat dinner</td><td class="sel" data-sumsel="cat">—</td><td class="n" data-sumtva="cat">—</td><td class="n" data-sumamt="cat">—</td></tr>
+        <tr><td>Lift tickets</td><td class="sel" data-sumsel="lift">—</td><td class="n" data-sumtva="lift">—</td><td class="n" data-sumamt="lift">—</td></tr>
+        <tr><td>Skis and boots</td><td class="sel" data-sumsel="gear">—</td><td class="n" data-sumtva="gear">—</td><td class="n" data-sumamt="gear">—</td></tr>
+        <tr><td>Other meals Sat–Wed</td><td class="sel" data-sumsel="meals">—</td><td class="n" data-sumtva="meals">—</td><td class="n" data-sumamt="meals">—</td></tr>
+        <tr><td>Other meals Thu–Sat</td><td class="sel" data-sumsel="meals2">—</td><td class="n" data-sumtva="meals2">—</td><td class="n" data-sumamt="meals2">—</td></tr>
+        <tr><td>Spa</td><td class="sel" data-sumsel="spa">—</td><td class="n" data-sumtva="spa">—</td><td class="n" data-sumamt="spa">—</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td class="sel">personal <span data-pers-total>$0</span></td><td class="n" data-tva-total>$0</td><td class="n" data-total>$0</td></tr></tfoot>
+    </table></div>
+    <div class="note">Prices are for both of you. <b>Booked ✓</b> marks what's paid or committed: CARVE registration and the hotel, both booked Nov 4. <b>Pick</b> marks the itinerary's plan, and <b>est</b> marks an estimate rather than a quoted price. The TVA column is what TVA reimburses: William's registration, flight, airport rides, meals and the conference hotel nights. Everything of Elissa's, upgrades, lift tickets, gear and the spa is personal. Your ticks are saved in this browser only.</div>
+  </div>
+
+  <div class="sec">Booked</div>
+
+  <div class="day" id="g-reg">
+    <div class="dayhead"><span class="date">Registered Nov 4</span><span class="title">CARVE registration</span><span class="lodge">booked ✓</span></div>
+    <label class="opt on booked"><input type="checkbox" id="reg-phys" data-g="reg" data-mode="one" data-cost="745" data-tva="745" data-short="Physician registration" data-rec="1" data-booked="1" checked disabled><span class="txt"><span class="lab">Physician registration</span><span class="badge b-book">booked ✓</span><span class="det">Paid Nov 4. Refundable less $100 until Jan 4, 2027; no refunds after that. The receipt goes in TVA › Expenses › 2027 › CARVE.</span></span><span class="n">$745<small>TVA</small></span></label>
+  </div>
+
+  <div class="day" id="g-hotel">
+    <div class="dayhead"><span class="date">Feb 13 – 20</span><span class="title">Viewline Resort Snowmass, 7 nights</span><span class="lodge">booked ✓</span></div>
+    <div class="gintro">CARVE's group rate, $529 a night before tax, run of house, two guests at no extra charge. The confirmation's grand total is $4,581.95, or $654.56 a night with tax. Cancelling or shortening the stay within 30 days of arrival (from Jan 14) costs the full room and tax.</div>
+    <label class="opt on booked"><input type="checkbox" id="hotel-block" data-g="hotel" data-mode="one" data-cost="4581.95" data-tva="2618.26" data-short="Viewline, 7 nights" data-rec="1" data-booked="1" checked disabled><span class="txt"><span class="lab">Seven nights in the CARVE block</span><span class="badge b-book">booked ✓</span><span class="badge b-tva">confirm with TVA</span><span class="det">The split assumes TVA covers the four conference nights (Sat through Tue, $2,618.26) and the three ski nights after CARVE ends (Wed through Fri, $1,963.69) are personal. Ask TVA about Saturday night, since the program proper starts Monday, and about Wednesday if they'd cover the night after the last session.</span></span><span class="n">$4,582<small>TVA $2,618 · you $1,964</small></span></label>
+  </div>
+
+  <div class="sec">Still to choose</div>
+
+  <div class="day" id="g-val">
+    <div class="dayhead"><span class="date">Sun Feb 14</span><span class="title">Valentine's dinner</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Estimates for two with wine, tax and tip. TVA reimburses William's half of each conference-week meal.</div>
+    <label class="opt on"><input type="checkbox" id="val-e47" data-g="val" data-mode="one" data-cost="650" data-tva="325" data-short="Element 47" data-rec="1" checked><span class="txt"><span class="lab">Element 47 at The Little Nell, 7:30 PM</span><span class="badge b-rec">pick</span><span class="badge b-warn">book now</span><span class="badge b-est">est</span><span class="det">À la carte in the Michelin Guide-listed dining room. Bookable on Resy now; $100 a person if cancelled within 48 hours.</span></span><span class="n">$650<small>TVA $325 · you $325</small></span></label>
+    <label class="opt"><input type="checkbox" id="val-pine" data-g="val" data-mode="one" data-cost="700" data-tva="350" data-short="Pine Creek sleigh dinner"><span class="txt"><span class="lab">Pine Creek Cookhouse sleigh dinner, 6:00 PM</span><span class="badge b-est">est</span><span class="det">$205 a person for the sleigh and four courses, plus drinks, tax and 22% service. Not bookable yet; call.</span></span><span class="n">$700<small>TVA $350 · you $350</small></span></label>
+    <label class="opt"><input type="checkbox" id="val-cache" data-g="val" data-mode="one" data-cost="450" data-tva="225" data-short="Cache Cache"><span class="txt"><span class="lab">Cache Cache</span><span class="badge b-est">est</span><span class="det">French bistro; February opens on OpenTable Jan 1, 6 PM MT.</span></span><span class="n">$450<small>TVA $225 · you $225</small></span></label>
+  </div>
+
+  <div class="day" id="g-bosq">
+    <div class="dayhead"><span class="date">Sat 13 or Fri 19</span><span class="title">Bosq, the Michelin-starred dinner</span><span class="lodge">optional</span></div>
+    <label class="opt on"><input type="checkbox" id="bosq-9" data-g="bosq" data-mode="one" data-cost="950" data-tva="475" data-short="Bosq Chef's Tasting" data-rec="1" checked><span class="txt"><span class="lab">Bosq, 9-course Chef's Tasting for two</span><span class="badge b-rec">pick</span><span class="badge b-warn">book now</span><span class="badge b-est">est</span><span class="det">$295 a person (the 5-course is $215) plus wine, tax and tip. The TVA half applies only if it's Saturday the 13th; on Friday the 19th it's personal.</span></span><span class="n">$950<small>TVA $475 · you $475</small></span></label>
+  </div>
+
+  <div class="day" id="g-cat">
+    <div class="dayhead"><span class="date">Thu Feb 18</span><span class="title">The snowcat dinner</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="cat-cabin" data-g="cat" data-mode="one" data-cost="480" data-tva="0" data-short="The Cabin snowcat" data-rec="1" checked><span class="txt"><span class="lab">Snowcat dinner at The Cabin, Snowmass</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">$229.49 a person all-in, prepaid and non-refundable, plus drinks. Tock opens February in early January.</span></span><span class="n">$480<small>personal</small></span></label>
+    <label class="opt"><input type="checkbox" id="cat-c9" data-g="cat" data-mode="one" data-cost="930" data-tva="0" data-short="Cloud Nine snowcat"><span class="txt"><span class="lab">Snowcat dinner at Cloud Nine, Aspen Highlands</span><span class="badge b-est">est</span><span class="det">$280 plus 22% service and tax (about $342) a person, plus $120 each for the wine pairing.</span></span><span class="n">$930<small>personal</small></span></label>
+  </div>
+
+
+  <div class="day" id="g-fly">
+    <div class="dayhead"><span class="date">Feb 13 &amp; 20</span><span class="title">Flights, DFW ⇄ Aspen</span><span class="lodge">pick one</span></div>
+    <div class="gintro">American's nonstops, priced for one adult round trip on Google Flights on Nov 21 and doubled. Out Sat 12:05 PM → 2:03 PM, home Sat 2:38 PM → 5:56 PM. Google already shows this week's fares as high. TVA reimburses William's seat at the coach fare; anything above that is yours. Elissa's AA trip credit ($537.44) may cover part of her ticket if it hasn't expired by booking day.</div>
+    <label class="opt on"><input type="checkbox" id="fly-main" data-g="fly" data-mode="one" data-cost="2446" data-tva="1223" data-short="Main Cabin both" data-rec="1" checked><span class="txt"><span class="lab">Main Cabin, both of you</span><span class="badge b-rec">pick</span><span class="det">$1,223 each round trip. Regional jets on every Aspen flight. Upgrades can be bid or bought later.</span></span><span class="n">$2,446<small>TVA $1,223 · you $1,223</small></span></label>
+    <label class="opt"><input type="checkbox" id="fly-first" data-g="fly" data-mode="one" data-cost="7902" data-tva="1223" data-short="First both"><span class="txt"><span class="lab">First, both of you</span><span class="det">$3,951 each round trip on the same nonstops: a small first-class cabin on a three-hour flight. TVA's share stays at the coach fare, so $6,679 is yours. Upgrading later at the airport or with miles usually costs much less.</span></span><span class="n">$7,902<small>TVA $1,223 · you $6,679</small></span></label>
+    <label class="opt"><input type="checkbox" id="fly-mix" data-g="fly" data-mode="one" data-cost="5174" data-tva="1223" data-short="Main Cabin + first for Elissa"><span class="txt"><span class="lab">William in Main Cabin (TVA), Elissa in First</span><span class="det">Not a fare we priced as a pair: $1,223 + $3,951.</span></span><span class="n">$5,174<small>TVA $1,223 · you $3,951</small></span></label>
+  </div>
+
+  <div class="day" id="g-dfw">
+    <div class="dayhead"><span class="date">Feb 13 &amp; 20</span><span class="title">DFW, home and back</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="dfw-alto" data-g="dfw" data-mode="one" data-cost="170" data-tva="170" data-short="Alto" data-rec="1" checked><span class="txt"><span class="lab">Alto both ways</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">About $75–95 each way from central Dallas, no surge. William's airport rides, so TVA reimburses them.</span></span><span class="n">$170<small>TVA</small></span></label>
+    <label class="opt"><input type="checkbox" id="dfw-park" data-g="dfw" data-mode="one" data-cost="200" data-tva="200" data-short="Park at DFW"><span class="txt"><span class="lab">Drive and park at Terminal D, 7 nights</span><span class="badge b-est">est</span><span class="det">About $28 a day.</span></span><span class="n">$200<small>TVA</small></span></label>
+  </div>
+
+  <div class="day" id="g-ase">
+    <div class="dayhead"><span class="date">Feb 13 &amp; 20</span><span class="title">Aspen airport ⇄ the hotel</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="ase-shuttle" data-g="ase" data-mode="one" data-cost="20" data-tva="0" data-short="Hotel shuttle" data-rec="1" checked><span class="txt"><span class="lab">The Viewline's free shuttle</span><span class="badge b-rec">pick</span><span class="det">Book three business days ahead; $20 covers tips both ways.</span></span><span class="n">$20<small>personal</small></span></label>
+    <label class="opt"><input type="checkbox" id="ase-car" data-g="ase" data-mode="one" data-cost="220" data-tva="110" data-short="Private car"><span class="txt"><span class="lab">Private car both ways</span><span class="badge b-est">est</span><span class="det">About $100–120 each way. Only worth it if the shuttle is full.</span></span><span class="n">$220<small>TVA $110 · you $110</small></span></label>
+  </div>
+
+  <div class="day" id="g-lift">
+    <div class="dayhead"><span class="date">Wed – Fri</span><span class="title">Lift tickets</span><span class="lodge">pick one</span></div>
+    <div class="gintro">Skiing is personal. Prices are per adult from the Aspen Snowmass store on Nov 21 and already include the advance-purchase discount, which needs the tickets bought 30 days ahead (by about Jan 17). Prices are dynamic and climb as the date gets closer. The Ikon Session pass doesn't include Aspen Snowmass at all.</div>
+    <label class="opt on"><input type="checkbox" id="lift-3day" data-g="lift" data-mode="one" data-cost="1524" data-tva="0" data-short="3-day tickets ×2" data-rec="1" checked><span class="txt"><span class="lab">A 3-day ticket each, starting Wed Feb 17</span><span class="badge b-rec">pick</span><span class="badge b-warn">buy by Jan 17</span><span class="det">$762 each, 15% off. Any 3 days within Feb 17–21, all four mountains: Wednesday afternoon, Thursday and Friday.</span></span><span class="n">$1,524<small>personal</small></span></label>
+    <label class="opt"><input type="checkbox" id="lift-4day" data-g="lift" data-mode="one" data-cost="1856" data-tva="0" data-short="4-day tickets ×2"><span class="txt"><span class="lab">A 4-day ticket each, starting Sun Feb 14</span><span class="det">$928 each, 25% off. Any 4 days within Feb 14–19: adds Valentine's Sunday for $166 more per person.</span></span><span class="n">$1,856<small>personal</small></span></label>
+    <label class="opt"><input type="checkbox" id="lift-ikonbase" data-g="lift" data-mode="one" data-cost="2198" data-tva="0" data-short="Ikon Base ×2"><span class="txt"><span class="lab">Ikon Base Pass each</span><span class="det">$1,099 each: 5 days at Snowmass only, blacked out Feb 13–14. More than the resort tickets unless you'll ski elsewhere on Ikon this season.</span></span><span class="n">$2,198<small>personal</small></span></label>
+  </div>
+
+  <div class="day" id="g-gear">
+    <div class="dayhead"><span class="date">Wed – Fri</span><span class="title">Skis and boots</span><span class="lodge">pick one</span></div>
+    <label class="opt on"><input type="checkbox" id="gear-rent" data-g="gear" data-mode="one" data-cost="540" data-tva="0" data-short="Premium rentals" data-rec="1" checked><span class="txt"><span class="lab">Rent premium skis and boots in Snowmass, 3 days each</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">About $90 a day per person, less if reserved online ahead. No travelling with gear.</span></span><span class="n">$540<small>personal</small></span></label>
+    <label class="opt"><input type="checkbox" id="gear-own" data-g="gear" data-mode="one" data-cost="160" data-tva="0" data-short="Bring your own"><span class="txt"><span class="lab">Bring your own gear</span><span class="badge b-est">est</span><span class="det">Ski and boot bags count as checked bags on American, about $40 each way per bag in Main Cabin.</span></span><span class="n">$160<small>personal</small></span></label>
+  </div>
+
+  <div class="day" id="g-meals">
+    <div class="dayhead"><span class="date">Feb 13 – 19</span><span class="title">Meals other than Valentine's</span><span class="lodge">estimates</span></div>
+    <div class="gintro">TVA reimburses William's meals while he's at the conference. Keep one itemized receipt per meal, and William's half of each shared check goes on the expense report.</div>
+    <label class="opt on"><input type="checkbox" id="meals-conf" data-g="meals" data-mode="one" data-cost="1200" data-tva="600" data-short="Sat–Wed meals" data-rec="1" checked><span class="txt"><span class="lab">Saturday to Wednesday: breakfasts, lunches, and the Monday–Wednesday dinners</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="det">Aspen prices: about $300–450 for two at Cache Cache or Matsuhisa, less in the village, and $80 for lunch on the mountain.</span></span><span class="n">$1,200<small>TVA $600 · you $600</small></span></label>
+    <label class="opt on"><input type="checkbox" id="meals-ski" data-g="meals2" data-mode="one" data-cost="800" data-tva="0" data-short="Thu–Sat meals" data-rec="1" checked><span class="txt"><span class="lab">Thursday to Saturday morning: ski lunches, Friday dinner, the last breakfast</span><span class="badge b-rec">pick</span><span class="badge b-est">est</span><span class="badge b-tva">confirm with TVA</span><span class="det">Personal: the conference has ended. Ask TVA if it sees this differently.</span></span><span class="n">$800<small>personal</small></span></label>
+  </div>
+
+  <div class="day" id="g-spa">
+    <div class="dayhead"><span class="date">Sun Feb 14</span><span class="title">The spa</span><span class="lodge">optional</span></div>
+    <label class="opt"><input type="checkbox" id="spa-couples" data-g="spa" data-mode="one" data-cost="500" data-tva="0" data-short="Couples' massage"><span class="txt"><span class="lab">A couples' massage on Valentine's afternoon</span><span class="badge b-est">est</span><span class="det">About $220–250 per person for 60–80 minutes in Snowmass, plus tip.</span></span><span class="n">$500<small>personal</small></span></label>
+  </div>
+
+  <div class="bookend">Back to the plan — <a class="evt" href="index.html">the itinerary →</a></div>
+
+  <footer>Registration and hotel actuals from the Nov 4 confirmations · flights from Google Flights, Nov 21 · lift ticket prices from the Aspen Snowmass store and Ikon terms from ikonpass.com, Nov 21 · everything marked est is a researched estimate · <a href="../">← All trips</a></footer>
+  </div>
+<script>
+(function(){
+  var KEY='snowmass2027-budget-v1';
+  var boxes=[].slice.call(document.querySelectorAll('input[data-g]'));
+  function fmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(boxes.filter(function(b){return b.checked;}).map(function(b){return b.id;}))); }catch(e){} }
+  function restore(){
+    try{ var s=JSON.parse(localStorage.getItem(KEY)||'null'); if(!s) return;
+      boxes.forEach(function(b){ b.checked = s.indexOf(b.id)>=0; }); }catch(e){}
+  }
+  function update(){
+    var total=0, tva=0, by={};
+    boxes.forEach(function(b){
+      b.closest('.opt').classList.toggle('on', b.checked);
+      var g=b.getAttribute('data-g'); by[g]=by[g]||{sum:0,tva:0,names:[]};
+      if(b.checked){ var c=+b.getAttribute('data-cost'), t=+b.getAttribute('data-tva');
+        total+=c; tva+=t; by[g].sum+=c; by[g].tva+=t; by[g].names.push(b.getAttribute('data-short')); }
+    });
+    Object.keys(by).forEach(function(g){
+      var has=by[g].names.length;
+      var r=document.querySelector('[data-sumamt="'+g+'"]'); if(r) r.textContent=has?fmt(by[g].sum):'—';
+      var t=document.querySelector('[data-sumtva="'+g+'"]'); if(t) t.textContent=has&&by[g].tva?fmt(by[g].tva):'—';
+      var n=document.querySelector('[data-sumsel="'+g+'"]'); if(n) n.textContent=has?by[g].names.join(' + '):'nothing selected';
+    });
+    [].slice.call(document.querySelectorAll('[data-total]')).forEach(function(e){ e.textContent=fmt(total); });
+    [].slice.call(document.querySelectorAll('[data-tva-total]')).forEach(function(e){ e.textContent=fmt(tva); });
+    [].slice.call(document.querySelectorAll('[data-pers-total]')).forEach(function(e){ e.textContent=fmt(total-tva); });
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){
+      if(b.checked && b.getAttribute('data-mode')==='one'){
+        boxes.forEach(function(o){ if(o!==b && o.getAttribute('data-g')===b.getAttribute('data-g')) o.checked=false; });
+      }
+      update(); save();
+    });
+  });
+  var rec=document.getElementById('btn-rec'), clr=document.getElementById('btn-clear');
+  if(rec) rec.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked=b.hasAttribute('data-rec'); }); update(); save(); });
+  if(clr) clr.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked=b.hasAttribute('data-booked'); }); update(); save(); });
+  restore();
+  boxes.forEach(function(b){
+    if(!b.hasAttribute('data-booked')) return;
+    b.checked=true;
+    if(b.getAttribute('data-mode')==='one') boxes.forEach(function(o){ if(o!==b && o.getAttribute('data-g')===b.getAttribute('data-g')) o.checked=false; });
+  });
+  update();
+})();
+</script>
+</body>
+</html>
